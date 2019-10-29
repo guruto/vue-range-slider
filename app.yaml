@@ -1,5 +1,4 @@
-service: front
-# front-dot-pageful.appspot.com
+service: default
 runtime: nodejs10
 env: standard
 instance_class: F2
