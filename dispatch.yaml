@@ -1,0 +1,9 @@
+dispatch:
+  - url: "api.pageful.app/*"
+    service: server
+
+  - url: "*.pageful.app/*"
+    service: default
+
+  - url: "pageful.app/*"
+    service: default
