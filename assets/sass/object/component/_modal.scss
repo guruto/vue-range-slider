@@ -1,0 +1,183 @@
+.c-modal {
+	height: 100%;
+	width: 100%;
+	position: relative;
+
+	.p-form__group {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__backdrop {
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.25);
+		z-index: 3;
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+
+	&__transition {
+		&-enter-active,
+		&-leave-active {
+			transition: all 0.3s ease-out;
+		}
+		&-enter,
+		&-leave-to {
+			//transform: translateX(-100%);
+		}
+	}
+
+	&__content {
+		position: fixed;
+		top: 10%;
+		left: 0;
+		right: 0;
+		// bottom: 0;
+		margin: auto;
+		z-index: 3;
+		width: 90%;
+		max-height: 85%;
+
+		background-color: $color_white;
+		border-radius: 8px;
+		box-shadow: 0 2px 16px rgba(0,0,0,0.16);
+
+		overflow: hidden;
+		overflow-y: auto; /* scrollにはしないことでスクロールの必要がないときはスクロールバーを表示させない */
+		-webkit-overflow-scrolling: touch;
+
+		@media #{$screen_pc} {
+			width: 400px;
+		}
+		&__head {
+			width: 100%;
+			padding: 5%;
+			&__title {
+				text-align: center;
+				span {
+					font-size: 16px;
+					font-weight: bold;
+				}
+			}
+		}
+		&__body {
+			width: 100%;
+			padding: 0 5%;
+			.p-form {
+				min-height: auto !important;
+			}
+			&__add-post {
+				ul {
+					display: flex;
+					justify-content: center;
+					flex-wrap: wrap;
+					li {
+						margin: 12px;
+						a {
+							display: flex;
+							flex-direction: column;
+							text-align: center;
+							span {
+								color: $color_dark_gray;
+								font-size: 12px;
+								font-weight: bold;
+							}
+							.icons {
+								display: inline-block;
+								width: 72px;
+								height: 72px;
+								border-radius: 4px;
+								background-repeat: no-repeat;
+								background-position: center;
+								background-size: 48px;
+								margin-bottom: 9px;
+								&--text {
+									background-color: $color_icons-text;
+									border: 1px solid $color_icons-text;
+									background-image: url("/img/modal_icon_text@2x.png");
+								}
+								&--link {
+									background-color: $color_icons-link;
+									border: 1px solid $color_icons-link;
+									background-image: url("/img/modal_icon_link@2x.png");
+								}
+								&--image {
+									background-color: $color_icons-image;
+									border: 1px solid $color_icons-image;
+									background-image: url("/img/modal_icon_image@2x.png");
+								}
+								&--video {
+									background-color: $color_icons-video;
+									border: 1px solid $color_icons-video;
+									background-image: url("/img/modal_icon_video@2x.png");
+								}
+								&--sound {
+									background-color: $color_icons-sound;
+									border: 1px solid $color_icons-sound;
+									background-image: url("/img/modal_icon_sound@2x.png");
+								}
+								&--file {
+									background-color: $color_icons-file;
+									border: 1px solid $color_icons-file;
+									background-image: url("/img/modal_icon_file@2x.png");
+								}
+								&--answer {
+									background-color: $color_icons-answer;
+									border: 1px solid $color_icons-answer;
+									background-image: url("/img/modal_icon_answer@2x.png");
+								}
+							}
+						}
+					}
+				}
+			}
+			&__description {
+				text-align: center;
+				span {
+					font-size: 14px;
+					font-weight: normal;
+				}
+			}
+		}
+		&__action {
+			width: 100%;
+			padding: 5%;
+			&__btn-wrapper {
+				width: 100%;
+				text-align: center;
+				margin-bottom: 10px;
+				button {
+					padding: 10px 0;
+					font-size: 14px;
+					width: 100px;
+					text-align: center;
+				}
+				&.is-action {
+					button {
+						font-weight: bold;
+						background-color: $color_main;
+						color: $color_white;
+					}
+				}
+				&.is-default {
+					button {
+						font-weight: bold;
+						background-color: $color_light_gray;
+						color: $color_white;
+					}
+				}
+				&.is-cancel {
+					button {
+						border: none;
+						background-color: transparent;
+						color: $color_light_gray;
+						font-weight: normal;
+					}
+				}
+			}
+		}
+	}
+}

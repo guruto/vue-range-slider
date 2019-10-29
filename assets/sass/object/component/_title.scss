@@ -1,0 +1,25 @@
+.c-title {
+	margin: 0;
+	padding: 20px 5%;
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+
+	&--sub {
+		margin: 0;
+		padding: 15px 0;
+		font-size: 16px;
+		font-weight: bold;
+	}
+}
+
+.is-dashboard {
+	.c-title {
+		padding: 20px 5%;
+		text-align: center;
+		&--sub {
+			padding: 0 0 15px;
+			text-align: left;
+		}
+	}
+}

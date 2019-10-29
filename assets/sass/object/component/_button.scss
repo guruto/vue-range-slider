@@ -1,0 +1,119 @@
+.c-btn {
+	border-radius: 4px;
+	text-align: center;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	white-space: nowrap;
+	padding: 12px 24px;
+	font-size: 14px;
+	line-height: 1.5 !important;
+	text-decoration: none !important;
+	background-color: $color_white;
+	color: $color_text;
+	box-sizing: border-box;
+	&:active {
+		text-decoration: none;
+	}
+	&:focus {
+		outline: none;
+	}
+	&:disabled {
+		pointer-events: none;
+		color: #CCCCCC;
+	}
+
+	&.is-loading {
+		position: relative;
+		text-indent: 1000%;
+		white-space: nowrap;
+		overflow: hidden;
+		&:before {
+			content: '';
+			box-sizing: border-box;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 20px;
+			height: 20px;
+			margin-top: -10px;
+			margin-left: -10px;
+			border-radius: 50%;
+			border: 2px solid $color_white;
+			border-top-color: $color_gray;
+			animation: spinner .6s linear infinite;
+		}
+		@keyframes spinner {
+			to {transform: rotate(360deg);}
+		}
+	}
+
+	&--default {
+		color: $color_white;
+		font-weight: bold;
+		border: none;
+		background-color: $color_light_gray;
+		&:active, &:hover {
+			background-color: $color_gray;
+			color: $color_white;
+		}
+		&:visited {
+			background-color: $color_light_gray;
+			color: $color_white;
+		}
+		&:disabled {
+			background-color: $color_light;
+			color: $color_white;
+		}
+	}
+
+	&--main {
+		color: $color_white;
+		font-weight: bold;
+		border: none;
+		background-color: $color_main;
+		&:active, &:hover {
+			background-color: #5890B8;
+			color: $color_white;
+		}
+		&:visited {
+			background-color: $color_main;
+			color: $color_white;
+		}
+		&:disabled {
+			background-color: #CCE2F0;
+			color: $color_white;
+		}
+		&.is-loading {
+			&:before {
+				border-color: $color_white;
+				border-top-color: $color_main;
+			}
+		}
+	}
+
+	&--accent {
+		color: $color_white;
+		font-weight: bold;
+		border: none;
+		background-color: $color_accent;
+		&:active, &:hover {
+			background-color: #B85B58;
+			color: $color_white;
+		}
+		&:visited {
+			background-color: $color_accent;
+			color: $color_white;
+		}
+		&:disabled {
+			background-color: #F0CECC;
+			color: $color_white;
+		}
+		&.is-loading {
+			&:before {
+				border-color: $color_white;
+				border-top-color: $color_accent;
+			}
+		}
+	}
+}

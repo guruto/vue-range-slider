@@ -1,0 +1,22 @@
+.u-icon-arrow-next {
+	position: relative;
+	&:after {
+		content: "";
+		display: block;
+		position: absolute;
+		right: 30px;
+		top: 50%;
+		margin: -6px 0 0;
+		border: 3px solid lightgray;
+		border-left: none;
+		border-bottom: none;
+		width: 10px;
+		height: 10px;
+		-webkit-transform: rotate(45deg);
+		transform: rotate(45deg);
+	}
+}
+
+.u-icon-arrow-back {
+
+}

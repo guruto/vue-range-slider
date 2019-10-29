@@ -1,0 +1,55 @@
+.p-login {
+	&__message {
+		color: #3c763d;
+		background-color: #dff0d8;
+
+		padding: 15px 30px 15px 15px;
+		margin-bottom: 20px;
+		border: 1px solid #d6e9c6;
+		border-radius: 4px;
+
+		p {
+			font-size: 14px;
+		}
+	}
+	&__service {
+		margin-top: 20px;
+		&__item {
+			text-align: center;
+			.c-btn {
+				font-size: 14px;
+				font-weight: bold;
+				width: 100%;
+				border-radius: 4px;
+				&.is-twitter {
+					background-color: #1DA1F2;
+					color: $color_white;
+				}
+				img {
+					width: 18px;
+					vertical-align: -2px;
+					margin-right: 7px;
+				}
+			}
+		}
+		&__separator {
+			width: 100%;
+			margin: 28px 0 10px;
+			display: flex;
+			align-items: center;
+
+			font-size: 14px;
+			color: $color_text;
+			&::before, &::after {
+				content: "";
+				flex-grow: 1;
+				height: 1px;
+				background: $color_border;
+				margin: 0 6px;
+			}
+		}
+	}
+	&__form {
+
+	}
+}

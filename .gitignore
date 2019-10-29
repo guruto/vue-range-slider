@@ -1,0 +1,34 @@
+.DS_Store
+
+package-lock.json
+node_modules
+.nuxt
+dist
+npm-debug.log
+.npm
+.eslintcache
+.node_repl_history
+.cache
+.next
+serverless
+pids
+*.pid
+*.seed
+*.pid.lock
+# @nuxtjs/pwa
+sw.*
+
+# IDE Files
+#-------------------------
+/nbproject/
+.idea/*
+!.idea/codeStyleSettings.xml
+
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+/tests/tests/
+/tests/results/

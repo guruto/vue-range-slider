@@ -1,0 +1,23 @@
+.c-section {
+	//background-color: $color_base;
+	padding: 0 5%;
+	margin: 0;
+	//box-shadow: 0 1px 1px rgba(0,0,0,.1);
+	//-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.1);
+	//-moz-box-shadow: 0 1px 1px rgba(0,0,0,.1);
+}
+.is-dashboard {
+	.c-section {
+		background-color: $color_base;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+		margin-bottom: 30px;
+		//border-radius: 4px;
+		padding: 20px 5% 20px;
+
+		@media #{$screen_pc} {
+			border-radius: 4px;
+			margin: 0 5% 30px;
+			padding: 20px;
+		}
+	}
+}

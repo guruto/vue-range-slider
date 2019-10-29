@@ -1,0 +1,42 @@
+.l-container {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+
+	@media #{$screen_pc} {
+		background-color: $color_pc_base;
+	}
+
+	&.is-dashboard {
+		background-color: $color_main_light;
+		@media #{$screen_pc} {
+			background-color: $color_main_light;
+		}
+	}
+}
+
+.l-content {
+	margin: 0 auto;
+	padding-top: 50px;
+	width: 100%;
+	background-color: $color_base;
+	min-height: 450px;
+	max-width: $screen_max_size_tablet;
+	position: relative;
+	padding-bottom: 40px;
+
+	@media #{$screen_pc} {
+		box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+	}
+
+	&--has-image{
+		padding-top: 0;
+	}
+
+	&.is-dashboard {
+		background-color: $color_main_light;
+		@media #{$screen_pc} {
+			box-shadow: none;
+		}
+	}
+}

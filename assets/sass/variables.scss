@@ -1,0 +1,54 @@
+// best
+//~500px: sp: s
+//501px~767px: tablet: m
+//768px~: pc: l
+
+// 今はこれで行く
+//~767px: sp
+//768px~: pc
+$screen_max_size_sp: 500px;
+//$screen_max_size_tablet: 768px;
+$screen_max_size_tablet: 696px;
+//$screen_tablet: "only screen and (max-width:767px)";
+//$screen_pc: "only screen and (min-width:768px)";
+$screen_tablet: "(max-width:695px)";
+$screen_pc: "(min-width:696px)";
+
+$color_text: #333333;
+$color_dark_gray: #666666;
+$color_gray: #999999;
+$color_light_gray: #AAAAAA;
+$color_light: #CCCCCC;
+$color_text_white: #FFFFFF;
+$color_white: #FFFFFF;
+$color_border: #CCCCCC;
+$color_link: #179ee6;
+$color_link_visited: #619FCC;
+
+$color_base: #FFFFFF;
+$color_pc_base: #F1F5F7;
+
+$color_main: #179ee6;
+$color_main_light: #f0f5f7;
+
+$color_accent: #e63917;
+
+$color_icons-text: #ffad3c;
+$color_icons-link: #a062de;
+$color_icons-image: #179ee6;
+$color_icons-video: #E34F4F;
+$color_icons-sound: #57D646;
+$color_icons-file: #FFCE00;
+$color_icons-answer: #23DDC0;
+
+//Blue
+//Normal - #179ee6
+//Hover - #148ccc
+//Disabled - #c3d9e6
+//Background - #f0f5f7
+//Red
+//Normal - #e63917
+//Hover - #d13415
+//Disabled - #f05e54
+
+$side_padding_size: 10px;

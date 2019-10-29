@@ -1,0 +1,38 @@
+.p-popover {
+	display: block;
+	z-index: 1000;
+	position: absolute;
+	background-color: $color_white;
+	border-radius: 4px;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.24);
+	padding-top: 8px;
+	padding-bottom: 8px;
+	//min-width: 140px;
+	right: 5%;
+	&__body {
+		padding: 5px 10px;
+		ul {
+			li {
+				text-align: left;
+				margin-top: 12px;
+				cursor: pointer;
+				font-size: 14px;
+				&:first-child {
+					margin-top: 0;
+				}
+				& .is-break {
+					border-top: 1px solid $color_border;
+					height: 1px;
+					display: block;
+				}
+				&.is-delete {
+					color: $color_accent;
+				}
+				a {
+					color: $color_text;
+					display: block;
+				}
+			}
+		}
+	}
+}
