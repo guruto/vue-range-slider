@@ -26,6 +26,7 @@ export const actions = {
 		if (cookie) {
 			const parsedCookie = cookieparser.parse(req.headers.cookie)
 			const authorizationToken = parsedCookie.AuthorizationToken
+			console.log(authorizationToken)
 			
 			if (authorizationToken != 'undefined' && authorizationToken != undefined) {
 				const result = await Api.getUserMyself(authorizationToken)
