@@ -65,8 +65,7 @@ function apiPost(path, params = {}, authorizationToken = '', isMultipart = false
 	const config = {
 		headers: {
 			'Content-Type': isMultipart ? 'multipart/form-data' : 'application/x-www-form-urlencoded',
-			'Authorization-Token': authorizationToken,
-			// 'accept': 'application/json; charset=UTF-8',
+			'Authorization-Token': authorizationToken
 		},
 		// data: {}
 	};
