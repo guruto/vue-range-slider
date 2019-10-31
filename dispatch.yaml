@@ -1,6 +1,6 @@
 dispatch:
-  - url: "api.pageful.app/*"
-    service: server
+#  - url: "api.pageful.app/*"
+#    service: server
 
   - url: "*.pageful.app/*"
     service: default
