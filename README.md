@@ -52,6 +52,9 @@ npm run dev
 ```
 http://localhost:3000 でローカルのフロントエンドが実行されます。
 
+### API
+開発時のAPIのエンドポイントは `https://devapi.pageful.app` です。
+
 ## 開発の流れ
 
 ソースコードは github フローで管理する。
