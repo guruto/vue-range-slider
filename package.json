@@ -11,6 +11,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@editorjs/attaches": "^1.0.1",
     "@editorjs/checklist": "1.1.0",
     "@editorjs/code": "2.4.1",
     "@editorjs/delimiter": "1.1.0",

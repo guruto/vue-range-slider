@@ -136,6 +136,12 @@
 				}
 				toolsWithConfig.link.inlineToolbar = true
 				toolsWithConfig.paragraph.inlineToolbar = true
+				toolsWithConfig.attaches.config = {
+					endpoint: process.env.API_BASE_URL + '/post_texts/upload_file',
+					field: 'file_data',
+					buttonText: 'ファイルを選択',
+					errorMessage: 'ファイルのアップロードに失敗しました'
+				}
 				// TODO:: ツールバーでリンク設定を出したい
 
 				console.log(typeof (this.initData))
@@ -163,11 +169,12 @@
 					delimiter: require('@editorjs/delimiter'),
 					embed: require('@editorjs/embed'),
 					inlineCode: require('@editorjs/inline-code'),
-					// attaches // TODO::ファイル
+					marker: require('@editorjs/marker'),
+					attaches: require('@editorjs/attaches') // TODO::ファイルアップロード機能
+					// TODO::inlineのリンク設定ができない
 
-					// list: require('@editorjs/list'),
-					// marker: require('@editorjs/marker'),
 					// code: require('@editorjs/code'),
+					// list: require('@editorjs/list'),
 					// raw: require('@editorjs/raw'),
 					// table: require('@editorjs/table'),
 					// warning: require('@editorjs/warning'),
