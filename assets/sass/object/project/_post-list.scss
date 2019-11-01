@@ -108,22 +108,6 @@
 						font-weight: normal;
 					}
 				}
-				&__type {
-					padding: 8px 12px;
-					margin: 0;
-					border: none;
-					background-color: $color_main_light;
-					color: $color_dark_gray;
-					border-radius: 4px;
-					font-size: 12px;
-					display: inline-block;
-					i {
-						font-size: 18px;
-						color: $color_main;
-						display: inline-block;
-						vertical-align: -5px;
-					}
-				}
 				&__time {
 					float: right;
 					font-size: 12px;

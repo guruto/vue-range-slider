@@ -163,10 +163,10 @@
 								</div>
 								<div class="post__item__info u-cf">
 									<div style="float: left">
-										<div :class="{'post__item__info__status': true, 'is-published': (post.is_published === '1')}">
+										<div :class="{'p-post__label__publish': true, 'is-published': (post.is_published === '1')}">
 											<span>{{post.is_published === '1' ? '公開中' : '下書き'}}</span>
 										</div>
-										<div class="post__item__info__type">
+										<div class="p-post__label__type">
 											<i v-if="post.type == 'TEXT'" class="material-icons">edit</i>
 											<i v-else-if="post.type == 'IMAGE'" class="material-icons">camera_alt</i>
 											<i v-else-if="post.type == 'LINK'" class="material-icons">link</i>
@@ -457,44 +457,6 @@
 							}
 						}
 						&__info {
-							&__status {
-								display: inline-block;
-								padding: 8px 12px;
-								border: none;
-								background-color: $color_main_light;
-								border-radius: 4px;
-								span {
-									font-weight: bold;
-									color: $color_dark_gray;
-									font-size: 12px;
-								}
-								&.is-published {
-									background-color: $color_main;
-									color: $color_white;
-									span {
-										color: $color_white;
-									}
-								}
-							}
-							&__type {
-								display: inline-block;
-								padding: 8px 12px;
-								margin: 0;
-								border: none;
-								background-color: $color_main_light;
-								border-radius: 4px;
-								span {
-									font-weight: bold;
-									color: $color_dark_gray;
-									font-size: 12px;
-								}
-								i {
-									font-size: 18px;
-									color: $color_main;
-									display: inline-block;
-									vertical-align: -5px;
-								}
-							}
 							&__more {
 								float: right;
 								cursor: pointer;

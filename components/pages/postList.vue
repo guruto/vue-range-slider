@@ -49,7 +49,7 @@
 							<div v-if="item.comment" class="p-post-list__item__content__info__comment">
 								<span>{{item.comment}}</span>
 							</div>
-							<span class="p-post-list__item__content__info__type">
+							<span class="p-post__label__type">
 								<i v-if="item.type == 'TEXT'" class="material-icons">edit</i>
 								<i v-else-if="item.type == 'IMAGE'" class="material-icons">camera_alt</i>
 								<i v-else-if="item.type == 'LINK'" class="material-icons">link</i>

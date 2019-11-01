@@ -3,8 +3,8 @@
 		<section class="c-section">
 
 			<div v-if="!this.$store.state.subDomain.hasSubDomain" style="margin: 0 5% 20px; text-align: left;">
-				<span v-if="isMine" :class="{'p-post__head-info__content__status': true, 'is-published': isPublished}">{{isPublished ? '公開中' : '下書き'}}</span>
-				<span v-if="isMine" :class="{'p-post__head-info__content__status': true}">{{(scope == 'PUBLIC') ? '全公開' : 'メンバー限定'}}</span>
+				<span v-if="isMine" :class="{'p-post__label__publish': true, 'is-published': isPublished}">{{isPublished ? '公開中' : '下書き'}}</span>
+				<span v-if="isMine" :class="{'p-post__label__scope': true}">{{(scope == 'PUBLIC') ? '全公開' : 'メンバー限定'}}</span>
 			</div>
 
 			<div class="p-post__thumbnail">
@@ -175,7 +175,7 @@
 
 				<div class="p-post__head-info">
 					<div class="p-post__head-info__content">
-						<span class="p-post-list__item__content__info__type">
+						<span class="p-post__label__type">
 							<i v-if="type == 'TEXT'" class="material-icons">edit</i>
 							<i v-else-if="type == 'IMAGE'" class="material-icons">camera_alt</i>
 							<i v-else-if="type == 'LINK'" class="material-icons">link</i>

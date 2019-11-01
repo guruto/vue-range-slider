@@ -15,7 +15,7 @@
 
 		<div v-if="isEdit" class="p-post__head-info">
 			<div class="p-post__head-info__content">
-				<span class="p-post-list__item__content__info__type">
+				<span class="p-post__label__type">
 					<i v-if="post.type == 'TEXT'" class="material-icons">edit</i>
 					<i v-else-if="post.type == 'IMAGE'" class="material-icons">camera_alt</i>
 					<i v-else-if="post.type == 'LINK'" class="material-icons">link</i>
@@ -26,7 +26,7 @@
 					<span>{{post.typeText}}</span>
 				</span>
 
-				<span :class="{'p-post__head-info__content__status': true, 'is-published': post.isPublished}">{{post.isPublished ? '公開中' : '下書き'}}</span>
+				<span :class="{'p-post__label__publish': true, 'is-published': post.isPublished}">{{post.isPublished ? '公開中' : '下書き'}}</span>
 			</div>
 		</div>
 

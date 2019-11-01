@@ -71,6 +71,9 @@ $editor_font_size: 16px;
 			left: -34px;
 		}
 	}
+	.codex-editor--narrow .codex-editor__redactor {
+		margin-right: 0 !important;
+	}
 
 	&__title {
 		h1 {
