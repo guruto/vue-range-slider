@@ -2,7 +2,7 @@
 	<div class="p-post__content__text__body p-post-text-body">
 		<div class="p-post-text-body__item" v-for="bodyItem in textBody">
 			<div v-if="bodyItem.type == 'paragraph'" class="p-post-text-body__item__paragraph">
-				<p>{{bodyItem.data.text}}</p>
+				<p v-html="bodyItem.data.text.replace(/\n/g,'<br/>')"></p>
 			</div>
 			<div v-else-if="bodyItem.type == 'link'" class="p-post-text-body__item__link">
 				<a :href="bodyItem.data.link" target="_blank">
