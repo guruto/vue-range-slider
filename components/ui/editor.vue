@@ -170,7 +170,7 @@
 					embed: require('@editorjs/embed'),
 					inlineCode: require('@editorjs/inline-code'),
 					marker: require('@editorjs/marker'),
-					attaches: require('@editorjs/attaches') // TODO::ファイルアップロード機能
+					attaches: require('@editorjs/attaches') // todo:: フロントのUI設定
 					// TODO::inlineのリンク設定ができない
 
 					// code: require('@editorjs/code'),

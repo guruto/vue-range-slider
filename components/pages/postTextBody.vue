@@ -42,6 +42,9 @@
 					<span>{{bodyItem.data.caption}}</span>
 				</div>
 			</div>
+			<div v-else-if="bodyItem.type == 'attaches'" class="p-post-text-body__item__attaches">
+
+			</div>
 		</div>
 	</div>
 </template>
