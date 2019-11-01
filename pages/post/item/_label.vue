@@ -74,7 +74,7 @@
 			</div>
 
 			<div class="p-post__content">
-				<div style="margin: 0 5% 6px;">
+				<div style="margin: 0 5% 20px;">
 					<span class="p-post__label__type">
 						<i v-if="type == 'TEXT'" class="material-icons">edit</i>
 						<i v-else-if="type == 'IMAGE'" class="material-icons">camera_alt</i>
