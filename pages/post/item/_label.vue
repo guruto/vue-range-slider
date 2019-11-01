@@ -74,6 +74,18 @@
 			</div>
 
 			<div class="p-post__content">
+				<div style="margin: 0 5% 6px;">
+					<span class="p-post__label__type">
+						<i v-if="type == 'TEXT'" class="material-icons">edit</i>
+						<i v-else-if="type == 'IMAGE'" class="material-icons">camera_alt</i>
+						<i v-else-if="type == 'LINK'" class="material-icons">link</i>
+						<i v-else-if="type == 'VIDEO'" class="material-icons">videocam_off</i>
+						<i v-else-if="type == 'SOUND'" class="material-icons">headset</i>
+						<i v-else-if="type == 'ANSWER'" class="material-icons">forum</i>
+						<i v-else-if="type == 'FILE'" class="material-icons">folder</i>
+						<span>{{typeText}}</span>
+					</span>
+				</div>
 				<div v-if="type != 'ANSWER' && title" class="p-post__content__title">
 					<h1>{{title}}</h1>
 				</div>
@@ -170,21 +182,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-
-				<div class="p-post__head-info">
-					<div class="p-post__head-info__content">
-						<span class="p-post__label__type">
-							<i v-if="type == 'TEXT'" class="material-icons">edit</i>
-							<i v-else-if="type == 'IMAGE'" class="material-icons">camera_alt</i>
-							<i v-else-if="type == 'LINK'" class="material-icons">link</i>
-							<i v-else-if="type == 'VIDEO'" class="material-icons">videocam_off</i>
-							<i v-else-if="type == 'SOUND'" class="material-icons">headset</i>
-							<i v-else-if="type == 'ANSWER'" class="material-icons">forum</i>
-							<i v-else-if="type == 'FILE'" class="material-icons">folder</i>
-							<span>{{typeText}}</span>
-						</span>
 					</div>
 				</div>
 

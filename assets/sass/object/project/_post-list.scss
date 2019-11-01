@@ -14,27 +14,6 @@
 			&:hover {
 				opacity: 0.8;
 			}
-
-			&__status {
-				position: absolute;
-				top: 16px;
-				right: 16px;
-				text-align: right;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.24);
-				span {
-					padding: 8px 12px;
-					font-weight: bold;
-					border: none;
-					background-color: #F2F5F8;
-					color: $color_dark_gray;
-					border-radius: 4px;
-					font-size: 12px;
-					&.is-published {
-						background-color: $color_main;
-						color: $color_white;
-					}
-				}
-			}
 			&__thumbnail {
 				width: 100%;
 				span {
