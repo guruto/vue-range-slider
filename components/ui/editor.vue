@@ -165,12 +165,12 @@
 					paragraph: require('@editorjs/paragraph'),
 					link: require('@editorjs/link'),
 					image: require('@editorjs/image'),
+					attaches: require('@editorjs/attaches'), // todo:: フロントのUI設定
 					quote: require('@editorjs/quote'),
 					delimiter: require('@editorjs/delimiter'),
 					embed: require('@editorjs/embed'),
 					inlineCode: require('@editorjs/inline-code'),
 					marker: require('@editorjs/marker'),
-					attaches: require('@editorjs/attaches') // todo:: フロントのUI設定
 					// TODO::inlineのリンク設定ができない
 
 					// code: require('@editorjs/code'),
