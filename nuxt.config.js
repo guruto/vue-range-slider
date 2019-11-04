@@ -42,7 +42,6 @@ module.exports = {
 		'@nuxtjs/dotenv',
 		['cookie-universal-nuxt', { parseJSON: false }],
 		'@nuxtjs/axios',
-		'@nuxtjs/style-resources',
 		[
 			'@nuxtjs/google-gtag',
 			{
@@ -61,9 +60,10 @@ module.exports = {
 			},
 			vueI18nLoader: true,
 		}],
+		'@nuxtjs/style-resources',
 	],
 	styleResources: {
-		sass: [
+		scss: [
 			'@/assets/sass/variables.scss',
 		]
 	},
