@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 	<div class="p-post">
 		<section class="c-section">
 
@@ -320,246 +321,263 @@
 </template>
 
 <script>
-import Meta from '~/assets/mixins/meta'
-import postTextBody from '~/components/pages/postTextBody'
-import postList from "~/components/pages/postList"
-import slider from '~/components/ui/slider'
-import moment from 'moment'
+import Meta from "~/assets/mixins/meta";
+import postTextBody from "~/components/pages/postTextBody";
+import postList from "~/components/pages/postList";
+import slider from "~/components/ui/slider";
+import moment from "moment";
 
 export default {
-	components: {postTextBody, postList, slider},
-	mixins:  [Meta],
-	data() {
-		return {
-			isShowPopoverMoreControl: false,
+  components: { postTextBody, postList, slider },
+  mixins: [Meta],
+  mounted() {
+    console.warn(this);
+  },
+  data() {
+    return {
+      isShowPopoverMoreControl: false,
 
-			commentBody:                     '',
-			isAddCommentLoading:             false,
-			isShowPopoverControlPostComment: false,
-			selectedPostCommentLabel:        null,
-			selectedPostCommentIndex:        null,
+      commentBody: "",
+      isAddCommentLoading: false,
+      isShowPopoverControlPostComment: false,
+      selectedPostCommentLabel: null,
+      selectedPostCommentIndex: null,
 
-			meta: {
-				subDomainForUrl: null
-			},
-		}
-	},
-	filters: {
-		moment(unixtime) {
-			return moment.unix(unixtime).format('YYYY/MM/DD HH:mm')
-		}
-	},
-	computed: {
-		isAuthenticated() {
-			// ユーザー認証済みか否か
-			return this.$store.state.user.authenticated
-		},
-		isMember() {
-			// 既にメンバーか否か
-			const pageLabel = this.$store.state.subDomain.subDomain;
-			return (this.$store.state.user.memberPageLabelList.indexOf(pageLabel) !== -1)
-		},
-		thumbnailList() {
-			if(this.thumbnailMediaList) {
-				console.log(this.thumbnailMediaList)
-				return this.thumbnailMediaList.map((v, i) => {
-					return { url: v.url, selected: (i === 0) ? true : false }
-				})
-			}
-		},
-		baseApiUrl() {
-			return process.env.API_BASE_URL
-		},
-	},
-	async asyncData(context) {
-		const label = context.params.label;
-		await context.store.dispatch("post/get", {
-			label: label,
-			pageLabel: context.store.state.page.label,
-		});
+      meta: {
+        subDomainForUrl: null
+      }
+    };
+  },
+  filters: {
+    moment(unixtime) {
+      return moment.unix(unixtime).format("YYYY/MM/DD HH:mm");
+    }
+  },
+  computed: {
+    isAuthenticated() {
+      // ユーザー認証済みか否か
+      return this.$store.state.user.authenticated;
+    },
+    isMember() {
+      // 既にメンバーか否か
+      const pageLabel = this.$store.state.subDomain.subDomain;
+      return (
+        this.$store.state.user.memberPageLabelList.indexOf(pageLabel) !== -1
+      );
+    },
+    thumbnailList() {
+      if (this.thumbnailMediaList) {
+        console.log(this.thumbnailMediaList);
+        return this.thumbnailMediaList.map((v, i) => {
+          return { url: v.url, selected: i === 0 ? true : false };
+        });
+      }
+    },
+    baseApiUrl() {
+      return process.env.API_BASE_URL;
+    }
+  },
+  async asyncData(context) {
+    const label = context.params.label;
+    await context.store.dispatch("post/get", {
+      label: label,
+      pageLabel: context.store.state.page.label
+    });
 
-		if (context.store.state.post.isError) {
-			// 404処理
-			context.error({
-				statusCode: 404,
-				message:    'そのページは存在しません。'
-			})
-		}
+    if (context.store.state.post.isError) {
+      // 404処理
+      context.error({
+        statusCode: 404,
+        message: "そのページは存在しません。"
+      });
+    }
 
-		const type = context.store.state.post.type;
+    const type = context.store.state.post.type;
 
-		let title = context.store.state.post.title
-		if (type == 'LINK') {
-			title = context.store.state.post.itemLink.title
-		}
+    let title = context.store.state.post.title;
+    if (type == "LINK") {
+      title = context.store.state.post.itemLink.title;
+    }
 
-		const isMember   = (context.store.state.user.memberPageLabelList.indexOf(label) !== -1)
-		const onlyMember = (context.store.state.post.scope === 'MEMBER' && !context.store.state.post.isMine && (!context.store.state.user.authenticated || !isMember))
+    const isMember =
+      context.store.state.user.memberPageLabelList.indexOf(label) !== -1;
+    const onlyMember =
+      context.store.state.post.scope === "MEMBER" &&
+      !context.store.state.post.isMine &&
+      (!context.store.state.user.authenticated || !isMember);
 
-		return {
-			isUserPage: context.store.state.subDomain.hasSubDomain,
-			pageLabel:  context.store.state.page.label,
+    return {
+      isUserPage: context.store.state.subDomain.hasSubDomain,
+      pageLabel: context.store.state.page.label,
 
-			isMine:             context.store.state.post.isMine,
-			label:              context.store.state.post.label,
-			type:               type,
-			typeText:           context.store.state.post.typeText,
-			scope:              context.store.state.post.scope,
-			title:              context.store.state.post.title,
-			comment:            context.store.state.post.comment,
-			thumbnailImagePath: context.store.state.post.thumbnailImagePath,
-			thumbnailImageUrl:  context.store.state.post.thumbnailImageUrl,
-			isPublished:        context.store.state.post.isPublished,
-			publishedAt:        context.store.state.post.publishedAt,
-			updatedAt:          context.store.state.post.updatedAt,
-			relatedPosts:       context.store.state.post.relatedPosts,
-			// for type = FILE, SOUND
-			thumbnailMediaList: context.store.state.post.thumbnailMediaList,
+      isMine: context.store.state.post.isMine,
+      label: context.store.state.post.label,
+      type: type,
+      typeText: context.store.state.post.typeText,
+      scope: context.store.state.post.scope,
+      title: context.store.state.post.title,
+      comment: context.store.state.post.comment,
+      thumbnailImagePath: context.store.state.post.thumbnailImagePath,
+      thumbnailImageUrl: context.store.state.post.thumbnailImageUrl,
+      isPublished: context.store.state.post.isPublished,
+      publishedAt: context.store.state.post.publishedAt,
+      updatedAt: context.store.state.post.updatedAt,
+      relatedPosts: context.store.state.post.relatedPosts,
+      // for type = FILE, SOUND
+      thumbnailMediaList: context.store.state.post.thumbnailMediaList,
 
-			textBody:      context.store.state.post.itemText.body,
-			draftTextBody: context.store.state.post.itemText.draftBody,
+      textBody: context.store.state.post.itemText.body,
+      draftTextBody: context.store.state.post.itemText.draftBody,
 
-			linkUrl:               context.store.state.post.itemLink.linkUrl,
-			linkTitle:             context.store.state.post.itemLink.title,
-			linkDescription:       context.store.state.post.itemLink.description,
-			linkSiteName:          context.store.state.post.itemLink.siteName,
-			linkThumbnailImageUrl: context.store.state.post.itemLink.thumbnailImageUrl,
-			linkContentMediaType:  context.store.state.post.itemLink.contentMediaType,
-			linkContentMediaUrl:   context.store.state.post.itemLink.contentMediaUrl,
-			linkSiteType:          context.store.state.post.itemLink.siteType,
-			linkUniqueId:          context.store.state.post.itemLink.uniqueId,
+      linkUrl: context.store.state.post.itemLink.linkUrl,
+      linkTitle: context.store.state.post.itemLink.title,
+      linkDescription: context.store.state.post.itemLink.description,
+      linkSiteName: context.store.state.post.itemLink.siteName,
+      linkThumbnailImageUrl:
+        context.store.state.post.itemLink.thumbnailImageUrl,
+      linkContentMediaType: context.store.state.post.itemLink.contentMediaType,
+      linkContentMediaUrl: context.store.state.post.itemLink.contentMediaUrl,
+      linkSiteType: context.store.state.post.itemLink.siteType,
+      linkUniqueId: context.store.state.post.itemLink.uniqueId,
 
-			videoUrlSite:  context.store.state.post.itemVideo.urlSite,
-			videoUniqueId: context.store.state.post.itemVideo.videoUniqueId,
-			videoUrl:      context.store.state.post.itemVideo.videoUrl,
-			videoFileUrl:  context.store.state.post.itemVideo.fileUrl,
-			videoPath:     context.store.state.post.itemVideo.path,
+      videoUrlSite: context.store.state.post.itemVideo.urlSite,
+      videoUniqueId: context.store.state.post.itemVideo.videoUniqueId,
+      videoUrl: context.store.state.post.itemVideo.videoUrl,
+      videoFileUrl: context.store.state.post.itemVideo.fileUrl,
+      videoPath: context.store.state.post.itemVideo.path,
 
-			soundUrl: context.store.state.post.itemSound.url,
+      soundUrl: context.store.state.post.itemSound.url,
 
-			fileUrl:         context.store.state.post.itemFile.url,
-			fileName:        context.store.state.post.itemFile.fileName,
-			fileSize:        context.store.state.post.itemFile.fileSize,
-			fileSizeText:    context.store.state.post.itemFile.fileSizeText,
-			filePath:        context.store.state.post.itemFile.path,
-			fileContentType: context.store.state.post.itemFile.contentType,
+      fileUrl: context.store.state.post.itemFile.url,
+      fileName: context.store.state.post.itemFile.fileName,
+      fileSize: context.store.state.post.itemFile.fileSize,
+      fileSizeText: context.store.state.post.itemFile.fileSizeText,
+      filePath: context.store.state.post.itemFile.path,
+      fileContentType: context.store.state.post.itemFile.contentType,
 
-			profile: {
-				name: context.store.state.profile.name,
-				iconImageUrl: context.store.state.profile.iconImageUrl,
-				description: context.store.state.profile.description,
-			},
+      profile: {
+        name: context.store.state.profile.name,
+        iconImageUrl: context.store.state.profile.iconImageUrl,
+        description: context.store.state.profile.description
+      },
 
-			meta: {
-				title:        title,
-				twitterTitle: (type == 'ANSWER') ? '質問への回答' : title,
+      meta: {
+        title: title,
+        twitterTitle: type == "ANSWER" ? "質問への回答" : title,
 
-				description:        (onlyMember) ? 'メンバー限定公開の内容です。' : context.store.state.post.comment,
-				twitterDescription: (onlyMember) ? 'メンバー限定公開の内容です。' : (type == 'ANSWER') ? '質問と回答の詳細はこちらから。他の回答も見ることができます。' : context.store.state.post.comment,
+        description: onlyMember
+          ? "メンバー限定公開の内容です。"
+          : context.store.state.post.comment,
+        twitterDescription: onlyMember
+          ? "メンバー限定公開の内容です。"
+          : type == "ANSWER"
+          ? "質問と回答の詳細はこちらから。他の回答も見ることができます。"
+          : context.store.state.post.comment,
 
-				image:              context.store.state.post.thumbnailImageUrl,
-				subDomainForUrl:    context.store.state.page.label,
-				userPageTitle:      context.store.state.page.name,
-				type:               'article',
-				isTwitterCardLarge: true,
-			}
-		}
-	},
-	methods: {
-		handleMoreControlClick() {
-			this.isShowPopoverMoreControl = !this.isShowPopoverMoreControl
+        image: context.store.state.post.thumbnailImageUrl,
+        subDomainForUrl: context.store.state.page.label,
+        userPageTitle: context.store.state.page.name,
+        type: "article",
+        isTwitterCardLarge: true
+      }
+    };
+  },
+  methods: {
+    handleMoreControlClick() {
+      this.isShowPopoverMoreControl = !this.isShowPopoverMoreControl;
 
-			if (this.isShowPopoverMoreControl) {
-				document.body.addEventListener('click', this.handleClickOutside)
-			} else {
-				document.body.removeEventListener('click', this.handleClickOutside)
-			}
-		},
-		handleClickOutside(e) {
-			if (e.target.className != 'is-more-control') {
-				this.isShowPopoverMoreControl = false
-			}
-			if (e.target.className != 'is-post-comment-control') {
-				this.isShowPopoverControlPostComment = false
-			}
-		},
-		async handleModifyDraft() {
-			const res = confirm('この投稿を下書きに戻しますか？')
-			if (res) {
-				await this.$store.dispatch("post/modifyDraft", {
-					label: this.label
-				});
+      if (this.isShowPopoverMoreControl) {
+        document.body.addEventListener("click", this.handleClickOutside);
+      } else {
+        document.body.removeEventListener("click", this.handleClickOutside);
+      }
+    },
+    handleClickOutside(e) {
+      if (e.target.className != "is-more-control") {
+        this.isShowPopoverMoreControl = false;
+      }
+      if (e.target.className != "is-post-comment-control") {
+        this.isShowPopoverControlPostComment = false;
+      }
+    },
+    async handleModifyDraft() {
+      const res = confirm("この投稿を下書きに戻しますか？");
+      if (res) {
+        await this.$store.dispatch("post/modifyDraft", {
+          label: this.label
+        });
 
-				this.isPublished = false
+        this.isPublished = false;
 
-				if (!this.$store.state.post.isError) {
-					// リダイレクト
-					this.$router.push('/post/item/' + this.label)
-				}
-			}
-		},
-		async handleDeleteClick() {
-			const res = confirm('この投稿を削除しますか？')
-			if (res) {
-				await this.$store.dispatch("post/delete", {
-					label: this.label
-				});
+        if (!this.$store.state.post.isError) {
+          // リダイレクト
+          this.$router.push("/post/item/" + this.label);
+        }
+      }
+    },
+    async handleDeleteClick() {
+      const res = confirm("この投稿を削除しますか？");
+      if (res) {
+        await this.$store.dispatch("post/delete", {
+          label: this.label
+        });
 
-				if (!this.$store.state.post.isError) {
-					// リダイレクト
-					this.$router.push('/dashboard/post/manage')
-				}
-			}
-		},
-		clipboardSuccess() {
-			alert('URLをコピーしました')
-		},
-		clipboardError() {
-			alert('URLのコピーに失敗しました')
-		},
-		async handleAddPostComment() {
-			this.isAddCommentLoading = true
+        if (!this.$store.state.post.isError) {
+          // リダイレクト
+          this.$router.push("/dashboard/post/manage");
+        }
+      }
+    },
+    clipboardSuccess() {
+      alert("URLをコピーしました");
+    },
+    clipboardError() {
+      alert("URLのコピーに失敗しました");
+    },
+    async handleAddPostComment() {
+      this.isAddCommentLoading = true;
 
-			await this.$store.dispatch("postComment/add", {
-				postLabel: this.label,
-				body:      this.commentBody,
-			});
+      await this.$store.dispatch("postComment/add", {
+        postLabel: this.label,
+        body: this.commentBody
+      });
 
-			this.isAddCommentLoading = false
+      this.isAddCommentLoading = false;
 
-			this.commentBody = ''
-		},
-		handleControlPostComment(e) {
-			this.isShowPopoverControlPostComment = !this.isShowPopoverControlPostComment
+      this.commentBody = "";
+    },
+    handleControlPostComment(e) {
+      this.isShowPopoverControlPostComment = !this
+        .isShowPopoverControlPostComment;
 
-			// popoverの位置処理
-			const popover     = document.getElementById('post-comment-popover')
-			const top         = e.target.getBoundingClientRect().top
-			popover.style.top = window.pageYOffset + top + 30 + 'px'
+      // popoverの位置処理
+      const popover = document.getElementById("post-comment-popover");
+      const top = e.target.getBoundingClientRect().top;
+      popover.style.top = window.pageYOffset + top + 30 + "px";
 
-			this.selectedPostCommentLabel = e.currentTarget.dataset.postCommentLabel;
-			this.selectedPostCommentIndex = e.currentTarget.dataset.postCommentIndex;
+      this.selectedPostCommentLabel = e.currentTarget.dataset.postCommentLabel;
+      this.selectedPostCommentIndex = e.currentTarget.dataset.postCommentIndex;
 
-			if (this.isShowPopoverControlPostComment) {
-				document.body.addEventListener('click', this.handleClickOutside)
-			} else {
-				document.body.removeEventListener('click', this.handleClickOutside)
-			}
-		},
-		async handleDeletePostComment() {
-			this.isShowPopoverControlPostComment = true
+      if (this.isShowPopoverControlPostComment) {
+        document.body.addEventListener("click", this.handleClickOutside);
+      } else {
+        document.body.removeEventListener("click", this.handleClickOutside);
+      }
+    },
+    async handleDeletePostComment() {
+      this.isShowPopoverControlPostComment = true;
 
-			await this.$store.dispatch("postComment/delete", {
-				postCommentLabel: this.selectedPostCommentLabel,
-				postCommentIndex: this.selectedPostCommentIndex,
-			});
+      await this.$store.dispatch("postComment/delete", {
+        postCommentLabel: this.selectedPostCommentLabel,
+        postCommentIndex: this.selectedPostCommentIndex
+      });
 
-			this.isShowPopoverControlPostComment = false
-			this.selectedPostCommentLabel        = null
-			this.selectedPostCommentIndex        = null
-		},
-	}
-}
+      this.isShowPopoverControlPostComment = false;
+      this.selectedPostCommentLabel = null;
+      this.selectedPostCommentIndex = null;
+    }
+  }
+};
 </script>
 
 <style lang="scss">
