@@ -1,0 +1,20 @@
+.p-video {
+	position: relative;
+	&__clear-btn {
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		font-size: 16px;
+		margin: 0;
+		padding: 6px;
+		height: 24px;
+		cursor: pointer;
+		color: #179ee6;
+		z-index: 1;
+	}
+	&__content {
+		width: 100%;
+		outline: none
+	}
+}
