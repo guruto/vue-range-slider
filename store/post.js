@@ -42,6 +42,7 @@ export const state = () => ({
 	// 動画POST
 	itemVideo: {
 		videoUrl:          '',
+		fileUrl:           '',
 		title:             '',
 		description:       '',
 		siteName:          '',
@@ -50,6 +51,9 @@ export const state = () => ({
 		contentMediaUrl:   '',
 		contentMediaType:  '',
 		uniqueId:          '',
+		contentType:       '',
+		path:              '',
+		fileSize:          '',
 	},
 	// 音声POST
 	itemSound: {
@@ -138,7 +142,7 @@ export const mutations = {
 		state.isError      = false
 		state.errorMessage = ''
 		state.thumbnailMediaList = data.thumbnail_media_list
-
+		
 		state.itemSound     = {
 			url:         data.post_item.url,
 			path:        data.post_item.path,
@@ -146,7 +150,7 @@ export const mutations = {
 			fileSize:    data.post_item.file_size,
 		};
 	},
-
+	
 	SET_POST_IMAGE_DATA: function (state, data) {
 		state.isError      = false;
 		state.errorMessage = '';
@@ -157,7 +161,7 @@ export const mutations = {
 			state.uploadedPostImages[image.label] = image
 		}
 	},
-
+	
 	SET_POST_VIDEO_DATA: function (state, data) {
 		state.isError      = false;
 		state.errorMessage = '';
@@ -170,9 +174,11 @@ export const mutations = {
 			urlSite:       data.url_site,
 			videoUrl:      data.url,
 			videoUniqueId: data.url_id,
+			fileUrl:       data.file_url,
+			path:          data.path,
 		};
 	},
-
+	
 	SET_POST_FILE_DATA: function(state, data) {
 		state.isError            = false;
 		state.errorMessage       = '';
@@ -187,7 +193,7 @@ export const mutations = {
 			fileName:     data.post_item.file_name,
 		};
 	},
-
+	
 	SET_POST_ANSWER_DATA: function (state, data) {
 		state.isError      = false;
 		state.errorMessage = '';
@@ -217,7 +223,7 @@ export const mutations = {
 	RESET_UPLOAD_POST_IMAGE: function(state) {
 		state.uploadedPostImages = {}
 	},
-
+	
 	SET_UPLOAD_POST_SOUND_DATA: function (state, data) {
 		state.itemSound = {
 			contentType: data.content_type,
@@ -226,7 +232,25 @@ export const mutations = {
 			url:         data.url
 		};
 	},
-
+	
+	SET_UPLOAD_POST_VIDEO_DATA: function (state, data) {
+		state.itemVideo = {
+			contentType: data.content_type,
+			path:        data.path,
+			fileSize:    data.file_size,
+			fileUrl:     data.url,
+		};
+	},
+	
+	CLEAR_UPLOAD_POST_VIDEO_DATA: function (state) {
+		state.itemVideo = {
+			contentType: '',
+			path:        '',
+			fileSize:    '',
+			videoUrl:    ''
+		};
+	},
+	
 	SET_UPLOAD_POST_FILE_DATA: function (state, data) {
 		state.itemFile = {
 			contentType:  data.content_type,
@@ -237,7 +261,7 @@ export const mutations = {
 			fileName:     data.file_name,
 		};
 	},
-
+	
 	SET_POST_SUCCESS: function (state) {
 		state.isError      = false
 		state.errorMessage = ''
@@ -373,10 +397,10 @@ export const actions = {
 				
 			} else if (result.data.type == 'VIDEO') {
 				commit('SET_POST_VIDEO_DATA', result.data.post_item);
-
+				
 			} else if (result.data.type == 'SOUND') {
 				commit('SET_POST_SOUND_DATA', result.data);
-
+				
 			} else if (result.data.type == 'FILE') {
 				commit('SET_POST_FILE_DATA', result.data);
 				
@@ -456,7 +480,7 @@ export const actions = {
 			dispatch('flashMessage/showError', result.error_message, {root: true})
 		}
 	},
-
+	
 	/////////////////////////
 	// SOUNDタイプ
 	/////////////////////////
@@ -473,6 +497,24 @@ export const actions = {
 			// commit('SET_POST_ERROR', result.error_message);
 			dispatch('flashMessage/showError', result.error_message, {root: true})
 		}
+	},
+	/////////////////////////
+	// VIDEOタイプ
+	/////////////////////////
+	async uploadVideo({ rootState, commit, dispatch }, {fileData}) {
+		const data = new FormData();
+		data.append('file_data', fileData)
+		const result = await Api.uploadPostVideo(data, rootState.user.authorizationToken)
+		
+		if (!result.is_error) {
+			commit('SET_UPLOAD_POST_VIDEO_DATA', result.data)
+		} else {
+			// エラー処理
+			dispatch('flashMessage/showError', result.error_message, {root: true})
+		}
+	},
+	async clearVideo({ rootState, commit, dispatch }) {
+		commit('CLEAR_UPLOAD_POST_VIDEO_DATA')
 	},
 	/////////////////////////
 	// FILEタイプ

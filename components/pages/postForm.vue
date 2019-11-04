@@ -143,10 +143,21 @@
 
 		<form v-else-if="post.type == 'VIDEO'">
 			<div style="padding: 0 5%;">
-
-				<div class="p-form__group">
+				<div v-show="post.itemVideo.path === '' && post.itemVideo.videoUrl === '' && !isVideoUrlInputing"
+						@click="handleSelectVideo()" @dragleave.prevent @dragover.prevent @drop.prevent="handleDropVideo" class="p-form__sound-upload">
+					<div class="p-form__sound-upload__description">
+						<img src="/img/form_icon_upload_video@2x.png" alt="動画ファイルを追加">
+						<span>動画ファイルを追加</span>
+						<spinner :isActive="isVideoUploading"></spinner>
+					</div>
+					<input @change="handleInputVideoFile" ref="selectVideo" type="file" accept="video/*"/>
+				</div>
+				<div v-if="post.itemVideo.path === ''" class="p-form__group">
 					<div class="p-form__item">
-						<input type="url" v-validate="'url'" name="videoUrl" v-model="post.itemVideo.videoUrl" @focusout="handleFocusOutGetInfoVideoUrl" @paste="handlePasteGetInfoVideoUrl" placeholder="URLを入力 https://"/>
+						<input type="url" v-validate="'url'" name="videoUrl" v-model="post.itemVideo.videoUrl"
+									 @focusout="handleFocusOutGetInfoVideoUrl" @paste="handlePasteGetInfoVideoUrl"
+									 @focus="handleFocusVideoUrlInput"
+									 placeholder="URLを入力 https://" :disabled="isVideoUploading"/>
 						<span @click="handleVideoClear" class="p-form__item__clear-btn"><i class="far fa-times-circle"></i></span>
 					</div>
 					<span class="p-form__item-error" v-show="errors.has('videoUrl')">{{ errors.first('videoUrl') }}</span>
@@ -155,15 +166,19 @@
 					</div>
 				</div>
 
-				<div class="p-form__ogp u-mt-16" v-if="post.itemVideo.urlSite !== ''">
-					<div class="p-embed">
+				<div class="p-form__ogp u-mt-16" v-if="!isVideoUrlInputing && (post.itemVideo.videoUrl !== '' || post.itemVideo.path !== '')">
+					<div v-if="post.itemVideo.path !== ''" class="p-video">
+						<span @click="handleVideoClear"><i class="far fa-times-circle p-video__clear-btn"></i></span>
+						<video class="p-video__content" :src="post.itemVideo.fileUrl" controls></video>
+					</div>
+					<div class="p-embed" v-else>
 						<iframe v-if="post.itemVideo.urlSite === 'YOUTUBE'"
 										:src="`https://www.youtube.com/embed/${post.itemVideo.videoUniqueId}`"
 						        frameborder="0"
 						        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 						        allowfullscreen>
 						</iframe>
-						<div v-if="post.itemVideo.urlSite === 'VIMEO'">
+						<div v-else-if="post.itemVideo.urlSite === 'VIMEO'">
 							<iframe :src="`https://player.vimeo.com/video/${post.itemVideo.videoUniqueId}`"
 											frameborder="0"
 											allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -351,6 +366,8 @@
 				isLoading:     this.post.isLoading,
 				isDraftSaving: false,
 				isSoundUploading: false,
+				isVideoUploading: false,
+				isVideoUrlInputing: false,
 				isFileUploading: false,
 				isFileUploadRetry: false,
 				thumbnailMediaList: [
@@ -385,7 +402,7 @@
 					return (labels.length > 0)
 
 				} else if (this.post.type == 'VIDEO') {
-					return (this.post.title !== '' && this.post.itemVideo.videoUniqueId !== '')
+					return (this.post.title !== '' && (this.post.itemVideo.videoUrl !== '' || this.post.itemVideo.fileUrl !== ''))
 
 				} else if (this.post.type == 'SOUND') {
 					return (this.post.title !== '')
@@ -419,6 +436,9 @@
 					}
 				};
 			}
+		},
+		beforeDestroy() {
+			this.$validator.reset()
 		},
 		methods: {
 			////////////////////////
@@ -569,15 +589,21 @@
 				return params
 			},
 			getParamsForVideo() {
-				const params = {
-					title:   this.post.title,
-					comment: this.post.comment,
-
-					url:      this.post.itemVideo.videoUrl,
-					url_site: this.post.itemVideo.urlSite,
-					url_id:   this.post.itemVideo.videoUniqueId
-				}
-
+				const params = (this.post.itemVideo.path !== '')
+					? {
+						title:   this.post.title,
+						comment: this.post.comment,
+						path:         this.post.itemVideo.path,
+						content_type: this.post.itemVideo.contentType,
+						file_name:    this.post.itemVideo.fileName,
+						file_size:    this.post.itemVideo.fileSize,
+					}: {
+						title:   this.post.title,
+						comment: this.post.comment,
+						url:          this.post.itemVideo.videoUrl,
+						url_site:     this.post.itemVideo.urlSite,
+						url_id:       this.post.itemVideo.videoUniqueId,
+					}
 				return params
 			},
 			getParamsForSound() {
@@ -835,7 +861,14 @@
 			handleVideoClear() {
 				this.post.title   = ''
 				this.post.comment = ''
-
+				if(this.post.itemVideo.path !== '') {
+					this.$store.dispatch("post/clearVideo")
+					this.post.itemVideo.path        = ''
+					this.post.itemVideo.contentType = ''
+					this.post.itemVideo.fileSize    = ''
+					this.post.itemVideo.fileName    = ''
+					this.$refs.selectVideo.value = ''
+				}
 				this.post.itemVideo.urlSite       = ''
 				this.post.itemVideo.videoUrl      = ''
 				this.post.itemVideo.videoUniqueId = ''
@@ -852,7 +885,41 @@
 				// フォーカス外す
 				e.target.blur()
 			},
+			handleSelectVideo() {
+				this.$refs.selectVideo.click();
+			},
+			handleInputVideoFile(e) {
+				const files = e.target.files;
+				if (0 < files.length && !this.isVideoUploading) {
+					this.uploadVideo(files[0])
+				}
+			},
+			handleDropVideo(e) {
+				const fileList = e.dataTransfer.files;
+				const soundReg = /^(video\/.*)$/;
+				if (0 < fileList.length && !this.isVideoUploading && soundReg.test(fileList[0].type)) {
+					this.uploadVideo(fileList[0])
+				}
+			},
+			async uploadVideo(selectedVideo) {
+				this.isVideoUploading = true
+				console.log(selectedVideo)
+				// upload
+				await this.$store.dispatch("post/uploadVideo", {
+					fileData: selectedVideo
+				});
+				this.post.itemVideo.fileUrl     = this.$store.state.post.itemVideo.fileUrl
+				this.post.itemVideo.path        = this.$store.state.post.itemVideo.path
+				this.post.itemVideo.contentType = this.$store.state.post.itemVideo.contentType
+				this.post.itemVideo.fileSize    = this.$store.state.post.itemVideo.fileSize
+				this.post.itemVideo.fileName    = selectedVideo.name.match(/(.*)\.[^.]+$/)[1] || ''
+				this.isVideoUploading           = false
+			},
+			handleFocusVideoUrlInput() {
+				this.isVideoUrlInputing = true
+			},
 			async handleFocusOutGetInfoVideoUrl() {
+				this.isVideoUrlInputing = false
 				if (this.post.itemVideo.videoUrl.length === 0 || this.post.itemVideo.fetchedUrl === this.post.itemVideo.videoUrl) {
 					return
 				}

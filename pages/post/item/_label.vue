@@ -49,21 +49,22 @@
 					</div>
 				</div>
 				<div v-else-if="type == 'VIDEO'" class="p-post__thumbnail__link-ogp">
-						<div class="p-embed">
-							<iframe v-if="videoUrlSite === 'YOUTUBE'"
-											:src="`https://www.youtube.com/embed/${videoUniqueId}`"
+					<video v-if="videoPath !== ''" style="width: 100%; outline: none" :src="videoFileUrl" controls></video>
+					<div class="p-embed" v-else>
+						<iframe v-if="videoUrlSite === 'YOUTUBE'"
+						        :src="`https://www.youtube.com/embed/${videoUniqueId}`"
+						        frameborder="0"
+						        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+						        allowfullscreen>
+						</iframe>
+						<div v-else-if="videoUrlSite === 'VIMEO'">
+							<iframe :src="`https://player.vimeo.com/video/${videoUniqueId}`"
 							        frameborder="0"
 							        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 							        allowfullscreen>
 							</iframe>
-							<div v-if="videoUrlSite === 'VIMEO'">
-								<iframe :src="`https://player.vimeo.com/video/${videoUniqueId}`"
-												frameborder="0"
-												allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-												allowfullscreen>
-								</iframe>
-							</div>
 						</div>
+					</div>
 				</div>
 				<div v-else-if="type == 'FILE' && 0 < thumbnailList.length">
 					<slider :thumbnailList="thumbnailList" />
@@ -76,15 +77,15 @@
 			<div class="p-post__content">
 				<div style="margin: 0 5% 20px;">
 					<span class="p-post__label__type">
-						<i v-if="type == 'TEXT'" class="material-icons">edit</i>
-						<i v-else-if="type == 'IMAGE'" class="material-icons">camera_alt</i>
-						<i v-else-if="type == 'LINK'" class="material-icons">link</i>
-						<i v-else-if="type == 'VIDEO'" class="material-icons">videocam_off</i>
-						<i v-else-if="type == 'SOUND'" class="material-icons">headset</i>
-						<i v-else-if="type == 'ANSWER'" class="material-icons">forum</i>
-						<i v-else-if="type == 'FILE'" class="material-icons">folder</i>
-						<span>{{typeText}}</span>
-					</span>
+                       <i v-if="type == 'TEXT'" class="material-icons">edit</i>
+                       <i v-else-if="type == 'IMAGE'" class="material-icons">camera_alt</i>
+                       <i v-else-if="type == 'LINK'" class="material-icons">link</i>
+                       <i v-else-if="type == 'VIDEO'" class="material-icons">videocam_off</i>
+                       <i v-else-if="type == 'SOUND'" class="material-icons">headset</i>
+                       <i v-else-if="type == 'ANSWER'" class="material-icons">forum</i>
+                       <i v-else-if="type == 'FILE'" class="material-icons">folder</i>
+                       <span>{{typeText}}</span>
+	               </span>
 				</div>
 				<div v-if="type != 'ANSWER' && title" class="p-post__content__title">
 					<h1>{{title}}</h1>
@@ -430,6 +431,9 @@ export default {
 
 			videoUrlSite:  context.store.state.post.itemVideo.urlSite,
 			videoUniqueId: context.store.state.post.itemVideo.videoUniqueId,
+			videoUrl:      context.store.state.post.itemVideo.videoUrl,
+			videoFileUrl:  context.store.state.post.itemVideo.fileUrl,
+			videoPath:     context.store.state.post.itemVideo.path,
 
 			soundUrl: context.store.state.post.itemSound.url,
 

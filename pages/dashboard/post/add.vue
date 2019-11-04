@@ -1,9 +1,9 @@
 <template>
 	<div class="p-post-add">
 
-			<post-form
-				:isEdit="false"
-				:post="post"></post-form>
+		<post-form
+			:isEdit="false"
+			:post="post"></post-form>
 	</div>
 </template>
 
@@ -96,7 +96,12 @@
 					itemVideo: {
 						urlSite:       '',
 						videoUrl:      '',
+						fileUrl:       '',
 						videoUniqueId: '',
+						path:          '',
+						contentType:   '',
+						fileName:      '',
+						fileSize:      ''
 					},
 					// SOUNDタイプ
 					itemSound: {
@@ -130,8 +135,8 @@
 			// 		e.returnValue = "ページを離れようとしています。よろしいですか？";
 			// 	}, false);
 			// }
-		// },
-		// beforeRouteLeave(to, from, next) {
+			// },
+			// beforeRouteLeave(to, from, next) {
 			// console.log('beforeRouteLeave')
 			// const result = window.confirm('編集中ですが、');
 			// if (result) {

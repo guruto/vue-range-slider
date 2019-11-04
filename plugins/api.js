@@ -8,7 +8,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((request) => {
-	console.log('api request: ' + process.env.API_BASE_URL + '/' + request.url)
+	console.log('api request: ' + request.url)
 	// console.log(request.headers)
 	return request;
 });
@@ -209,15 +209,19 @@ export default {
 	uploadImageForText(params, authorizationToken) {
 		return apiPost('post_texts/upload_image', params, authorizationToken, true);
 	},
-
+	
 	uploadPostSound(params, authorizationToken) {
 		return apiPost('post_sounds/upload', params, authorizationToken, true);
 	},
-
+	
+	uploadPostVideo(params, authorizationToken) {
+		return apiPost('post_videos/upload', params, authorizationToken, true);
+	},
+	
 	uploadPostFile(params, authorizationToken) {
 		return apiPost('post_files/upload', params, authorizationToken, true);
 	},
-
+	
 	getInfoTextLinkUrl(params, authorizationToken) {
 		return apiGet('post_texts/get_link_info', params, authorizationToken);
 	},
@@ -341,7 +345,7 @@ export default {
 	editPageDesign(params, authorizationToken) {
 		return apiPost('page_designs/edit', params, authorizationToken);
 	},
-
+	
 	getPageDesign(authorizationToken) {
 		return apiGet('page_designs/get_myself', {}, authorizationToken);
 	},

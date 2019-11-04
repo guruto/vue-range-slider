@@ -1,9 +1,9 @@
 <template>
 	<div class="p-post-edit">
 
-			<post-form
-				:isEdit="true"
-				:post="post"></post-form>
+		<post-form
+			:isEdit="true"
+			:post="post"></post-form>
 	</div>
 </template>
 
@@ -46,6 +46,17 @@
 					itemText: {
 						draftBody: '',
 						body:      '',
+					},
+
+					// VIDEOタイプ
+					itemVideo: {
+						urlSite:       '',
+						videoUrl:      '',
+						videoUniqueId: '',
+						path:          '',
+						contentType:   '',
+						fileName:      '',
+						fileSize:      ''
 					},
 
 					// SOUNDタイプ
@@ -110,8 +121,10 @@
 						body:      context.store.state.post.itemText.body,
 					},
 					itemVideo: {
-						urlSite:     context.store.state.post.itemVideo.urlSite,
+						urlSite:       context.store.state.post.itemVideo.urlSite,
 						videoUrl:      context.store.state.post.itemVideo.videoUrl,
+						fileUrl:       context.store.state.post.itemVideo.fileUrl,
+						path:          context.store.state.post.itemVideo.path,
 						videoUniqueId: context.store.state.post.itemVideo.videoUniqueId,
 					},
 					itemSound: {
