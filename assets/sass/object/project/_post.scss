@@ -79,6 +79,11 @@
 					background-image: url("/img/post/label/scope_member.png");
 				}
 			}
+			&.is-payment {
+				&:before {
+					background-image: url("/img/post/label/scope_payment.png");
+				}
+			}
 		}
 	}
 
