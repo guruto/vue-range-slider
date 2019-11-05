@@ -1,6 +1,5 @@
 <template>
 	<div class="p-form">
-
 		<div class="p-form__operation u-cf" style="padding: 0 5%;">
 			<div class="p-form__operation__back">
 				<a href="/dashboard/post/manage" :class="{'c-btn': true, 'c-btn--default': true}">戻る</a>
@@ -12,7 +11,7 @@
 				<button @click="handlePublishSetting" :class="{'c-btn': true, 'c-btn--main': true, 'is-loading': isLoading}" type="button" :disabled="!canPublishSetting">公開設定</button>
 			</div>
 		</div>
-
+		
 		<div v-if="isEdit" class="p-post__head-info">
 			<div class="p-post__head-info__content">
 				<span class="p-post__label__type">
