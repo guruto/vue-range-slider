@@ -13,14 +13,6 @@
 		}
 	}
 
-	&__backdrop {
-		position: fixed;
-		height: 100%;
-		width: 100%;
-		background-color: rgba(0, 0, 0, 0.25);
-		z-index: 3;
-	}
-
 	&__transition {
 		&-enter-active,
 		&-leave-active {
@@ -31,7 +23,13 @@
 			//transform: translateX(-100%);
 		}
 	}
-
+	&__backdrop {
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.25);
+		z-index: 3;
+	}
 	&__wrapper {
 		z-index: 3;
 		height: 100%;
@@ -44,7 +42,6 @@
 			content: "";
 		}
 	}
-
 	&__content {
 		position: relative;
 		display: inline-block;

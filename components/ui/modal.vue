@@ -5,7 +5,6 @@
 		<transition name="c-modal__transition">
 			<div class="c-modal__wrapper">
 
-
 			<div class="c-modal__content">
 				<div class="c-modal__content__head">
 					<div class="c-modal__content__head__title">

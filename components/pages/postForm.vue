@@ -489,7 +489,7 @@
 
 				this.$store.dispatch('modal/show')
 			},
-			async executePublishSetting(scope, publish_type, price) {s
+			async executePublishSetting(scope, publish_type, price) {
 				// 公開設定の実行
 				// scope: 全公開、メンバー限定
 				// publish_type: すぐ公開、下書き保存
