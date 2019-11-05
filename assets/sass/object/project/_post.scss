@@ -172,6 +172,12 @@
 				color: $color_dark_gray;
 				margin-bottom: 14px;
 			}
+			&__price {
+				text-align: center;
+				font-size: 20px;
+				color: $color_main;
+				margin-bottom: 14px;
+			}
 			&__action {
 				text-align: center;
 			}

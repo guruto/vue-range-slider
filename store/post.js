@@ -6,6 +6,7 @@ export const state = () => ({
 	label:              null,
 	type:               '',
 	scope:              'PUBLIC',
+	price:              null,
 	typeText:           '',
 	title:              '',
 	comment:            '',
@@ -89,6 +90,7 @@ export const mutations = {
 		state.isMine             = (data.is_mine === '1')
 		state.label              = data.label
 		state.scope              = data.scope
+		state.price              = data.price
 		state.type               = data.type
 		state.typeText           = data.type_text
 		state.title              = data.title
@@ -143,7 +145,7 @@ export const mutations = {
 		state.errorMessage = ''
 		state.thumbnailMediaList = data.thumbnail_media_list
 		
-		state.itemSound     = {
+		state.itemSound = {
 			url:         data.post_item.url,
 			path:        data.post_item.path,
 			contentType: data.post_item.content_type,

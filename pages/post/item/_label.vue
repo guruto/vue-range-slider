@@ -4,7 +4,7 @@
 
 			<div v-if="!this.$store.state.subDomain.hasSubDomain" style="margin: 0 5% 20px; text-align: left;">
 				<span v-if="isMine" :class="{'p-post__label__publish': true, 'is-published': isPublished}">{{isPublished ? '公開中' : '下書き'}}</span>
-				<span v-if="isMine" :class="{'p-post__label__scope': true, 'is-public': (scope == 'PUBLIC'), 'is-member': (scope == 'MEMBER')}">{{(scope == 'PUBLIC') ? '全公開' : 'メンバー限定'}}</span>
+				<span v-if="isMine" :class="{'p-post__label__scope': true, 'is-public': (scope == 'PUBLIC'), 'is-member': (scope == 'MEMBER'), 'is-payment': (scope == 'PAYMENT')}">{{(scope == 'PUBLIC') ? '全公開' : (scope == 'PAYMENT') ? '有料' : 'メンバー限定'}}</span>
 			</div>
 
 			<div class="p-post__thumbnail">
@@ -112,6 +112,13 @@
 						<p class="p-post__content__limited__description">メンバー限定公開の内容です。</p>
 						<div class="p-post__content__limited__action">
 							<nuxt-link to="/member/sign_up" class="c-btn c-btn--main">メンバーになる</nuxt-link>
+						</div>
+					</div>
+					<div v-else-if="scope == 'PAYMENT' && !isMine" class="p-post__content__limited">
+						<p class="p-post__content__limited__description">有料公開の内容です。</p>
+						<p class="p-post__content__limited__price">¥{{Number(price).toLocaleString()}}</p>
+						<div class="p-post__content__limited__action">
+							<button @click="handlePurchaseBtn" type="button" class="c-btn c-btn--main">購入へ進む</button>
 						</div>
 					</div>
 					<div v-else>
@@ -294,7 +301,7 @@
 				</div>
 			</div>
 
-			<div class="p-post__related">
+			<div v-if="isUserPage" class="p-post__related">
 				<h2 class="c-title--sub">その他の投稿</h2>
 				<post-list
 					:posts="relatedPosts"
@@ -306,6 +313,15 @@
 			</div>
 
 		</section>
+
+		<Modal type="post_purchase_payment"
+		       title="購入"
+		       :postPurchaseTitle="title"
+		       :postPurchasePrice="Number(price).toLocaleString()"
+		       :isAuthenticated="isAuthenticated"
+		       actionMessage="決済する"
+		       :onHandleAction="executePurchasePost"
+		></Modal>
 
 		<div class="p-popover" id="post-comment-popover" v-show="isShowPopoverControlPostComment">
 			<div class="p-popover__arrow"></div>
@@ -386,15 +402,23 @@ export default {
 			})
 		}
 
-		const type = context.store.state.post.type;
+		const type  = context.store.state.post.type
+		const title = (type == 'LINK') ? context.store.state.post.itemLink.title : context.store.state.post.title
 
-		let title = context.store.state.post.title
-		if (type == 'LINK') {
-			title = context.store.state.post.itemLink.title
+		// const isMember   = (context.store.state.user.memberPageLabelList.indexOf(label) !== -1)
+		// const onlyMember = (context.store.state.post.scope === 'MEMBER' && !context.store.state.post.isMine && (!context.store.state.user.authenticated || !isMember))
+		let description = context.store.state.post.comment;
+		if (context.store.state.post.scope === 'MEMBER') {
+			description = 'メンバー限定公開の内容です。'
+		} else if (context.store.state.post.scope === 'PAYMENT') {
+			description = '有料公開の内容です。'
 		}
-
-		const isMember   = (context.store.state.user.memberPageLabelList.indexOf(label) !== -1)
-		const onlyMember = (context.store.state.post.scope === 'MEMBER' && !context.store.state.post.isMine && (!context.store.state.user.authenticated || !isMember))
+		let twitterDescription = (type == 'ANSWER') ? '質問と回答の詳細はこちらから。他の回答も見ることができます。' : context.store.state.post.comment;
+		if (context.store.state.post.scope === 'MEMBER' && type != 'ANSWER') {
+			twitterDescription = 'メンバー限定公開の内容です。'
+		} else if (context.store.state.post.scope === 'PAYMENT' && type != 'ANSWER') {
+			twitterDescription = '有料公開の内容です。'
+		}
 
 		return {
 			isUserPage: context.store.state.subDomain.hasSubDomain,
@@ -405,6 +429,7 @@ export default {
 			type:               type,
 			typeText:           context.store.state.post.typeText,
 			scope:              context.store.state.post.scope,
+			price:              context.store.state.post.price,
 			title:              context.store.state.post.title,
 			comment:            context.store.state.post.comment,
 			thumbnailImagePath: context.store.state.post.thumbnailImagePath,
@@ -454,8 +479,8 @@ export default {
 				title:        title,
 				twitterTitle: (type == 'ANSWER') ? '質問への回答' : title,
 
-				description:        (onlyMember) ? 'メンバー限定公開の内容です。' : context.store.state.post.comment,
-				twitterDescription: (onlyMember) ? 'メンバー限定公開の内容です。' : (type == 'ANSWER') ? '質問と回答の詳細はこちらから。他の回答も見ることができます。' : context.store.state.post.comment,
+				description:        description,
+				twitterDescription: twitterDescription,
 
 				image:              context.store.state.post.thumbnailImageUrl,
 				subDomainForUrl:    context.store.state.page.label,
@@ -517,6 +542,10 @@ export default {
 		clipboardError() {
 			alert('URLのコピーに失敗しました')
 		},
+
+		////////////////////
+		// comment処理
+		////////////////////
 		async handleAddPostComment() {
 			this.isAddCommentLoading = true
 
@@ -557,6 +586,57 @@ export default {
 			this.isShowPopoverControlPostComment = false
 			this.selectedPostCommentLabel        = null
 			this.selectedPostCommentIndex        = null
+		},
+
+		////////////////////
+		// 購入処理
+		////////////////////
+		handlePurchaseBtn() {
+			this.$store.dispatch('modal/show')
+		},
+		async executePurchasePost(param) {
+			console.log(param)
+			// TODO::全体ローディング start
+			// TODO::クレカ決済処理
+			// token取得API
+			const tokenParam = {
+				aid: '117530',
+				//cn: param.number,
+				cn: '4444333322221111',
+				// ed: param.cardExpireYear + param.cardExpireMonth,
+				ed: '2001',
+				//fn: param.firstName,
+				fn: 'YUMA',
+				//ln: param.lastName,
+				ln: 'ODA',
+				//cvv: param.securityCode,
+				cvv: '123',
+				md: 10, // 一括払い
+			}
+			console.log(tokenParam)
+			// CPToken.TokenCreate(tokenParam, function (resultCode, errMsg, token) {
+			// 	console.log(resultCode, errMsg, token)
+			// })
+			// 決済API
+			// // https://credit.j-payment.co.jp/gateway/gateway_token.aspx
+			// const transactionParam = {
+			// 	aid: '117530',
+			// 	jb: 'CAPTURE',
+			// 	rt: 0,
+			// 	tkn: '',
+			// 	am: param.amount,
+			// 	tx: 0,
+			// 	sf: 0,
+			// }
+			// console.log(transactionParam)
+			// TODO::決済後のAPI連携
+			// TODO::order_idなどをpost_transactionsテーブルに挿入
+			// TODO::user_paymentsデータも作成
+			// TODO::決済完了時にメール送信 param.email
+			// TODO::全体ローディング end
+			// TODO::リダイレクト
+			// ログイン情報を持って購入した場合リダイレクトで、有料内容公開状態でpostを表示する
+			// 未ログイン状態の場合は、webで有料公開内容は表示しない。メールのみ
 		},
 	}
 }

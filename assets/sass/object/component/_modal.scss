@@ -69,6 +69,48 @@
 			.p-form {
 				min-height: auto !important;
 			}
+			&__post-purchase-payment {
+				.p-form__group {
+					margin: 0 0 6px;
+				}
+				&__title {
+					font-weight: bold;
+					font-size: 15px;
+					margin-bottom: 4px;
+				}
+				&__price {
+					color: $color_main;
+					font-size: 16px;
+					font-weight: bold;
+					margin-bottom: 8px;
+				}
+			}
+			&__publish-setting {
+				.p-form__item {
+					margin-bottom: 10px;
+				}
+				&__yen {
+					float: left;
+					width: 10%;
+					text-align: center;
+					span {
+						vertical-align: -10px;
+						display: inline-block;
+						font-size: 18px;
+					}
+				}
+				&__price {
+					float: left; width: 90%;
+					input {
+						padding: 6px 10px !important;
+						height: auto !important;
+						&:disabled {
+							background-color: $color_light !important;
+							cursor: pointer;
+						}
+					}
+				}
+			}
 			&__add-post {
 				ul {
 					display: flex;

@@ -17,7 +17,6 @@
 		mixins: [Meta],
 		data() {
 			return {
-
 				meta: {
 					title: '新規投稿',
 					description: 'PAGEFUL（ペイジフル）の新規投稿ページ',
@@ -67,6 +66,7 @@
 					label:              null,
 					type:               type, // default
 					scope:              'PUBLIC',
+					price:              null,
 					title:              "",
 					comment:            "",
 					thumbnailImagePath: "",

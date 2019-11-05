@@ -336,7 +336,8 @@
 		       title="公開設定"
 		       actionMessage="公開する"
 		       :onHandleAction="executePublishSetting"
-		       :initialScope="(isEdit) ? post.scope : 'PUBLIC'">
+		       :initialScope="(isEdit) ? post.scope : 'PUBLIC'"
+		       :initialPrice="(isEdit) ? post.price : null">
 		</Modal>
 
 		<CropModal
@@ -488,7 +489,7 @@
 
 				this.$store.dispatch('modal/show')
 			},
-			async executePublishSetting(scope, publish_type) {
+			async executePublishSetting(scope, publish_type, price) {s
 				// 公開設定の実行
 				// scope: 全公開、メンバー限定
 				// publish_type: すぐ公開、下書き保存
@@ -503,6 +504,7 @@
 				let params           = this.getParams(this.post.type)
 				params['type']       = this.post.type
 				params['scope']      = scope
+				params['price']      = price
 				params['is_publish'] = (publish_type === 'public') ? 1 : 0
 				if (this.isEdit) {
 					params['label'] = this.post.label

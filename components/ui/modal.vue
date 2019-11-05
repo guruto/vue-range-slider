@@ -76,23 +76,126 @@
 						</ul>
 					</div>
 
-					<div v-else-if="type == 'save_publish_setting'" class="c-modal__content__body__add-post">
+					<div v-else-if="type == 'save_publish_setting'" class="c-modal__content__body__publish-setting">
 						<div class="p-form">
 							<div class="p-form__group">
 								<label class="p-form__label">公開範囲</label>
 								<div style="margin: 12px 0 0; display: block;">
-									<div class="p-form__item p-form__item--label">
+									<div class="p-form__item">
 										<input type="radio" id="scope-all" value="PUBLIC" v-model="scope" />
 										<label for="scope-all">全公開</label>
 									</div>
-									<div class="p-form__item p-form__item--label">
+									<div class="p-form__item">
 										<input type="radio" id="scope-member" value="MEMBER" v-model="scope" />
 										<label for="scope-member">メンバー限定</label>
 									</div>
+									<div class="p-form__item">
+										<input type="radio" id="scope-payment" value="PAYMENT" v-model="scope" />
+										<label for="scope-payment">有料</label>
+									</div>
+									<div class="u-cf">
+										<div class="c-modal__content__body__publish-setting__yen">
+											<span>¥</span>
+										</div>
+										<div class="c-modal__content__body__publish-setting__price">
+											<input type="number" v-model="price" :disabled="scope != 'PAYMENT'" placeholder="1000" min="100" max="100000"/>
+										</div>
+									</div>
+									<p class="p-form__info">有料に設定した場合、購入した方のみが本文・コメント内容を閲覧できます。</p>
 								</div>
 							</div>
 						</div>
 					</div>
+
+					<div v-else-if="type == 'post_purchase_auth'">
+						<div>
+							<p>メンバーアカウントをお持ちの方</p>
+							<a href="/member/login" class="c-btn c-btn--main">メンバーログインして購入</a>
+							<a href="/member/sign_up" class="c-btn c-btn--main">新規メンバー登録して購入</a>
+						</div>
+						<div>
+							<p>メンバーアカウントをお持ちでない方</p>
+							<button type="button" class="c-btn c-btn--main">登録せず購入</button>
+						</div>
+					</div>
+
+					<div v-else-if="type == 'post_purchase_payment'" class="c-modal__content__body__post-purchase-payment">
+						<p class="c-modal__content__body__post-purchase-payment__title">{{this.postPurchaseTitle}}</p>
+						<p class="c-modal__content__body__post-purchase-payment__price">¥{{this.postPurchasePrice}}</p>
+
+						<div class="p-form">
+							<div class="p-form__group">
+								<label class="p-form__label">カード番号</label>
+								<div class="p-form__item">
+									<input type="text" pattern="[0-9]{13,16}" placeholder="例: 4444333322221111"/>
+								</div>
+							</div>
+							<div class="p-form__group">
+								<div></div>
+								<label class="p-form__label">カード名義</label>
+								<div class="p-form__item">
+									<input type="text" placeholder="例: HANAKO SUZUKI"/>
+								</div>
+							</div>
+							<div class="p-form__group">
+								<div>
+									<label class="p-form__label">有効期限</label>
+								</div>
+								<div style="width: 60px; display: inline-block;">
+									<div class="p-form__item">
+										<select>
+											<option value="01">01</option>
+											<option value="02">02</option>
+											<option value="03">03</option>
+											<option value="04">04</option>
+											<option value="05">05</option>
+											<option value="06">06</option>
+											<option value="07">07</option>
+											<option value="08">08</option>
+											<option value="09">09</option>
+											<option value="10">10</option>
+											<option value="11">11</option>
+											<option value="12">12</option>
+										</select>
+									</div>
+								</div>
+								<span style="margin: 0 10px;">/</span>
+								<div style="width: 100px; display: inline-block;">
+									<div class="p-form__item">
+										<select>
+											<option value="19">2019</option>
+											<option value="20">2020</option>
+											<option value="21">2021</option>
+											<option value="22">2022</option>
+											<option value="23">2023</option>
+											<option value="24">2024</option>
+											<option value="25">2025</option>
+											<option value="26">2026</option>
+											<option value="27">2027</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+							<div class="p-form__group">
+								<div>
+									<label class="p-form__label">セキュリティコード</label>
+								</div>
+								<div style="width: 100px;display: inline-block;">
+									<div class="p-form__item">
+										<input type="number" placeholder="例: 111"/>
+									</div>
+								</div>
+							</div>
+							<div v-if="1 || isAuthenticated" class="p-form__group">
+								<label class="p-form__label">メールアドレス</label>
+								<div class="p-form__item">
+									<input type="email" placeholder="example@hello.com"/>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 
 				<div class="c-modal__content__action">
@@ -114,8 +217,10 @@
 
 <script>
 	export default {
-		props: ['type', 'title', 'description', 'actionMessage', 'subActionMessage', 'cancelMessage', 'onHandleAction', 'onHandleSubAction', 'onHandleCancel', '' +
-		'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope'],
+		props: [
+			'type', 'title', 'description', 'actionMessage', 'subActionMessage', 'cancelMessage', 'onHandleAction', 'onHandleSubAction', 'onHandleCancel',
+			'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope', 'initialPrice', 'postPurchaseTitle', 'postPurchasePrice',
+		],
 		data() {
 			return {
 				// Page_linkの追加
@@ -124,6 +229,15 @@
 
 				// Postの公開設定
 				scope: this.initialScope,
+				price: this.initialPrice,
+
+				// post paymentの設定
+				cardNumber:       null,
+				cardName:         null,
+				cardExpireMonth:  null,
+				cardExpireYear:   null,
+				cardSecurityCode: null,
+				purchaseEmail:    null,
 			}
 		},
 		computed: {
@@ -161,10 +275,22 @@
 						console.log('no title')
 						return
 					}
-					this.onHandleAction(this.pageLinkTitle, this.pageLinkUrl);
+					this.onHandleAction(this.pageLinkTitle, this.pageLinkUrl)
 
 				} else if (this.type == 'save_publish_setting') {
-					this.onHandleAction(this.scope, 'public');
+					this.onHandleAction(this.scope, 'public', this.price)
+
+				} else if (this.type == 'post_purchase_payment') {
+					const param = {
+						amount:       this.postPurchasePrice,
+						number:       this.cardNumber,
+						expireDate:   this.cardExpireYear + this.cardExpireMonth,
+						securityCode: this.cardSecurityCode,
+						firstName:    this.cardName, // TODO::スペースで切り取る
+						lastName:     this.cardName,
+						email:        this.purchaseEmail,
+					}
+					this.onHandleAction(param);
 
 				} else {
 					this.onHandleAction();
@@ -190,6 +316,7 @@
 				this.pageLinkTitle = ''
 				this.pageLinkUrl   = ''
 				this.scope         = 'PUBLIC'
+				this.price         = null
 			},
 		}
 	}

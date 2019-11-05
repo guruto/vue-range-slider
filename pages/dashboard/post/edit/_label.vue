@@ -17,66 +17,6 @@
 		mixins:     [Meta],
 		data() {
 			return {
-				post: {
-					label:              null,
-					type:               'TEXT', // default
-					scope:              'PUBLIC',
-					typeText:           'ブログ', // default
-					comment:            "",
-					title:              "",
-					thumbnailImageUrl:  "",
-					thumbnailImagePath: "",
-					isPublished:        false,
-
-					// LINKタイプ
-					itemLink: {
-						linkUrl:               "",
-						linkTitle:             "",
-						linkDescription:       "",
-						linkSiteName:          "",
-						linkThumbnailImageUrl: "",
-						linkContentMediaType:  "",
-						linkContentMediaUrl:   "",
-						linkSiteType:          "",
-						linkUniqueId:          "",
-						fetchedUrl:            "",
-					},
-
-					// TEXTタイプ
-					itemText: {
-						draftBody: '',
-						body:      '',
-					},
-
-					// VIDEOタイプ
-					itemVideo: {
-						urlSite:       '',
-						videoUrl:      '',
-						videoUniqueId: '',
-						path:          '',
-						contentType:   '',
-						fileName:      '',
-						fileSize:      ''
-					},
-
-					// SOUNDタイプ
-					itemSound: {
-						url:          '',
-						path:         '',
-						content_type: '',
-						file_size:    '',
-					},
-
-					// FILEタイプ
-					itemFile: {
-						url:                  '',
-						path:                 '',
-						contentType:         '',
-						fileSize:            '',
-						thumbnail_media_list: [],
-					},
-				},
-
 				meta: {
 					title: '投稿編集',
 					description: 'PAGEFUL（ペイジフル）の投稿編集ページ',
@@ -90,7 +30,6 @@
 			await context.store.dispatch("post/getMyself", {
 				label: label
 			});
-			console.log(context.store.state.post)
 
 			return {
 				post: {
@@ -151,7 +90,7 @@
 				},
 			}
 		},
-		methods:    {
+		methods: {
 		}
 	}
 </script>
