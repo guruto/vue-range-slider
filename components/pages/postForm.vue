@@ -388,23 +388,19 @@
 				if (this.isLoading) {
 					return 0
 				}
-				const validated = this.$validator.validateAll()
-				if (!validated) {
-					return 0
-				}
 
 				if (this.post.type == 'LINK') {
 					return (this.post.itemLink.linkTitle.length > 0)
 
 				} else if (this.post.type == 'IMAGE') {
 					const labels = Object.keys(this.$store.state.post.uploadedPostImages)
-					return (labels.length > 0)
+					return (this.post.title !== '' && labels.length > 0)
 
 				} else if (this.post.type == 'VIDEO') {
 					return (this.post.title !== '' && (this.post.itemVideo.videoUrl !== '' || this.post.itemVideo.fileUrl !== ''))
 
 				} else if (this.post.type == 'SOUND') {
-					return (this.post.title !== '')
+					return (this.post.title !== '' && this.post.itemSound.url !== '')
 
 				} else if (this.post.type == 'ANSWER') {
 					return (this.post.comment.length > 0)
