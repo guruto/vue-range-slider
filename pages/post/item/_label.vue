@@ -4,7 +4,7 @@
 
 			<div v-if="!this.$store.state.subDomain.hasSubDomain" style="margin: 0 5% 20px; text-align: left;">
 				<span v-if="isMine" :class="{'p-post__label__publish': true, 'is-published': isPublished}">{{isPublished ? '公開中' : '下書き'}}</span>
-				<span v-if="isMine" :class="{'p-post__label__scope': true}">{{(scope == 'PUBLIC') ? '全公開' : 'メンバー限定'}}</span>
+				<span v-if="isMine" :class="{'p-post__label__scope': true, 'is-public': (scope == 'PUBLIC'), 'is-member': (scope == 'MEMBER')}">{{(scope == 'PUBLIC') ? '全公開' : 'メンバー限定'}}</span>
 			</div>
 
 			<div class="p-post__thumbnail">

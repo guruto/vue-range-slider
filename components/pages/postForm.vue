@@ -40,7 +40,6 @@
 				<div v-else style="padding: 0 5%;">
 					<div  @click="handleSelectTextThumbnailImage" class="p-form__thumbnail__select">
 						<img src="/img/form_icon_thumbnail@2x.png" alt="サムネイル画像を選択">
-						<!--					<span class="p-form__thumbnail__select__description">サムネイル画像</span>-->
 						<input ref="fileinput" type="file" id="form-select-text-thumbnail-image"
 							accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
 							@change="handleInputTextThumbnailImageFile"/>
