@@ -3,6 +3,9 @@
 		<div v-if="isActive" class="c-modal__backdrop" @click="hideModal"></div>
 
 		<transition name="c-modal__transition">
+			<div class="c-modal__wrapper">
+
+
 			<div class="c-modal__content">
 				<div class="c-modal__content__head">
 					<div class="c-modal__content__head__title">
@@ -91,7 +94,7 @@
 									</div>
 									<div class="p-form__item">
 										<input type="radio" id="scope-payment" value="PAYMENT" v-model="scope" />
-										<label for="scope-payment">有料</label>
+										<label for="scope-payment">有料販売</label>
 									</div>
 									<div class="u-cf">
 										<div class="c-modal__content__body__publish-setting__yen">
@@ -209,6 +212,7 @@
 						<button @click="handleButtonCancel" class="c-btn">キャンセル</button>
 					</div>
 				</div>
+			</div>
 			</div>
 		</transition>
 
