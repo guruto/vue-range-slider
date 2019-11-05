@@ -69,6 +69,13 @@
 			</div>
 		</div>
 
+		<div style="padding: 0 5% 30px;">
+			<a class="c-btn c-btn--main p-dashboard__site-link" :href="$getUrl('/', this.$store.state.user.page.label)" target="_blank">
+				<i class="material-icons">open_in_new</i>
+				<span>自分のページを開く</span>
+			</a>
+		</div>
+
 		<div class="p-dashboard__attention">
 			<div v-if="this.$store.state.user.status.postCount == 0" class="p-dashboard__attention__item" @click="$store.dispatch('modal/show')">
 				<div class="p-dashboard__attention__item__icon" style="background-color: #179EE6;">
@@ -295,6 +302,19 @@
 					font-weight: bold;
 					color: $color_dark_gray;
 				}
+			}
+		}
+		&__site-link {
+			border: 2px solid $color_main !important;
+			color: $color_main !important;
+			background-color: transparent !important;
+			width: 100%;
+			i {
+				vertical-align: -7px;
+			}
+			span {
+				font-size: 14px;
+				font-weight: bold;
 			}
 		}
 		&__attention {
