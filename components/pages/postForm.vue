@@ -28,8 +28,8 @@
 				<span :class="{'p-post__label__publish': true, 'is-published': post.isPublished}">{{post.isPublished ? '公開中' : '下書き'}}</span>
 			</div>
 		</div>
-
 		<div v-if="post.type == 'TEXT'" class="p-form__text">
+			
 			<div class="p-form__thumbnail">
 				<div v-if="post.thumbnailImagePath" class="p-form__thumbnail__content">
 					<span @click="handleDeleteThumbnailImage" class="p-form__thumbnail__content__delete-btn"><i class="far fa-times-circle"></i></span>

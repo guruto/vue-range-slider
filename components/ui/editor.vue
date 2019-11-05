@@ -130,27 +130,34 @@ export default {
           }
         }
       };
+      toolsWithConfig.image.toolbox = { title: "画像" };
       // link の設定がそもそもdefault標準なので必要がない
       // toolsWithConfig.link.inlineToolbar = true;
       // toolsWithConfig.link.config = {
       //   endpoint: process.env.API_BASE_URL + "/post_texts/get_link_info"
       // };
       // link の設定がそもそもdefault標準なので必要がない
+
+      // @desc: quote
       toolsWithConfig.quote.config = {
         quotePlaceholder: "引用内容を入力",
         captionPlaceholder: "引用元を入力"
       };
+      toolsWithConfig.quote.toolbox = { title: "引用" };
+
       toolsWithConfig.paragraph.inlineToolbar = true;
+
+      // @desc: attaches
       toolsWithConfig.attaches.config = {
         endpoint: process.env.API_BASE_URL + "/post_texts/upload_file",
         field: "file_data",
         buttonText: "ファイルを選択",
         errorMessage: "ファイルのアップロードに失敗しました"
       };
+      toolsWithConfig.attaches.toolbox = { title: "ファイル" };
       // TODO:: ツールバーでリンク設定を出したい
-
-      console.log(typeof this.initData);
-      console.log(this.initData);
+      toolsWithConfig.header.toolbox = { title: "ヘッダー" };
+      toolsWithConfig.delimiter.toolbox = { title: "区切り" };
 
       this.editor = new EditorJS({
         holder: this.holderId,
