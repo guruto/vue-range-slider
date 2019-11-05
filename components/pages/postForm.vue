@@ -141,30 +141,30 @@
 		</form>
 
 		<form v-else-if="post.type == 'VIDEO'">
-			<div style="padding: 0 5%;">
-				<div v-show="post.itemVideo.path === '' && post.itemVideo.videoUrl === '' && !isVideoUrlInputing"
-						@click="handleSelectVideo()" @dragleave.prevent @dragover.prevent @drop.prevent="handleDropVideo" class="p-form__sound-upload">
-					<div class="p-form__sound-upload__description">
-						<img src="/img/form_icon_upload_video@2x.png" alt="動画ファイルを追加">
-						<span>動画ファイルを追加</span>
-						<spinner :isActive="isVideoUploading"></spinner>
-					</div>
-					<input @change="handleInputVideoFile" ref="selectVideo" type="file" accept="video/*"/>
+			<div v-show="post.itemVideo.path === '' && post.itemVideo.videoUrl === '' && !isVideoUrlInputing"
+					@click="handleSelectVideo()" @dragleave.prevent @dragover.prevent @drop.prevent="handleDropVideo" class="p-form__sound-upload">
+				<div class="p-form__sound-upload__description">
+					<img src="/img/form_icon_upload_video@2x.png" alt="動画ファイルを追加">
+					<span>動画ファイルを追加</span>
+					<spinner :isActive="isVideoUploading"></spinner>
 				</div>
+				<input @change="handleInputVideoFile" ref="selectVideo" type="file" accept="video/*"/>
+			</div>
+			<div style="padding: 0 5%;">
 				<div v-if="post.itemVideo.path === ''" class="p-form__group">
 					<div class="p-form__item">
 						<input type="url" v-validate="'url'" name="videoUrl" v-model="post.itemVideo.videoUrl"
-									 @focusout="handleFocusOutGetInfoVideoUrl" @paste="handlePasteGetInfoVideoUrl"
-									 @focus="handleFocusVideoUrlInput"
-									 placeholder="URLを入力 https://" :disabled="isVideoUploading"/>
+						       @focusout="handleFocusOutGetInfoVideoUrl" @paste="handlePasteGetInfoVideoUrl"
+						       @focus="handleFocusVideoUrlInput"
+						       placeholder="URLを入力 https://" :disabled="isVideoUploading"/>
 						<span @click="handleVideoClear" class="p-form__item__clear-btn"><i class="far fa-times-circle"></i></span>
 					</div>
 					<span class="p-form__item-error" v-show="errors.has('videoUrl')">{{ errors.first('videoUrl') }}</span>
 					<div class="p-form__info">
-						<span class="p-form__info__label">YoutubeとVimeoのリンクのみ</span>
+						<span class="p-form__info__label">YoutubeとVimeoのリンクのみ。</span>
+						<span class="p-form__info__label">動画ファイルかリンクを選択してください。</span>
 					</div>
 				</div>
-
 				<div class="p-form__ogp u-mt-16" v-if="!isVideoUrlInputing && (post.itemVideo.videoUrl !== '' || post.itemVideo.path !== '')">
 					<div v-if="post.itemVideo.path !== ''" class="p-video">
 						<span @click="handleVideoClear"><i class="far fa-times-circle p-video__clear-btn"></i></span>
