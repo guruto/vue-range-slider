@@ -509,6 +509,9 @@
 				background-color: $color_main_light;
 				margin-bottom: 10px;
 				position: relative;
+				@media #{$screen_pc} {
+					margin: 0 5% 10px;
+				}
 				&__delete-btn {
 					position: absolute;
 					right: 14px;
