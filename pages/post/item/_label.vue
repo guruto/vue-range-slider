@@ -406,9 +406,6 @@ import moment from "moment";
 export default {
   components: { postTextBody, postList, slider },
   mixins: [Meta],
-  mounted() {
-    console.warn(this);
-  },
   data() {
     return {
       isShowPopoverMoreControl: false,

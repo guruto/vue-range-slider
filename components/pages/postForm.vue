@@ -1,6 +1,5 @@
 <template>
 	<div class="p-form">
-
 		<div class="p-form__operation u-cf" style="padding: 0 5%;">
 			<div class="p-form__operation__back">
 				<a href="/dashboard/post/manage" :class="{'c-btn': true, 'c-btn--default': true}">戻る</a>
@@ -12,7 +11,7 @@
 				<button @click="handlePublishSetting" :class="{'c-btn': true, 'c-btn--main': true, 'is-loading': isLoading}" type="button" :disabled="!canPublishSetting">公開設定</button>
 			</div>
 		</div>
-
+		
 		<div v-if="isEdit" class="p-post__head-info">
 			<div class="p-post__head-info__content">
 				<span class="p-post__label__type">
@@ -29,8 +28,8 @@
 				<span :class="{'p-post__label__publish': true, 'is-published': post.isPublished}">{{post.isPublished ? '公開中' : '下書き'}}</span>
 			</div>
 		</div>
-
 		<div v-if="post.type == 'TEXT'" class="p-form__text">
+			
 			<div class="p-form__thumbnail">
 				<div v-if="post.thumbnailImagePath" class="p-form__thumbnail__content">
 					<span @click="handleDeleteThumbnailImage" class="p-form__thumbnail__content__delete-btn"><i class="far fa-times-circle"></i></span>
@@ -40,7 +39,6 @@
 				<div v-else style="padding: 0 5%;">
 					<div  @click="handleSelectTextThumbnailImage" class="p-form__thumbnail__select">
 						<img src="/img/form_icon_thumbnail@2x.png" alt="サムネイル画像を選択">
-						<!--					<span class="p-form__thumbnail__select__description">サムネイル画像</span>-->
 						<input ref="fileinput" type="file" id="form-select-text-thumbnail-image"
 							accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
 							@change="handleInputTextThumbnailImageFile"/>
@@ -142,30 +140,30 @@
 		</form>
 
 		<form v-else-if="post.type == 'VIDEO'">
-			<div style="padding: 0 5%;">
-				<div v-show="post.itemVideo.path === '' && post.itemVideo.videoUrl === '' && !isVideoUrlInputing"
-						@click="handleSelectVideo()" @dragleave.prevent @dragover.prevent @drop.prevent="handleDropVideo" class="p-form__sound-upload">
-					<div class="p-form__sound-upload__description">
-						<img src="/img/form_icon_upload_video@2x.png" alt="動画ファイルを追加">
-						<span>動画ファイルを追加</span>
-						<spinner :isActive="isVideoUploading"></spinner>
-					</div>
-					<input @change="handleInputVideoFile" ref="selectVideo" type="file" accept="video/*"/>
+			<div v-show="post.itemVideo.path === '' && post.itemVideo.videoUrl === '' && !isVideoUrlInputing"
+					@click="handleSelectVideo()" @dragleave.prevent @dragover.prevent @drop.prevent="handleDropVideo" class="p-form__sound-upload">
+				<div class="p-form__sound-upload__description">
+					<img src="/img/form_icon_upload_video@2x.png" alt="動画ファイルを追加">
+					<span>動画ファイルを追加</span>
+					<spinner :isActive="isVideoUploading"></spinner>
 				</div>
+				<input @change="handleInputVideoFile" ref="selectVideo" type="file" accept="video/*"/>
+			</div>
+			<div style="padding: 0 5%;">
 				<div v-if="post.itemVideo.path === ''" class="p-form__group">
 					<div class="p-form__item">
 						<input type="url" v-validate="'url'" name="videoUrl" v-model="post.itemVideo.videoUrl"
-									 @focusout="handleFocusOutGetInfoVideoUrl" @paste="handlePasteGetInfoVideoUrl"
-									 @focus="handleFocusVideoUrlInput"
-									 placeholder="URLを入力 https://" :disabled="isVideoUploading"/>
+						       @focusout="handleFocusOutGetInfoVideoUrl" @paste="handlePasteGetInfoVideoUrl"
+						       @focus="handleFocusVideoUrlInput"
+						       placeholder="URLを入力 https://" :disabled="isVideoUploading"/>
 						<span @click="handleVideoClear" class="p-form__item__clear-btn"><i class="far fa-times-circle"></i></span>
 					</div>
 					<span class="p-form__item-error" v-show="errors.has('videoUrl')">{{ errors.first('videoUrl') }}</span>
 					<div class="p-form__info">
-						<span class="p-form__info__label">YoutubeとVimeoのリンクのみ</span>
+						<span class="p-form__info__label">YoutubeとVimeoのリンクのみ。</span>
+						<span class="p-form__info__label">動画ファイルかリンクを選択してください。</span>
 					</div>
 				</div>
-
 				<div class="p-form__ogp u-mt-16" v-if="!isVideoUrlInputing && (post.itemVideo.videoUrl !== '' || post.itemVideo.path !== '')">
 					<div v-if="post.itemVideo.path !== ''" class="p-video">
 						<span @click="handleVideoClear"><i class="far fa-times-circle p-video__clear-btn"></i></span>
@@ -389,23 +387,19 @@
 				if (this.isLoading) {
 					return 0
 				}
-				const validated = this.$validator.validateAll()
-				if (!validated) {
-					return 0
-				}
 
 				if (this.post.type == 'LINK') {
 					return (this.post.itemLink.linkTitle.length > 0)
 
 				} else if (this.post.type == 'IMAGE') {
 					const labels = Object.keys(this.$store.state.post.uploadedPostImages)
-					return (labels.length > 0)
+					return (this.post.title !== '' && labels.length > 0)
 
 				} else if (this.post.type == 'VIDEO') {
 					return (this.post.title !== '' && (this.post.itemVideo.videoUrl !== '' || this.post.itemVideo.fileUrl !== ''))
 
 				} else if (this.post.type == 'SOUND') {
-					return (this.post.title !== '')
+					return (this.post.title !== '' && this.post.itemSound.url !== '')
 
 				} else if (this.post.type == 'ANSWER') {
 					return (this.post.comment.length > 0)

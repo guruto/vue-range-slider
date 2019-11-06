@@ -7,13 +7,16 @@
 					<form @submit.prevent="update">
 
 						<div class="p-form__group">
-							<label class="p-form__item__toggle-label p-form__item__toggle--no-margin">ヘッダー画像を使用する</label>
-							<ToggleButton class="p-form__item__toggle"
-							              :value="showHedaderUpload" @change="showHedaderUpload = !showHedaderUpload"
-							              :width="34" :height="14"
-							              :color="{checked: '#C3D9E6', unchecked: '#CCCCCC'}"
-							              :switch-color="{checked: '#179ee6', unchecked: '#FFFFFF'}"
-							/>
+							<div class="u-cf">
+								<label class="p-form__item__toggle-label p-form__item__toggle--no-margin">ヘッダー画像を使用する</label>
+								<ToggleButton class="p-form__item__toggle"
+								              :value="showHedaderUpload" @change="showHedaderUpload = !showHedaderUpload"
+								              :width="34" :height="14"
+								              :color="{checked: '#C3D9E6', unchecked: '#CCCCCC'}"
+								              :switch-color="{checked: '#179ee6', unchecked: '#FFFFFF'}"
+								/>
+							</div>
+							<p style="margin: 4px 0 8px;">ヘッダー画像は4枚まで設定可能です。</p>
 							<div v-for="(headerImage, index) in headerMediaList" v-bind:key="index"
 							     v-show="showHedaderUpload && 0 < headerMediaList.length" class="p-form__thumbnail__content">
 								<span @click="handleDeleteHeaderImage(index)" class="p-form__thumbnail__content__delete-btn"><i class="far fa-times-circle"></i></span>

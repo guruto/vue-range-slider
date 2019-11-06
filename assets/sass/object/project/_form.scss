@@ -403,7 +403,7 @@
 		font-size: 13px;
 
 		&__label {
-			float: left;
+			display: block;
 			color: $color_dark_gray;
 		}
 		&__content {
@@ -485,6 +485,10 @@
 		background-color: $color_main_light;
 		padding: 70px 0;
 		cursor: pointer;
+		@media #{$screen_pc} {
+			margin: 8px 5% 25px;
+		}
+
 		&:hover {
 			opacity: 0.7;
 		}
@@ -505,6 +509,9 @@
 				background-color: $color_main_light;
 				margin-bottom: 10px;
 				position: relative;
+				@media #{$screen_pc} {
+					margin: 0 5% 10px;
+				}
 				&__delete-btn {
 					position: absolute;
 					right: 14px;
@@ -533,6 +540,9 @@
 		background-color: $color_main_light;
 		padding: 70px 0;
 		cursor: pointer;
+		@media #{$screen_pc} {
+			margin: 8px 5% 25px;
+		}
 		&:hover {
 			opacity: 0.7;
 		}
@@ -668,6 +678,10 @@
 		background-color: $color_main_light;
 		padding: 70px 0;
 		cursor: pointer;
+		@media #{$screen_pc} {
+			margin: 8px 5% 25px;
+		}
+
 		&:hover {
 			opacity: 0.7;
 		}

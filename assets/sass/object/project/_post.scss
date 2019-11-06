@@ -60,6 +60,25 @@
 			font-size: 12px;
 			display: inline-block;
 			margin-right: 6px;
+			&:before {
+				content: ' ';
+				display: inline-block;
+				vertical-align: -5px;
+				width: 18px;
+				height: 18px;
+				margin-right: 5px;
+				background-size: contain;
+			}
+			&.is-public {
+				&:before {
+					background-image: url("/img/post/label/scope_public.png");
+				}
+			}
+			&.is-member {
+				&:before {
+					background-image: url("/img/post/label/scope_member.png");
+				}
+			}
 		}
 	}
 
