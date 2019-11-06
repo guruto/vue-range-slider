@@ -95,7 +95,7 @@ export const actions = {
       commit("SET_PAGE_ERROR")
     }
   },
-
+  
   async getMyself({ rootState, commit }) {
     const result = await Api.getPageMyself(rootState.user.authorizationToken)
 

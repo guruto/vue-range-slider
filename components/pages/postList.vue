@@ -117,19 +117,32 @@
                 </div>
                 <span class="p-post__label__type">
                   <i v-if="item.type == 'TEXT'" class="material-icons">edit</i>
-                  <i v-else-if="item.type == 'IMAGE'" class="material-icons">camera_alt</i>
-                  <i v-else-if="item.type == 'LINK'" class="material-icons">link</i>
-                  <i v-else-if="item.type == 'VIDEO'" class="material-icons">videocam_off</i>
-                  <i v-else-if="item.type == 'SOUND'" class="material-icons">headset</i>
-                  <i v-else-if="item.type == 'ANSWER'" class="material-icons">forum</i>
-                  <i v-else-if="item.type == 'FILE'" class="material-icons">folder</i>
+                  <i v-else-if="item.type == 'IMAGE'" class="material-icons"
+                    >camera_alt</i
+                  >
+                  <i v-else-if="item.type == 'LINK'" class="material-icons"
+                    >link</i
+                  >
+                  <i v-else-if="item.type == 'VIDEO'" class="material-icons"
+                    >videocam_off</i
+                  >
+                  <i v-else-if="item.type == 'SOUND'" class="material-icons"
+                    >headset</i
+                  >
+                  <i v-else-if="item.type == 'ANSWER'" class="material-icons"
+                    >forum</i
+                  >
+                  <i v-else-if="item.type == 'FILE'" class="material-icons"
+                    >folder</i
+                  >
                   <span>{{ item.type_text }}</span>
                 </span>
               </div>
               <span
                 v-if="item.title && item.type != 'LINK'"
                 class="p-post-list__item__content__info__title"
-              >{{ item.title }}</span>
+                >{{ item.title }}</span
+              >
               <div
                 v-if="item.comment"
                 class="p-post-list__item__content__info__comment"

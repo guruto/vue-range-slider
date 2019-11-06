@@ -87,7 +87,7 @@
               <img
                 v-if="item.thumbnail_image_url"
                 :src="item.thumbnail_image_url"
-              >
+              />
             </div>
 
             <div class="p-request__post__item__content">

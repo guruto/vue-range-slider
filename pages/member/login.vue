@@ -34,9 +34,7 @@
       <h1 class="c-title u-ta-c">
         メンバーログイン
       </h1>
-      <p style="text-align: center;">
-「{{ page.name }}」にログイン。
-</p>
+      <p style="text-align: center;">「{{ page.name }}」にログイン。</p>
 
       <div class="p-login">
         <div class="p-login__service">
@@ -97,7 +95,12 @@
                 <span
                   v-show="errors.has('password')"
                   class="p-form__item-error"
+<<<<<<< HEAD
+                  >{{ errors.first("password") }}</span
+                >
+=======
                 >{{ errors.first("password") }}</span>
+>>>>>>> master
               </div>
 
               <div class="p-form__password-forgot">

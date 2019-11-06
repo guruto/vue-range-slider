@@ -289,7 +289,7 @@
               <img
                 src="/img/share_btn_twitter@2x.png"
                 alt="Twitterでシェアする"
-              >
+              />
               <span>ツイート</span>
             </a>
           </div>
@@ -392,7 +392,7 @@
                 <img
                   src="/img/share_btn_more@2x.png"
                   class="is-post-comment-control"
-                >
+                />
               </div>
 
               <div class="p-post__comment__list__item__body">

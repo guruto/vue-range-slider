@@ -42,7 +42,7 @@ export const actions = {
       commit("SET_PROFILE_ERROR")
     }
   },
-
+  
   async getMyself({ rootState, commit }) {
     const result = await Api.getProfileMyself(rootState.user.authorizationToken)
 
@@ -53,7 +53,7 @@ export const actions = {
       commit("SET_PROFILE_ERROR")
     }
   },
-
+  
   async edit({ rootState, dispatch }, { name, description, iconImagePath }) {
     // API連携
     const params = {
