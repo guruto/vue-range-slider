@@ -1,12 +1,12 @@
 <template>
   <div class="p-post-add">
-    <post-form :isEdit="false" :post="post"></post-form>
+    <post-form :is-edit="false" :post="post" />
   </div>
 </template>
 
 <script>
-import Meta from "~/assets/mixins/meta";
-import PostForm from "~/components/pages/postForm";
+import Meta from "~/assets/mixins/meta"
+import PostForm from "~/components/pages/postForm"
 
 export default {
   layout: "dashboard",
@@ -18,20 +18,20 @@ export default {
         title: "新規投稿",
         description: "PAGEFUL（ペイジフル）の新規投稿ページ"
       }
-    };
+    }
   },
   async asyncData(context) {
-    context.store.dispatch("post/resetUploadedPostImages");
+    context.store.dispatch("post/resetUploadedPostImages")
 
     // twitterシェア可能か連携状態を取得
-    await context.store.dispatch("userService/getInfo");
+    await context.store.dispatch("userService/getInfo")
     const canShareTwitter = Boolean(
       context.store.state.userService.info.TWITTER.linked == "1"
-    );
+    )
 
-    let requestData = {};
+    let requestData = {}
 
-    const type = context.route.query.type ? context.route.query.type : "TEXT";
+    const type = context.route.query.type ? context.route.query.type : "TEXT"
     if (type === "ANSWER") {
       // type == ANSWERの場合、request_labelからrequestデータを取得する
       if (!context.route.query.hasOwnProperty("request_label")) {
@@ -39,27 +39,27 @@ export default {
         context.error({
           statusCode: 404,
           message: "そのページは存在しません。"
-        });
-        return;
+        })
+        return
       }
 
       // requestデータの取得
       await context.store.dispatch("request/get", {
         label: context.route.query.request_label
-      });
+      })
       if (context.store.state.request.is_error) {
         // 404
         context.error({
           statusCode: 500,
           message: "正しい処理ではありません。"
-        });
-        return;
+        })
+        return
       }
       requestData = {
         label: context.store.state.request.label,
         body: context.store.state.request.body,
         createdAt: context.store.state.request.createdAt
-      };
+      }
     }
 
     return {
@@ -125,7 +125,7 @@ export default {
 
         canShareTwitter: canShareTwitter
       }
-    };
+    }
   },
   // created() {
   // todo:: 一度設定すると、別画面に遷移しても発動するので、plugin化する
@@ -144,7 +144,7 @@ export default {
   // }
   // },
   methods: {}
-};
+}
 </script>
 
 <style lang="scss">

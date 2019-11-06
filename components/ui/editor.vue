@@ -1,5 +1,5 @@
 <template>
-  <div :id="holderId" class="p-editor"></div>
+  <div :id="holderId" class="p-editor" />
 </template>
 
 <script>
@@ -27,10 +27,10 @@
 // 	required: false
 // }
 
-import Api from "~/plugins/api";
+import Api from "~/plugins/api"
 
 export default {
-  name: "editor",
+  name: "Editor",
   props: {
     holderId: {
       type: String,
@@ -84,54 +84,54 @@ export default {
   data() {
     return {
       editor: null
-    };
-  },
-  mounted() {
-    this.initEditor();
+    }
   },
   watch: {
     initData: function() {
-      this.initEditor();
+      this.initEditor()
     }
+  },
+  mounted() {
+    this.initEditor()
   },
   methods: {
     initEditor() {
       if (this.editor) {
-        this.editor.destroy();
+        this.editor.destroy()
       }
 
-      const EditorJS = require("@editorjs/editorjs");
+      const EditorJS = require("@editorjs/editorjs")
 
       // tools config設定
-      let toolsWithConfig = this.getTools();
+      let toolsWithConfig = this.getTools()
       toolsWithConfig.image.config = {
         buttonContent: "ファイルを選択",
         captionPlaceholder: "キャプションを入力",
         uploader: {
           async uploadByFile(file) {
-            const data = new FormData();
-            data.append("file_data", file);
+            const data = new FormData()
+            data.append("file_data", file)
             const result = await Api.uploadImageForText(
               data,
               this.authorizationToken
-            );
+            )
             if (!result.is_error) {
               return {
                 success: 1,
                 file: {
                   url: result.data.url
                 }
-              };
+              }
             } else {
               return {
                 success: 0
-              };
+              }
             }
           }
         }
-      };
+      }
 
-      toolsWithConfig.image.toolbox = { title: "画像" };
+      toolsWithConfig.image.toolbox = { title: "画像" }
 
       // link の設定がそもそもdefault標準なので必要がない
       // toolsWithConfig.link.inlineToolbar = true;
@@ -143,10 +143,10 @@ export default {
       toolsWithConfig.quote.config = {
         quotePlaceholder: "引用内容を入力",
         captionPlaceholder: "引用元を入力"
-      };
-      toolsWithConfig.quote.toolbox = { title: "引用" };
+      }
+      toolsWithConfig.quote.toolbox = { title: "引用" }
 
-      toolsWithConfig.paragraph.inlineToolbar = true;
+      toolsWithConfig.paragraph.inlineToolbar = true
 
       // @desc: attaches
       toolsWithConfig.attaches.config = {
@@ -154,24 +154,24 @@ export default {
         field: "file_data",
         buttonText: "ファイルを選択",
         errorMessage: "ファイルのアップロードに失敗しました"
-      };
-      toolsWithConfig.attaches.toolbox = { title: "ファイル" };
-      toolsWithConfig.header.toolbox = { title: "ヘッダー" };
-      toolsWithConfig.delimiter.toolbox = { title: "区切り" };
+      }
+      toolsWithConfig.attaches.toolbox = { title: "ファイル" }
+      toolsWithConfig.header.toolbox = { title: "ヘッダー" }
+      toolsWithConfig.delimiter.toolbox = { title: "区切り" }
 
       this.editor = new EditorJS({
         holder: this.holderId,
         autofocus: this.autofocus,
         onReady: () => {
-          this.$emit("ready");
+          this.$emit("ready")
         },
         onChange: this.onChange,
         data: this.initData,
         tools: toolsWithConfig,
         placeholder: "本文を入力"
-      });
+      })
 
-      document.getElementById(this.saveButtonId).onclick = this.save;
+      document.getElementById(this.saveButtonId).onclick = this.save
     },
     getTools() {
       const PLUGINS = {
@@ -192,49 +192,48 @@ export default {
         // table: require('@editorjs/table'),
         // warning: require('@editorjs/warning'),
         // checklist: require('@editorjs/checklist')
-      };
+      }
 
-      const pluginKeys = Object.keys(PLUGINS);
-      const isFullyFeatured = pluginKeys.every(p => !this[p]);
+      const pluginKeys = Object.keys(PLUGINS)
+      const isFullyFeatured = pluginKeys.every(p => !this[p])
       const tools = {
         ...this.customTools
-      };
+      }
 
       /**
        * When plugin props are empty, enable all plugins
        */
       if (isFullyFeatured) {
-        pluginKeys.forEach(key => (tools[key] = { class: PLUGINS[key] }));
-        return tools;
+        pluginKeys.forEach(key => (tools[key] = { class: PLUGINS[key] }))
+        return tools
       }
 
       pluginKeys.forEach(key => {
-        const props = this.$props[key];
+        const props = this.$props[key]
         if (!props) {
-          return;
+          return
         }
 
-        tools[key] = { class: PLUGINS[key] };
+        tools[key] = { class: PLUGINS[key] }
 
         if (typeof props === "object") {
-          const options = Object.assign({}, this.$props[key]);
-          delete options["class"]; // Prevent merge wrong `class`
-          tools[key] = Object.assign(tools[key], options);
+          const options = Object.assign({}, this.$props[key])
+          delete options["class"] // Prevent merge wrong `class`
+          tools[key] = Object.assign(tools[key], options)
         }
-      });
-      return tools;
+      })
+      return tools
     },
     async save() {
-      const response = await this.editor.save();
-      this.$emit("save", response);
+      const response = await this.editor.save()
+      this.$emit("save", response)
     },
     async onChange() {
-      const response = await this.editor.save();
-      this.$emit("change", response);
+      const response = await this.editor.save()
+      this.$emit("change", response)
     }
   }
-};
+}
 </script>
 
-<style>
-</style>
+<style></style>
