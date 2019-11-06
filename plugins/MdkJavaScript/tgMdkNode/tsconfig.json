@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": [
+      "mocha",
+      "node"
+    ],
+    "lib": [
+      "es2018"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
