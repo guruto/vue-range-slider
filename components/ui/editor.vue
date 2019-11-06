@@ -130,13 +130,14 @@ export default {
           }
         }
       };
-      // link の設定がそもそもdefault標準なので必要がない
+
       toolsWithConfig.image.toolbox = { title: "画像" };
 
-      toolsWithConfig.link.inlineToolbar = true;
-      toolsWithConfig.link.config = {
-        endpoint: process.env.API_BASE_URL + "/post_texts/get_link_info"
-      };
+      // link の設定がそもそもdefault標準なので必要がない
+      // toolsWithConfig.link.inlineToolbar = true;
+      // toolsWithConfig.link.config = {
+      //   endpoint: process.env.API_BASE_URL + "/post_texts/get_link_info"
+      // };
 
       // @desc: quote
       toolsWithConfig.quote.config = {
