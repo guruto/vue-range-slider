@@ -6,7 +6,7 @@
         class="l-user-footer__content__item"
       >
         <a :href="this.$store.state.page.twitterUrl" target="_blank">
-          <img src="/img/icon_footer_twitter@2x.png" alt="twitter">
+          <img src="/img/icon_footer_twitter@2x.png" alt="twitter" />
         </a>
       </div>
       <div
@@ -14,7 +14,7 @@
         class="l-user-footer__content__item"
       >
         <a :href="this.$store.state.page.instagramUrl" target="_blank">
-          <img src="/img/icon_footer_instagram@2x.png" alt="twitter">
+          <img src="/img/icon_footer_instagram@2x.png" alt="twitter" />
         </a>
       </div>
       <div
@@ -22,7 +22,7 @@
         class="l-user-footer__content__item"
       >
         <a :href="this.$store.state.page.lineUrl" target="_blank">
-          <img src="/img/icon_footer_line@2x.png" alt="twitter">
+          <img src="/img/icon_footer_line@2x.png" alt="twitter" />
         </a>
       </div>
       <div
@@ -30,19 +30,19 @@
         class="l-user-footer__content__item"
       >
         <a :href="this.$store.state.page.facebookUrl" target="_blank">
-          <img src="/img/icon_footer_facebook@2x.png" alt="twitter">
+          <img src="/img/icon_footer_facebook@2x.png" alt="twitter" />
         </a>
       </div>
       <div class="l-user-footer__content__item">
         <a href="/">
-          <img src="/img/icon_footer_home@2x.png" alt="home">
+          <img src="/img/icon_footer_home@2x.png" alt="home" />
         </a>
       </div>
     </div>
     <div class="l-user-footer__powered">
       <a :href="$getUrl('/')">
         <span>powered by</span>
-        <img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]">
+        <img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]" />
       </a>
     </div>
   </div>

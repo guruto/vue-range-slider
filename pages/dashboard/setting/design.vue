@@ -49,7 +49,7 @@
                 v-show="showHedaderUpload"
                 class="p-form__upload-file-label p-form__upload-file-label--header"
               >
-                <img src="/img/icon_design_image@2x.png" alt="">
+                <img src="/img/icon_design_image@2x.png" alt="" />
                 <span>ヘッダー画像をアップロード</span>
                 <div class="p-form__label__spinner">
                   <spinner :is-active="loading.isHedaderUploading" />
@@ -83,7 +83,7 @@
                 v-show="showLogoUpload && !logoImageData.thumbnailImagePath"
                 class="p-form__upload-file-label p-form__upload-file-label--logo"
               >
-                <img src="/img/icon_design_image@2x.png" alt="">
+                <img src="/img/icon_design_image@2x.png" alt="" />
                 <span>ロゴ画像をアップロード</span>
                 <div class="p-form__label__spinner">
                   <spinner :is-active="loading.isLogoUploading" />

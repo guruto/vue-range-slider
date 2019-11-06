@@ -252,7 +252,7 @@
         <div class="l-navigation__sidenav__introduction">
           <a :href="$getUrl('/')" target="_blank">
             <span>powered by</span>
-            <img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]">
+            <img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]" />
           </a>
         </div>
       </div>

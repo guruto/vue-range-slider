@@ -172,7 +172,7 @@
               v-if="post.itemLink.linkThumbnailImageUrl"
               class="p-ogp__thumbnail"
             >
-              <img :src="post.itemLink.linkThumbnailImageUrl">
+              <img :src="post.itemLink.linkThumbnailImageUrl" />
             </div>
             <div class="p-ogp__info">
               <span class="p-ogp__info__title">{{
@@ -221,7 +221,7 @@
             ><i class="fas fa-times"
           /></span>
           <div class="p-form__image-upload__content__item__thumbnail">
-            <img :src="uploadedPostImage.url">
+            <img :src="uploadedPostImage.url" />
           </div>
         </div>
       </div>
@@ -234,8 +234,8 @@
         @drop.prevent="handleDropImages"
       >
         <div class="p-form__image-upload__description">
-          <img src="/img/form_icon_upload_image@2x.png" alt="画像を追加">
-          <span>画像を追加<br>複数枚の選択が可能</span>
+          <img src="/img/form_icon_upload_image@2x.png" alt="画像を追加" />
+          <span>画像を追加<br />複数枚の選択が可能</span>
         </div>
         <input
           id="form-select-image"
@@ -527,11 +527,11 @@
         @drop.prevent="handleDropFile"
       >
         <div class="p-form__file-upload__description">
-          <img src="/img/form_icon_upload_file@2x.png" alt="ファイルを追加">
+          <img src="/img/form_icon_upload_file@2x.png" alt="ファイルを追加" />
           <span>ファイルを追加</span>
           <spinner :is-active="isFileUploading" />
         </div>
-        <input ref="selectFile" type="file" @change="handleInputFile" />
+        <input ref="selectFile" type="file" @change="handleInputFile" >
       </div>
       <div style="padding: 0 5%;">
         <div v-show="post.itemFile.url" class="p-form__group">
@@ -561,11 +561,11 @@
         @drop.prevent="handleDropFile"
       >
         <div class="p-form__file-upload__description">
-          <img src="/img/form_icon_upload_file@2x.png" alt="ファイルを追加">
+          <img src="/img/form_icon_upload_file@2x.png" alt="ファイルを追加" />
           <span>ファイルを追加</span>
           <spinner :is-active="isFileUploading" />
         </div>
-        <input ref="selectRetryFile" type="file" @change="handleInputFile">
+        <input ref="selectRetryFile" type="file" @change="handleInputFile" />
       </div>
 
       <div style="padding: 0 5%;">
@@ -585,7 +585,8 @@
                 class="p-form__thumbnail-list__item__delete-btn"
                 @click="handleDeleteListThumbImage"
               >
-                <i :data-num="i" class="far fa-times-circle" /></span>
+                <i :data-num="i" class="far fa-times-circle"
+              /></span>
               <img
                 v-show="thumbImageItem.url"
                 class="p-form__thumbnail-list__item__img"

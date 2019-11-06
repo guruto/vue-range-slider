@@ -19,7 +19,7 @@
           PAGEFUL（ペイジフル）では、テキスト・ブログ、写真、動画、音声、ファイルなど様々な形式のコンテンツを配信・販売できます。
         </p>
         <div class="p-top__concept__image">
-          <img src="/img/top_page/concept@2x.png">
+          <img src="/img/top_page/concept@2x.png" />
         </div>
         <div class="p-top__concept__action">
           <nuxt-link to="/user/sign_up" class="c-btn c-btn--main">
@@ -72,7 +72,7 @@
 
         <div class="p-top__feature__item">
           <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_content@2x.png">
+            <img src="/img/top_page/feature_content@2x.png" />
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
@@ -85,7 +85,7 @@
         </div>
         <div class="p-top__feature__item">
           <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_profile@2x.png">
+            <img src="/img/top_page/feature_profile@2x.png" />
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
@@ -98,7 +98,7 @@
         </div>
         <div class="p-top__feature__item">
           <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_member@2x.png">
+            <img src="/img/top_page/feature_member@2x.png" />
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
@@ -111,24 +111,24 @@
         </div>
         <div class="p-top__feature__item">
           <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_sell@2x.png">
+            <img src="/img/top_page/feature_sell@2x.png" />
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
-              コンテンツ販売<br >※comming soon
+              コンテンツ販売<br>※comming soon
             </p>
             <p class="p-top__feature__item__content__description">
-              配信したコンテンツを簡単に販売することができます。<br >初期費用・月額費用無し、かつ低い手数料で販売・管理が可能です。
+              配信したコンテンツを簡単に販売することができます。<br>初期費用・月額費用無し、かつ低い手数料で販売・管理が可能です。
             </p>
           </div>
         </div>
         <div class="p-top__feature__item">
           <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_subscription@2x.png">
+            <img src="/img/top_page/feature_subscription@2x.png" />
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
-              月額会員機能<br >※comming soon
+              月額会員機能<br>※comming soon
             </p>
             <p class="p-top__feature__item__content__description">
               自分のサイトに月額会員を集めることが出来ます。月額会員限定にコンテンツを作成・配信できます。
@@ -137,7 +137,7 @@
         </div>
         <div class="p-top__feature__item">
           <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_design@2x.png">
+            <img src="/img/top_page/feature_design@2x.png" />
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">

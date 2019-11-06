@@ -48,22 +48,22 @@
         <div class="p-about__link__sns">
           <div v-if="page.twitterId" class="p-about__link__sns__item">
             <a :href="page.twitterUrl" target="_blank">
-              <img src="/img/icon_about_twitter@2x.png" alt="twitter">
+              <img src="/img/icon_about_twitter@2x.png" alt="twitter" />
             </a>
           </div>
           <div v-if="page.instagramId" class="p-about__link__sns__item">
             <a :href="page.instagramUrl" target="_blank">
-              <img src="/img/icon_about_instagram@2x.png" alt="instagram">
+              <img src="/img/icon_about_instagram@2x.png" alt="instagram" />
             </a>
           </div>
           <div v-if="page.lineId" class="p-about__link__sns__item">
             <a :href="page.lineUrl" target="_blank">
-              <img src="/img/icon_about_line@2x.png" alt="line">
+              <img src="/img/icon_about_line@2x.png" alt="line" />
             </a>
           </div>
           <div v-if="page.facebookId" class="p-about__link__sns__item">
             <a :href="page.facebookUrl" target="_blank">
-              <img src="/img/icon_about_facebook@2x.png" alt="facebook">
+              <img src="/img/icon_about_facebook@2x.png" alt="facebook" />
             </a>
           </div>
         </div>

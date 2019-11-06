@@ -13,12 +13,12 @@
           <a :href="$getUrl()" class="c-btn c-btn--main">ホームに戻る</a>
         </div>
         <div v-else class="p-error__content">
-          <img src="/img/icon_error@2x.png" alt="ページが表示できません">
+          <img src="/img/icon_error@2x.png" alt="ページが表示できません" />
           <h1 class="p-error__content__title">
             ページが表示できません。
           </h1>
           <p style="margin-top: 20px;">
-            サーバー内部の問題が発生しています。<br >しばらくしてからもう一度お試しください。
+            サーバー内部の問題が発生しています。<br>しばらくしてからもう一度お試しください。
           </p>
           <a :href="$getUrl()" class="c-btn c-btn--main">ホームに戻る</a>
         </div>

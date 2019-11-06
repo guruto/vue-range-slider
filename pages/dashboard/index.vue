@@ -11,7 +11,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #179EE6;"
           >
-            <img src="/img/dashboard_navigation/post.png" alt="投稿">
+            <img src="/img/dashboard_navigation/post.png" alt="投稿" />
           </div>
           <span class="p-dashboard__navigation__item__name">投稿</span>
         </nuxt-link>
@@ -22,7 +22,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #23DDC0;"
           >
-            <img src="/img/dashboard_navigation/answer.png" alt="質問">
+            <img src="/img/dashboard_navigation/answer.png" alt="質問" />
           </div>
           <span class="p-dashboard__navigation__item__name">質問</span>
         </nuxt-link>
@@ -33,7 +33,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #FF7BBD;"
           >
-            <img src="/img/dashboard_navigation/page.png" alt="サイト">
+            <img src="/img/dashboard_navigation/page.png" alt="サイト" />
           </div>
           <span class="p-dashboard__navigation__item__name">サイト</span>
         </nuxt-link>
@@ -58,7 +58,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #20F058;"
           >
-            <img src="/img/dashboard_navigation/design.png" alt="デザイン">
+            <img src="/img/dashboard_navigation/design.png" alt="デザイン" />
           </div>
           <span class="p-dashboard__navigation__item__name">デザイン</span>
         </nuxt-link>
@@ -69,7 +69,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #FF7F60;"
           >
-            <img src="/img/dashboard_navigation/member.png" alt="メンバー">
+            <img src="/img/dashboard_navigation/member.png" alt="メンバー" />
           </div>
           <span class="p-dashboard__navigation__item__name">メンバー</span>
         </nuxt-link>
@@ -94,7 +94,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #8B8BFF;"
           >
-            <img src="/img/dashboard_navigation/setting.png" alt="各種設定">
+            <img src="/img/dashboard_navigation/setting.png" alt="各種設定" />
           </div>
           <span class="p-dashboard__navigation__item__name">各種設定</span>
         </nuxt-link>
@@ -210,7 +210,7 @@
     <section class="c-section">
       <div class="p-dashboard__group">
         <div class="p-dashboard__group__head">
-          <img src="/img/icon_notification_important@2x.png">
+          <img src="/img/icon_notification_important@2x.png" />
           <h2>お知らせ</h2>
         </div>
         <div class="p-dashboard__group__item">

@@ -28,7 +28,7 @@
               v-else-if="item.type == 'ANSWER' && item.thumbnail_image_url"
               class="p-post-list__item__content__thumbnail is-answer"
             >
-              <img :src="item.thumbnail_image_url" alt="">
+              <img :src="item.thumbnail_image_url" alt="" />
             </div>
             <div
               v-else-if="item.type == 'FILE' && item.thumbnail_image_url"

@@ -20,7 +20,7 @@
           class="c-slide__main-visual"
           :class="{ 'is-active': isActiveSlide === index }"
         >
-          <img class="is-user-page__header-image" :src="headerImage.url">
+          <img class="is-user-page__header-image" :src="headerImage.url" />
         </li>
       </ul>
       <nuxt />

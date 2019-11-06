@@ -13,7 +13,8 @@
             target="_blank"
             ><img
               src="/img/icon_service_twitter@2x.png"
-          >質問募集ツイートをする</a>
+            />質問募集ツイートをする</a
+          >
           <button
             v-clipboard:copy="$getUrl('/request', this.$store.state.page.label)"
             v-clipboard:success="clipboardSuccess"
