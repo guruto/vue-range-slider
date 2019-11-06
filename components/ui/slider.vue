@@ -30,7 +30,7 @@
           class="main-slider__thumbnail-list__item__img"
           style="display: inline-block"
           :src="item.url"
-        />
+        >
       </div>
     </div>
   </div>

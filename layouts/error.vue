@@ -6,7 +6,7 @@
           <img
             src="/img/icon_error@2x.png"
             alt="指定のページが見つかりません"
-          />
+          >
           <h1 class="p-error__content__title">
             指定のページが見つかりません。
           </h1>
@@ -18,7 +18,7 @@
             ページが表示できません。
           </h1>
           <p style="margin-top: 20px;">
-            サーバー内部の問題が発生しています。<br>しばらくしてからもう一度お試しください。
+            サーバー内部の問題が発生しています。<br />しばらくしてからもう一度お試しください。
           </p>
           <a :href="$getUrl()" class="c-btn c-btn--main">ホームに戻る</a>
         </div>

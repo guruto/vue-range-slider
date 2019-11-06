@@ -28,7 +28,7 @@ export const actions = {
   },
 
   async edit(
-    { rootState, commit, dispatch },
+    { rootState, dispatch },
     { emailNotice, emailRequestCreate, emailPostCommentCreate }
   ) {
     // API連携

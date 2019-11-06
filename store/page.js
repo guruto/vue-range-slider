@@ -95,8 +95,8 @@ export const actions = {
       commit("SET_PAGE_ERROR")
     }
   },
-
-  async getMyself({ rootState, commit }, {}) {
+  
+  async getMyself({ rootState, commit }) {
     const result = await Api.getPageMyself(rootState.user.authorizationToken)
 
     if (!result.is_error) {
@@ -151,7 +151,7 @@ export const actions = {
   },
 
   async edit(
-    { rootState, commit, dispatch },
+    { rootState, dispatch },
     { label, name, description, twitterId, instagramId, lineId, facebookId }
   ) {
     const params = {

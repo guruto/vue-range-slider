@@ -47,7 +47,7 @@
             <img
               src="/img/dashboard_navigation/profile.png"
               alt="プロフィール"
-            />
+            >
           </div>
           <span class="p-dashboard__navigation__item__name">プロフ</span>
         </nuxt-link>
@@ -83,7 +83,7 @@
             <img
               src="/img/dashboard_navigation/member_page.png"
               alt="登録サイト"
-            />
+            >
           </div>
           <span class="p-dashboard__navigation__item__name">登録サイト</span>
         </nuxt-link>
@@ -125,7 +125,7 @@
           <img
             src="/img/dashboard_attention/post.png"
             alt="初めての投稿を作成"
-          />
+          >
         </div>
         <div class="p-dashboard__attention__item__content">
           <p class="p-dashboard__attention__item__content__title">
@@ -147,7 +147,7 @@
           <img
             src="/img/dashboard_attention/request.png"
             alt="SNSで質問を募集"
-          />
+          >
         </div>
         <div class="p-dashboard__attention__item__content">
           <p class="p-dashboard__attention__item__content__title">
@@ -170,7 +170,7 @@
           <img
             src="/img/dashboard_attention/design.png"
             alt="サイトページのデザイン"
-          />
+          >
         </div>
         <div class="p-dashboard__attention__item__content">
           <p class="p-dashboard__attention__item__content__title">
@@ -193,7 +193,7 @@
           <img
             src="/img/dashboard_attention/mail.png"
             alt="メールアドレスの認証"
-          />
+          >
         </div>
         <div class="p-dashboard__attention__item__content">
           <p class="p-dashboard__attention__item__content__title">
@@ -304,29 +304,16 @@
                       }}</span>
                     </div>
                     <div class="p-post__label__type">
-                      <i v-if="post.type == 'TEXT'" class="material-icons"
-                        >edit</i
-                      >
-                      <i v-else-if="post.type == 'IMAGE'" class="material-icons"
-                        >camera_alt</i
-                      >
-                      <i v-else-if="post.type == 'LINK'" class="material-icons"
-                        >link</i
-                      >
-                      <i v-else-if="post.type == 'VIDEO'" class="material-icons"
-                        >videocam_off</i
-                      >
-                      <i v-else-if="post.type == 'SOUND'" class="material-icons"
-                        >headset</i
-                      >
+                      <i v-if="post.type == 'TEXT'" class="material-icons">edit</i>
+                      <i v-else-if="post.type == 'IMAGE'" class="material-icons">camera_alt</i>
+                      <i v-else-if="post.type == 'LINK'" class="material-icons">link</i>
+                      <i v-else-if="post.type == 'VIDEO'" class="material-icons">videocam_off</i>
+                      <i v-else-if="post.type == 'SOUND'" class="material-icons">headset</i>
                       <i
                         v-else-if="post.type == 'ANSWER'"
                         class="material-icons"
-                        >forum</i
-                      >
-                      <i v-else-if="post.type == 'FILE'" class="material-icons"
-                        >folder</i
-                      >
+                      >forum</i>
+                      <i v-else-if="post.type == 'FILE'" class="material-icons">folder</i>
                       <span>{{ post.type_text }}</span>
                     </div>
                   </div>

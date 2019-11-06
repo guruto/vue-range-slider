@@ -73,7 +73,7 @@ export default {
       }
     }
   },
-  async asyncData(context) {
+  async asyncData() {
     // auth状態の場合のみアクセスできる
   },
   methods: {

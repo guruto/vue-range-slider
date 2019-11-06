@@ -5,8 +5,7 @@
         <a
           href="/dashboard/post/manage"
           :class="{ 'c-btn': true, 'c-btn--default': true }"
-          >戻る</a
-        >
+        >戻る</a>
       </div>
       <div class="p-form__operation__save">
         <button
@@ -56,13 +55,9 @@
       <div class="p-post__head-info__content">
         <span class="p-post__label__type">
           <i v-if="post.type == 'TEXT'" class="material-icons">edit</i>
-          <i v-else-if="post.type == 'IMAGE'" class="material-icons"
-            >camera_alt</i
-          >
+          <i v-else-if="post.type == 'IMAGE'" class="material-icons">camera_alt</i>
           <i v-else-if="post.type == 'LINK'" class="material-icons">link</i>
-          <i v-else-if="post.type == 'VIDEO'" class="material-icons"
-            >videocam_off</i
-          >
+          <i v-else-if="post.type == 'VIDEO'" class="material-icons">videocam_off</i>
           <i v-else-if="post.type == 'SOUND'" class="material-icons">headset</i>
           <i v-else-if="post.type == 'ANSWER'" class="material-icons">forum</i>
           <i v-else-if="post.type == 'FILE'" class="material-icons">folder</i>
@@ -74,22 +69,21 @@
             'p-post__label__publish': true,
             'is-published': post.isPublished
           }"
-          >{{ post.isPublished ? "公開中" : "下書き" }}</span
-        >
+        >{{ post.isPublished ? "公開中" : "下書き" }}</span>
       </div>
     </div>
+
     <div v-if="post.type == 'TEXT'" class="p-form__text">
       <div class="p-form__thumbnail">
         <div v-if="post.thumbnailImagePath" class="p-form__thumbnail__content">
           <span
             class="p-form__thumbnail__content__delete-btn"
             @click="handleDeleteThumbnailImage"
-            ><i class="far fa-times-circle"
-          /></span>
+          ><i class="far fa-times-circle"/></span>
           <img
             class="p-form__thumbnail__content__image"
             :src="post.thumbnailImageUrl"
-          />
+          >
         </div>
         <div v-else style="padding: 0 5%;">
           <div
@@ -99,14 +93,14 @@
             <img
               src="/img/form_icon_thumbnail@2x.png"
               alt="サムネイル画像を選択"
-            />
+            >
             <input
               id="form-select-text-thumbnail-image"
               ref="fileinput"
               type="file"
               accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
               @change="handleInputTextThumbnailImageFile"
-            />
+            >
           </div>
         </div>
       </div>
@@ -153,10 +147,8 @@
               placeholder="URLを入力 https://"
               @focusout="handleFocusOutGetInfoLinkUrl"
               @paste="handlePasteGetInfoLinkUrl"
-            />
-            <span class="p-form__item__clear-btn" @click="handleUrlClear"
-              ><i class="far fa-times-circle"
-            /></span>
+            >
+            <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
           <span v-show="errors.has('linkUrl')" class="p-form__item-error">{{
             errors.first("linkUrl")
@@ -165,9 +157,7 @@
 
         <div class="p-form__ogp u-mt-16">
           <div v-if="post.itemLink.linkTitle" class="p-ogp">
-            <span class="p-ogp__delete-btn" @click="handleUrlClear"
-              ><i class="fas fa-times"
-            /></span>
+            <span class="p-ogp__delete-btn" @click="handleUrlClear"><i class="fas fa-times"/></span>
             <div
               v-if="post.itemLink.linkThumbnailImageUrl"
               class="p-ogp__thumbnail"
@@ -194,8 +184,7 @@
               v-model="post.comment"
               rows="10"
               placeholder="コメントを入力"
-              >{{ post.comment }}</textarea
-            >
+            >{{ post.comment }}</textarea>
           </div>
         </div>
       </div>
@@ -218,8 +207,7 @@
             :data-label="uploadedPostImageLabel"
             class="p-form__image-upload__content__item__delete-btn"
             @click="handleDeleteUploadedImage"
-            ><i class="fas fa-times"
-          /></span>
+          ><i class="fas fa-times"/></span>
           <div class="p-form__image-upload__content__item__thumbnail">
             <img :src="uploadedPostImage.url" />
           </div>
@@ -256,9 +244,7 @@
               name="title"
               placeholder="タイトルを入力"
             >
-            <span class="p-form__item__clear-btn" @click="handleUrlClear"
-              ><i class="far fa-times-circle"
-            /></span>
+            <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
           <span v-show="errors.has('title')" class="p-form__item-error">{{
             errors.first("title")
@@ -293,7 +279,7 @@
           <img
             src="/img/form_icon_upload_video@2x.png"
             alt="動画ファイルを追加"
-          />
+          >
           <span>動画ファイルを追加</span>
           <spinner :is-active="isVideoUploading" />
         </div>
@@ -318,20 +304,14 @@
               @paste="handlePasteGetInfoVideoUrl"
               @focus="handleFocusVideoUrlInput"
             >
-            <span class="p-form__item__clear-btn" @click="handleVideoClear"
-              ><i class="far fa-times-circle"
-            /></span>
+            <span class="p-form__item__clear-btn" @click="handleVideoClear"><i class="far fa-times-circle"/></span>
           </div>
           <span v-show="errors.has('videoUrl')" class="p-form__item-error">{{
             errors.first("videoUrl")
           }}</span>
           <div class="p-form__info">
-            <span class="p-form__info__label"
-              >YoutubeとVimeoのリンクのみ。</span
-            >
-            <span class="p-form__info__label"
-              >動画ファイルかリンクを選択してください。</span
-            >
+            <span class="p-form__info__label">YoutubeとVimeoのリンクのみ。</span>
+            <span class="p-form__info__label">動画ファイルかリンクを選択してください。</span>
           </div>
         </div>
         <div
@@ -342,9 +322,7 @@
           class="p-form__ogp u-mt-16"
         >
           <div v-if="post.itemVideo.path !== ''" class="p-video">
-            <span @click="handleVideoClear"
-              ><i class="far fa-times-circle p-video__clear-btn"
-            /></span>
+            <span @click="handleVideoClear"><i class="far fa-times-circle p-video__clear-btn"/></span>
             <video
               class="p-video__content"
               :src="post.itemVideo.fileUrl"
@@ -382,9 +360,7 @@
               name="title"
               placeholder="タイトルを入力"
             >
-            <span class="p-form__item__clear-btn" @click="handleUrlClear"
-              ><i class="far fa-times-circle"
-            /></span>
+            <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
           <span v-show="errors.has('title')" class="p-form__item-error">{{
             errors.first("title")
@@ -415,7 +391,7 @@
           <img
             src="/img/form_icon_upload_sound@2x.png"
             alt="音声ファイルを追加"
-          />
+          >
           <span>音声ファイルを追加</span>
           <spinner :is-active="isSoundUploading" />
         </div>
@@ -435,8 +411,7 @@
           <span
             class="p-form__sound-upload__content__delete-btn"
             @click="handleDeleteUploadedSound"
-            ><i class="fas fa-times"
-          /></span>
+          ><i class="fas fa-times"/></span>
           <audio
             class="p-form__sound-upload__content__audio"
             controls
@@ -461,12 +436,13 @@
                 class="p-form__thumbnail-list__item__delete-btn"
                 @click="handleDeleteListThumbImage"
               >
-                <i :data-num="i" class="far fa-times-circle"/></span>
+                <i :data-num="i" class="far fa-times-circle"
+              /></span>
               <img
                 v-show="thumbImageItem.url"
                 class="p-form__thumbnail-list__item__img"
                 :src="thumbImageItem.url"
-              />
+              >
               <label
                 v-show="!thumbImageItem.url"
                 class="p-form__thumbnail-list__item__label"
@@ -482,7 +458,7 @@
                   :disabled="thumbImageItem.disabled"
                   accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
                   @change="handleSelectListThumbImage"
-                />
+                >
                 <spinner :is-active="thumbImageItem.isUploading" />
               </label>
             </div>
@@ -497,9 +473,7 @@
               name="title"
               placeholder="タイトルを入力"
             >
-            <span class="p-form__item__clear-btn" @click="handleUrlClear"
-              ><i class="far fa-times-circle"
-            /></span>
+            <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
           <span v-show="errors.has('title')" class="p-form__item-error">{{
             errors.first("title")
@@ -531,7 +505,7 @@
           <span>ファイルを追加</span>
           <spinner :is-active="isFileUploading" />
         </div>
-        <input ref="selectFile" type="file" @change="handleInputFile" >
+        <input ref="selectFile" type="file" @change="handleInputFile" />
       </div>
       <div style="padding: 0 5%;">
         <div v-show="post.itemFile.url" class="p-form__group">
@@ -540,8 +514,7 @@
               <span
                 class="p-form__upload-file__delete-btn"
                 @click="handleDeleteUploadedFile"
-                ><i class="fas fa-times"
-              /></span>
+              ><i class="fas fa-times"/></span>
               <p class="p-form__upload-file__label">
                 {{ post.itemFile.fileName }}
               </p>
@@ -591,7 +564,7 @@
                 v-show="thumbImageItem.url"
                 class="p-form__thumbnail-list__item__img"
                 :src="thumbImageItem.url"
-              />
+              >
               <label
                 v-show="!thumbImageItem.url"
                 class="p-form__thumbnail-list__item__label"
@@ -607,7 +580,7 @@
                   :disabled="thumbImageItem.disabled"
                   accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
                   @change="handleSelectListThumbImage"
-                />
+                >
                 <spinner :is-active="thumbImageItem.isUploading" />
               </label>
             </div>
@@ -622,9 +595,7 @@
               name="title"
               placeholder="タイトルを入力"
             >
-            <span class="p-form__item__clear-btn" @click="handleUrlClear"
-              ><i class="far fa-times-circle"
-            /></span>
+            <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
           <span v-show="errors.has('title')" class="p-form__item-error">{{
             errors.first("title")
@@ -659,8 +630,7 @@
               v-model="post.comment"
               rows="10"
               placeholder="回答を入力"
-              >{{ post.comment }}</textarea
-            >
+            >{{ post.comment }}</textarea>
           </div>
           <div
             v-if="!isEdit && post.canShareTwitter"
@@ -672,12 +642,11 @@
               type="checkbox"
               true-value="1"
               false-value="0"
-            />
+            >
             <label
               for="share-twitter"
               :class="{ 'is-checked': shareTwitter == '1' }"
-              >Twitterにも投稿</label
-            >
+            >Twitterにも投稿</label>
           </div>
         </div>
       </div>

@@ -3,11 +3,10 @@
     <div class="p-top__wrapper">
       <div class="p-top__logo">
         <h1>
-          <a href="/"
-            ><img
-              src="/img/top_page/logo@2x.png"
-              alt="PAGEUFL[ペイジフル] 誰でも簡単にコンテンツ配信・販売サイトを作成"
-          /></a>
+          <a href="/"><img
+            src="/img/top_page/logo@2x.png"
+            alt="PAGEUFL[ペイジフル] 誰でも簡単にコンテンツ配信・販売サイトを作成"
+          ></a>
         </h1>
       </div>
 
@@ -37,14 +36,14 @@
             src="/img/top_page/use_case@2x.png"
             alt="USE CASE。ペイジフルの使い方"
             style="width: 150px"
-          />
+          >
         </div>
         <div class="u-cf">
           <div class="p-top__info__icon">
             <img
               src="/img/top_page/use_case_icon@2x.png"
               alt="ペイジフルの使い方を説明します"
-            />
+            >
           </div>
           <div class="p-top__info__text">
             <ul>
@@ -67,7 +66,7 @@
             src="/img/top_page/feature@2x.png"
             alt="WHY PAGEFUL。ペイジフルの特徴"
             style="width: 218px;"
-          />
+          >
         </div>
 
         <div class="p-top__feature__item">
@@ -115,10 +114,10 @@
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
-              コンテンツ販売<br>※comming soon
+              コンテンツ販売<br />※comming soon
             </p>
             <p class="p-top__feature__item__content__description">
-              配信したコンテンツを簡単に販売することができます。<br>初期費用・月額費用無し、かつ低い手数料で販売・管理が可能です。
+              配信したコンテンツを簡単に販売することができます。<br />初期費用・月額費用無し、かつ低い手数料で販売・管理が可能です。
             </p>
           </div>
         </div>
@@ -128,7 +127,7 @@
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
-              月額会員機能<br>※comming soon
+              月額会員機能<br />※comming soon
             </p>
             <p class="p-top__feature__item__content__description">
               自分のサイトに月額会員を集めることが出来ます。月額会員限定にコンテンツを作成・配信できます。

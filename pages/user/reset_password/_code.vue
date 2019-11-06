@@ -21,8 +21,7 @@
               <span
                 v-show="errors.has('password')"
                 class="p-form__item-error"
-                >{{ errors.first("password") }}</span
-              >
+              >{{ errors.first("password") }}</span>
             </div>
 
             <div class="p-form__button">

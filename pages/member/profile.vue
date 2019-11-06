@@ -57,8 +57,7 @@
                   v-model="description"
                   rows="6"
                   placeholder="自己紹介文を入力"
-                  >{{ description }}</textarea
-                >
+                >{{ description }}</textarea>
               </div>
             </div>
 

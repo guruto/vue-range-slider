@@ -26,13 +26,10 @@
               <span
                 v-show="errors.has('pageLabel')"
                 class="p-form__item-error"
-                >{{ errors.first("pageLabel") }}</span
-              >
+              >{{ errors.first("pageLabel") }}</span>
               <div class="p-form__info">
                 <span class="p-form__info__label">ページURL</span>
-                <span class="p-form__info__content"
-                  >https://{{ label }}.pageful.app</span
-                >
+                <span class="p-form__info__content">https://{{ label }}.pageful.app</span>
               </div>
             </div>
 
@@ -51,8 +48,7 @@
               <span
                 v-show="errors.has('pageName')"
                 class="p-form__item-error"
-                >{{ errors.first("pageName") }}</span
-              >
+              >{{ errors.first("pageName") }}</span>
             </div>
 
             <div class="p-form__group">
@@ -83,12 +79,10 @@
                       v-model="twitterId"
                       type="text"
                       placeholder="twitter id"
-                    />
+                    >
                   </div>
                   <div class="p-form__info">
-                    <span class="p-form__info__label"
-                      >先頭に@を付けないでください。</span
-                    >
+                    <span class="p-form__info__label">先頭に@を付けないでください。</span>
                   </div>
                 </div>
                 <div class="p-form__group">
@@ -101,12 +95,10 @@
                       v-model="instagramId"
                       type="text"
                       placeholder="instagram id"
-                    />
+                    >
                   </div>
                   <div class="p-form__info">
-                    <span class="p-form__info__label"
-                      >先頭に@を付けないでください。</span
-                    >
+                    <span class="p-form__info__label">先頭に@を付けないでください。</span>
                   </div>
                 </div>
                 <div class="p-form__group">
@@ -119,12 +111,10 @@
                       v-model="lineId"
                       type="text"
                       placeholder="LINE@ id"
-                    />
+                    >
                   </div>
                   <div class="p-form__info">
-                    <span class="p-form__info__label"
-                      >先頭に@を付けないでください。</span
-                    >
+                    <span class="p-form__info__label">先頭に@を付けないでください。</span>
                   </div>
                 </div>
                 <div class="p-form__group">
@@ -137,7 +127,7 @@
                       v-model="facebookId"
                       type="text"
                       placeholder="facebook id"
-                    />
+                    >
                   </div>
                 </div>
               </div>

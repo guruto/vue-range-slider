@@ -12,9 +12,14 @@
             'is-published': isPublished
           }"
         >{{ isPublished ? "公開中" : "下書き" }}</span>
-        <span v-if="isMine" :class="{ 'p-post__label__scope': true }">{{
-          scope == "PUBLIC" ? "全公開" : "メンバー限定"
-        }}</span>
+        <span
+          v-if="isMine"
+          :class="{
+            'p-post__label__scope': true,
+            'is-public': scope == 'PUBLIC',
+            'is-member': scope == 'MEMBER'
+          }"
+        >{{ scope == "PUBLIC" ? "全公開" : "メンバー限定" }}</span>
       </div>
 
       <div class="p-post__thumbnail">
@@ -23,15 +28,13 @@
             class="p-post__thumbnail__image"
             :style="'background-image: url(' + thumbnailImageUrl + ')'"
           />
-          <img :src="thumbnailImageUrl">
+          <img :src="thumbnailImageUrl" />
         </div>
         <div
           v-else-if="type == 'ANSWER' && thumbnailImageUrl"
           class="is-answer"
         >
-          <h1>
-            <img :src="thumbnailImageUrl" :alt="title">
-          </h1>
+          <h1><img :src="thumbnailImageUrl" :alt="title" /></h1>
         </div>
         <div v-else-if="type == 'LINK'" class="p-post__thumbnail__link-ogp">
           <div v-if="linkSiteType == 'YOUTUBE'">
@@ -61,7 +64,7 @@
                   :style="'background-image: url(' + thumbnailImageUrl + ')'"
                 />
               </div>
-              <img :src="thumbnailImageUrl">
+              <img :src="thumbnailImageUrl" />
               <div v-if="linkTitle" class="p-ogp">
                 <div class="p-ogp__info">
                   <span class="p-ogp__info__title">{{ linkTitle }}</span>
@@ -144,7 +147,7 @@
           </div>
         </div>
         <div class="p-post__content__time">
-          <span v-if="isPublished" class>{{ publishedAt }}</span>
+          <span v-if="isPublished" class="">{{ publishedAt }}</span>
         </div>
 
         <div>
@@ -185,7 +188,7 @@
                   v-for="postImage in this.$store.state.post.itemImages"
                   class="p-post__content__image"
                 >
-                  <img :src="postImage.url">
+                  <img :src="postImage.url" />
                 </div>
               </div>
             </div>
@@ -211,8 +214,7 @@
               </div>
               <div style="padding: 20px 5% 10px;">
                 <audio controls :src="soundUrl" :style="{ width: '100%' }">
-                  ご使用の中のブラウザが
-                  <code>audio</code>要素に対応していません
+                  ご使用の中のブラウザが<code>audio</code>要素に対応していません
                 </audio>
               </div>
             </div>
@@ -237,7 +239,7 @@
                     name="downloadform"
                     method="POST"
                   >
-                    <input type="hidden" name="post_label" :value="label">
+                    <input type="hidden" name="post_label" :value="label" />
                     <a
                       class="p-post__content__file__button"
                       href="javascript:downloadform.submit()"
@@ -299,7 +301,7 @@
               "
               target="_blank"
             >
-              <img src="/img/share_btn_line@2x.png" alt="LINEでシェアする">
+              <img src="/img/share_btn_line@2x.png" alt="LINEでシェアする" />
               <span>LINE</span>
             </a>
           </div>
@@ -320,7 +322,7 @@
           class="p-post__foot__more"
           @click="handleMoreControlClick"
         >
-          <img src="/img/share_btn_more@2x.png" class="is-more-control">
+          <img src="/img/share_btn_more@2x.png" class="is-more-control" />
           <div v-show="isShowPopoverMoreControl" class="p-popover">
             <div class="p-popover__arrow" />
             <div class="p-popover__body">

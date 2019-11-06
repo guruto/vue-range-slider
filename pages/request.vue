@@ -10,10 +10,8 @@
                 class="logo_image"
                 :src="this.$store.state.page.design.logoMediaUrl"
                 :alt="page.name"
-              />
-              <a v-else href="/"
-                ><h2>{{ page.name }}</h2></a
               >
+              <a v-else href="/"><h2>{{ page.name }}</h2></a>
             </div>
             <div class="p-user-top__head__description">
               <p v-html="page.description.replace(/\n/g, '<br/>')" />

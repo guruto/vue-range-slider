@@ -31,7 +31,7 @@ export const mutations = {
 import Api from "~/plugins/api"
 
 export const actions = {
-  async add({ rootState, commit, dispatch }, { pageLabel, body }) {
+  async add({ commit, dispatch }, { pageLabel, body }) {
     const params = {
       type: "QUESTION",
       target_page_label: pageLabel,

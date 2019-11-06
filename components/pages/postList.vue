@@ -22,7 +22,7 @@
                 v-if="item.thumbnail_image_url"
                 :src="item.thumbnail_image_url"
                 :alt="item.title"
-              />
+              >
             </div>
             <div
               v-else-if="item.type == 'ANSWER' && item.thumbnail_image_url"

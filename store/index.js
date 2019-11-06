@@ -17,7 +17,7 @@ export const mutations = {
 import Api from "~/plugins/api"
 
 export const actions = {
-  async nuxtServerInit({ rootState, commit }, { req }) {
+  async nuxtServerInit({ commit }, { req }) {
     console.log("nuxtServerInit")
 
     // authenticationTokenがCookieにある場合、user情報取得のAPIを実行し、user stateにデータセットする
@@ -47,9 +47,8 @@ export const actions = {
         }
       }
     }
-  },
-
-  nuxtClientInit({ commit }, context) {
-    // console.log('nuxtClientInit');
   }
+
+  // nuxtClientInit({ commit }, context) {
+  // }
 }

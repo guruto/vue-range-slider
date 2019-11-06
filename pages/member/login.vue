@@ -4,9 +4,7 @@
       <div class="p-user-top">
         <div class="p-user-top__head">
           <div class="p-user-top__head__title">
-            <a href="/"
-              ><h2>{{ page.name }}</h2></a
-            >
+            <a href="/"><h2>{{ page.name }}</h2></a>
           </div>
           <div class="p-user-top__head__description">
             <p v-html="page.description.replace(/\n/g, '<br/>')" />
@@ -97,8 +95,12 @@
                 <span
                   v-show="errors.has('password')"
                   class="p-form__item-error"
+<<<<<<< HEAD
                   >{{ errors.first("password") }}</span
                 >
+=======
+                >{{ errors.first("password") }}</span>
+>>>>>>> master
               </div>
 
               <div class="p-form__password-forgot">

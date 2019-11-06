@@ -432,7 +432,7 @@ export const actions = {
   /////////////////////////
   // TEXTタイプ
   /////////////////////////
-  async saveDraftText({ rootState, commit, dispatch }, param) {
+  async saveDraftText({ rootState, commit }, param) {
     const params = {
       type: "TEXT",
       label: param.label,
@@ -538,7 +538,7 @@ export const actions = {
       dispatch("flashMessage/showError", result.error_message, { root: true })
     }
   },
-  async clearVideo({ rootState, commit, dispatch }) {
+  async clearVideo({ commit }) {
     commit("CLEAR_UPLOAD_POST_VIDEO_DATA")
   },
   /////////////////////////

@@ -20,15 +20,12 @@
                 >
               </div>
               <div class="p-form__info">
-                <span class="p-form__info__label"
-                  >SNSアカウントで登録して、パスワードを未設定の場合は空欄のままにしてください。</span
-                >
+                <span class="p-form__info__label">SNSアカウントで登録して、パスワードを未設定の場合は空欄のままにしてください。</span>
               </div>
               <span
                 v-show="errors.has('passwordNow')"
                 class="p-form__item-error"
-                >{{ errors.first("passwordNow") }}</span
-              >
+              >{{ errors.first("passwordNow") }}</span>
             </div>
 
             <div class="p-form__group">
@@ -42,13 +39,12 @@
                   :class="{ 'is-error': errors.has('passwordNew') }"
                   name="passwordNew"
                   placeholder="6文字以上で入力"
-                />
+                >
               </div>
               <span
                 v-show="errors.has('passwordNew')"
                 class="p-form__item-error"
-                >{{ errors.first("passwordNew") }}</span
-              >
+              >{{ errors.first("passwordNew") }}</span>
             </div>
 
             <div class="p-form__group">
@@ -66,8 +62,7 @@
               <span
                 v-show="errors.has('passwordNewConfirm')"
                 class="p-form__item-error"
-                >{{ errors.first("passwordNewConfirm") }}</span
-              >
+              >{{ errors.first("passwordNewConfirm") }}</span>
             </div>
 
             <div class="p-form__button">

@@ -24,7 +24,7 @@ export const mutations = {
 import Api from "~/plugins/api"
 
 export const actions = {
-  async getListMemberBelongedMyself({ rootState, commit }, {}) {
+  async getListMemberBelongedMyself({ rootState, commit }) {
     // API連携
     const params = {}
     const res = await Api.getPageListMemberBelongedMyself(

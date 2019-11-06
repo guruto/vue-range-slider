@@ -31,20 +31,14 @@
             <span v-if="this.$store.state.page.label">{{
               this.$store.state.page.name
             }}</span>
-            <span v-else
-              ><img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]"
-            /></span>
+            <span v-else><img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]"/></span>
           </nuxt-link>
         </div>
         <div v-else-if="isTopPage">
-          <a :href="$getUrl('/')"
-            ><img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]"
-          /></a>
+          <a :href="$getUrl('/')"><img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]"/></a>
         </div>
         <div v-else>
-          <a :href="$getUrl('/dashboard')"
-            ><img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]"
-          /></a>
+          <a :href="$getUrl('/dashboard')"><img src="/img/title@2x.png" alt="PAGEFUL[ペイジフル]"/></a>
         </div>
       </div>
 

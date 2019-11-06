@@ -11,8 +11,7 @@
               <div class="u-cf">
                 <label
                   class="p-form__item__toggle-label p-form__item__toggle--no-margin"
-                  >ヘッダー画像を使用する</label
-                >
+                >ヘッダー画像を使用する</label>
                 <ToggleButton
                   class="p-form__item__toggle"
                   :value="showHedaderUpload"
@@ -35,12 +34,11 @@
                 <span
                   class="p-form__thumbnail__content__delete-btn"
                   @click="handleDeleteHeaderImage(index)"
-                  ><i class="far fa-times-circle"
-                /></span>
+                ><i class="far fa-times-circle"/></span>
                 <img
                   class="p-form__thumbnail__content__image"
                   :src="headerImage.thumbnailImageUrl"
-                />
+                >
               </div>
               <p v-if="headerImageUploadMax <= headerMediaList.length">
                 選択可能な画像数は4枚です
@@ -62,14 +60,12 @@
                   accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
                   :disabled="headerImageUploadMax <= headerMediaList.length"
                   @change="handleInputHeaderImageFile"
-                />
+                >
               </div>
             </div>
 
             <div class="p-form__group">
-              <label class="p-form__item__toggle-label"
-                >ロゴ画像を使用する</label
-              >
+              <label class="p-form__item__toggle-label">ロゴ画像を使用する</label>
               <ToggleButton
                 class="p-form__item__toggle p-form__item__toggle--no-margin"
                 :value="showLogoUpload"
@@ -93,7 +89,7 @@
                   type="file"
                   accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
                   @change="handleInputLogoImageFile"
-                />
+                >
               </div>
               <div
                 v-show="showLogoUpload && logoImageData.thumbnailImagePath"
@@ -102,12 +98,11 @@
                 <span
                   class="p-form__thumbnail__content__delete-btn"
                   @click="handleDeleteLogoImage"
-                  ><i class="far fa-times-circle"
-                /></span>
+                ><i class="far fa-times-circle"/></span>
                 <img
                   class="p-form__thumbnail__content__image"
                   :src="logoImageData.thumbnailImageUrl"
-                />
+                >
               </div>
             </div>
 

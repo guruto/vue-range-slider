@@ -11,8 +11,8 @@
             class="p-request-list__head__item is-tweet c-btn"
             :href="shareTweetUrl"
             target="_blank"
-            ><img
-              src="/img/icon_service_twitter@2x.png"
+          ><img
+            src="/img/icon_service_twitter@2x.png"
             />質問募集ツイートをする</a
           >
           <button
@@ -88,8 +88,7 @@
                 <span
                   v-if="item.is_answered == '0'"
                   class="p-request-list__item__foot__action"
-                  >回答する</span
-                >
+                >回答する</span>
               </div>
             </nuxt-link>
           </div>

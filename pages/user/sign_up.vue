@@ -19,7 +19,7 @@
               <img
                 src="/img/icon_service_twitter@2x.png"
                 alt="Twitterではじめる"
-              >Twitterではじめる
+              />Twitterではじめる
             </button>
           </div>
           <div class="p-login__service__separator">
@@ -34,7 +34,6 @@
           <div class="p-form">
             <form @submit.prevent="signUp">
               <div class="p-form__group">
-                <!--								<label class="p-form__label">メールアドレス</label>-->
                 <div class="p-form__item">
                   <input
                     v-model="email"
@@ -43,7 +42,7 @@
                     :class="{ 'is-error': errors.has('email') }"
                     name="email"
                     placeholder="メールアドレスを入力"
-                  >
+                  />
                 </div>
                 <span v-show="errors.has('email')" class="p-form__item-error">{{
                   errors.first("email")
@@ -51,7 +50,6 @@
               </div>
 
               <div class="p-form__group">
-                <!--								<label class="p-form__label">パスワード</label>-->
                 <div class="p-form__item">
                   <input
                     v-model="password"
@@ -60,13 +58,12 @@
                     :class="{ 'is-error': errors.has('password') }"
                     name="password"
                     placeholder="パスワードを入力"
-                  >
+                  />
                 </div>
                 <span
                   v-show="errors.has('password')"
                   class="p-form__item-error"
-                  >{{ errors.first("password") }}</span
-                >
+                >{{ errors.first("password") }}</span>
               </div>
 
               <div class="p-form__button">

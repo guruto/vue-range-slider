@@ -109,7 +109,7 @@
                       v-model="scope"
                       type="radio"
                       value="PUBLIC"
-                    />
+                    >
                     <label for="scope-all">全公開</label>
                   </div>
                   <div class="p-form__item p-form__item--label">
@@ -118,7 +118,7 @@
                       v-model="scope"
                       type="radio"
                       value="MEMBER"
-                    />
+                    >
                     <label for="scope-member">メンバー限定</label>
                   </div>
                 </div>
