@@ -343,6 +343,9 @@ import slider from '~/components/ui/slider'
 import moment from 'moment'
 import axios from "axios"
 import * as qs from "qs"
+import {MdkUtil} from "../../../plugins/MdkJavaScript/tgMdkNode/tgMdk/MdkUtil";
+import {MdkDtoBase} from "../../../plugins/MdkJavaScript/tgMdkNode/tgMdkDto/MdkDtoBase";
+import {CardAuthorizeRequestDto} from "../../../plugins/MdkJavaScript/tgMdkNode/tgMdkDto/Card/CardAuthorizeRequestDto";
 
 export default {
 	components: {postTextBody, postList, slider},
@@ -635,8 +638,9 @@ export default {
 				jpo: 10,
 				withCapture: true,
 			}
-			const authorizeRes = await axios.post(authorizeApiUrl, qs.stringify(authorizeParam), config)
-			console.log(authorizeRes);
+
+
+
 
 			// TODO::order_idなどをpost_transactionsテーブルに挿入
 			// TODO::user_paymentsデータも作成
