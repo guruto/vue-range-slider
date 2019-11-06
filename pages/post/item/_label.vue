@@ -341,6 +341,8 @@ import postTextBody from '~/components/pages/postTextBody'
 import postList from "~/components/pages/postList"
 import slider from '~/components/ui/slider'
 import moment from 'moment'
+import axios from "axios"
+import * as qs from "qs"
 
 export default {
 	components: {postTextBody, postList, slider},
@@ -597,42 +599,50 @@ export default {
 		async executePurchasePost(param) {
 			console.log(param)
 			// TODO::全体ローディング start
-			// TODO::クレカ決済処理
-			// token取得API
-			const tokenParam = {
-				aid: '117530',
-				//cn: param.number,
-				cn: '4444333322221111',
-				// ed: param.cardExpireYear + param.cardExpireMonth,
-				ed: '2001',
-				//fn: param.firstName,
-				fn: 'YUMA',
-				//ln: param.lastName,
-				ln: 'ODA',
-				//cvv: param.securityCode,
-				cvv: '123',
-				md: 10, // 一括払い
+
+			// テスト用
+			// トークン取得処理
+			const tokenApiUrl = 'https://api.veritrans.co.jp/4gtoken'
+			const tokenApiKey = 'cd76ca65-7f54-4dec-8ba3-11c12e36a548'
+			const tokenParam  = {
+				card_number:   '4444333322221111',
+				card_expire:   '01/23',
+				security_code: '123',
+				token_api_key: tokenApiKey,
+				lang:          'ja',
 			}
 			console.log(tokenParam)
-			// CPToken.TokenCreate(tokenParam, function (resultCode, errMsg, token) {
-			// 	console.log(resultCode, errMsg, token)
-			// })
-			// 決済API
-			// // https://credit.j-payment.co.jp/gateway/gateway_token.aspx
-			// const transactionParam = {
-			// 	aid: '117530',
-			// 	jb: 'CAPTURE',
-			// 	rt: 0,
-			// 	tkn: '',
-			// 	am: param.amount,
-			// 	tx: 0,
-			// 	sf: 0,
-			// }
-			// console.log(transactionParam)
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			};
+			const tokenRes = await axios.post(tokenApiUrl, qs.stringify(tokenParam), config)
+			console.log(tokenRes);
+			if (tokenRes.status == 'failure') {
+				console.log(tokenRes.code)
+				console.log(tokenRes.message)
+				return
+			}
+			const token = tokenRes.token
+			console.log(token)
+
 			// TODO::決済後のAPI連携
+			const authorizeApiUrl = ''
+			const authorizeParam = {
+				token: token,
+				amount: 1000,
+				jpo: 10,
+				withCapture: true,
+			}
+			const authorizeRes = await axios.post(authorizeApiUrl, qs.stringify(authorizeParam), config)
+			console.log(authorizeRes);
+
 			// TODO::order_idなどをpost_transactionsテーブルに挿入
 			// TODO::user_paymentsデータも作成
+
 			// TODO::決済完了時にメール送信 param.email
+
 			// TODO::全体ローディング end
 			// TODO::リダイレクト
 			// ログイン情報を持って購入した場合リダイレクトで、有料内容公開状態でpostを表示する

@@ -1,5 +1,5 @@
-import axios from "axios";
-import * as qs from "qs";
+import axios from "axios"
+import * as qs from "qs"
 
 const api = axios.create({
 	baseURL: process.env.API_BASE_URL,
@@ -9,7 +9,6 @@ const api = axios.create({
 
 api.interceptors.request.use((request) => {
 	console.log('api request: ' + request.url)
-	// console.log(request.headers)
 	return request;
 });
 
