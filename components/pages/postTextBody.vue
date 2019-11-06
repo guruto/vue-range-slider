@@ -146,6 +146,15 @@ export default {
         font-size: 16px;
         color: $color_text;
       }
+      .inline-code {
+        background: rgba(251,241,241,0.78);
+        color: #C44545;
+        padding: 4px 6px;
+        border-radius: 2px;
+        margin: 0 2px;
+        font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+        font-size: 0.9em;
+      }
     }
     &__link {
       position: relative;
