@@ -1,43 +1,43 @@
 <template>
-
-		<section class="c-section">
-			<post-list :posts="this.$store.state.postList.items" :isDashboard="false"></post-list>
-		</section>
+  <section class="c-section">
+    <post-list
+      :posts="this.$store.state.postList.items"
+      :is-dashboard="false"
+    />
+  </section>
 </template>
 
 <script>
-import Meta from '~/assets/mixins/meta'
+import Meta from "~/assets/mixins/meta"
 
 export default {
-	mixins: [Meta],
-	data() {
-		return {}
-	},
-	async asyncData(context) {
-		// pageのページングの際のパス
-		console.log('page page')
+  mixins: [Meta],
+  data() {
+    return {}
+  },
+  async asyncData(context) {
+    // pageのページングの際のパス
+    console.log("page page")
 
-		const pageLabel = context.store.state.page.label;
-		console.log(pageLabel);
+    const pageLabel = context.store.state.page.label
+    console.log(pageLabel)
 
-		if (pageLabel) {
-			await context.store.dispatch("page/getWithPostList", {
-				label: pageLabel
-			});
-			console.log(context.store.state.page)
+    if (pageLabel) {
+      await context.store.dispatch("page/getWithPostList", {
+        label: pageLabel
+      })
+      console.log(context.store.state.page)
 
-			if (context.store.state.page.isError) {
-				// 404処理
-				context.error({
-					statusCode: 404,
-				})
-			}
-		}
-	},
-	methods:{
-	}
+      if (context.store.state.page.isError) {
+        // 404処理
+        context.error({
+          statusCode: 404
+        })
+      }
+    }
+  },
+  methods: {}
 }
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

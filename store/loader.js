@@ -1,18 +1,15 @@
-export const state = () =>({
-	isActive: false
-});
+export const state = () => ({
+  isActive: false
+})
 
 export const mutations = {
-	SHOW_LOADING(state) {
-		state.isActive = true;
-	},
-	
-	HIDE_LOADING(state) {
-		state.isActive = false;
-	}
-};
+  SHOW_LOADING(state) {
+    state.isActive = true
+  },
 
-export const actions = {
+  HIDE_LOADING(state) {
+    state.isActive = false
+  }
+}
 
-};
-
+export const actions = {}

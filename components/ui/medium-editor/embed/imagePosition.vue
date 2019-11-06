@@ -1,35 +1,50 @@
 <template>
-	<div class="image-handler" v-if="handler.isShow" v-bind:style="handler.position">
-		<div class="image-hander-menu">
-			<button class="btn-toggle" v-on:click="imageSizing('is-normal')">
-				<img src="/static/img/editor/icons/image-align-normal-active.png" v-if="handler.currentSize == 'is-normal'">
-				<img src="/static/img/editor/assets/icons/image-align-normal.png" v-if="handler.currentSize != 'is-normal'">
-			</button>
-			<button class="btn-toggle" v-on:click="imageSizing('is-expand')">
-				<img src="/static/img/editor/assets/icons/image-align-expand-active.png" v-if="handler.currentSize == 'is-expand'">
-				<img src="/static/img/editor/assets/icons/image-align-expand.png" v-if="handler.currentSize != 'is-expand'">
-			</button>
-			<button class="btn-toggle" v-on:click="imageSizing('is-full')">
-				<img src="/static/img/editor/assets/icons/image-align-full-active.png" v-if="handler.currentSize == 'is-full'">
-				<img src="/static/img/editor/assets/icons/image-align-full.png" v-if="handler.currentSize != 'is-full'">
-			</button>
-		</div>
-	</div>
+  <div v-if="handler.isShow" class="image-handler" :style="handler.position">
+    <div class="image-hander-menu">
+      <button class="btn-toggle" @click="imageSizing('is-normal')">
+        <img
+          v-if="handler.currentSize == 'is-normal'"
+          src="/static/img/editor/icons/image-align-normal-active.png"
+        >
+        <img
+          v-if="handler.currentSize != 'is-normal'"
+          src="/static/img/editor/assets/icons/image-align-normal.png"
+        >
+      </button>
+      <button class="btn-toggle" @click="imageSizing('is-expand')">
+        <img
+          v-if="handler.currentSize == 'is-expand'"
+          src="/static/img/editor/assets/icons/image-align-expand-active.png"
+        >
+        <img
+          v-if="handler.currentSize != 'is-expand'"
+          src="/static/img/editor/assets/icons/image-align-expand.png"
+        >
+      </button>
+      <button class="btn-toggle" @click="imageSizing('is-full')">
+        <img
+          v-if="handler.currentSize == 'is-full'"
+          src="/static/img/editor/assets/icons/image-align-full-active.png"
+        >
+        <img
+          v-if="handler.currentSize != 'is-full'"
+          src="/static/img/editor/assets/icons/image-align-full.png"
+        >
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
-	export default {
-		props: [
-			'handler'
-		],
-		methods: {
-			imageSizing(sizing) {
-				this.handler.currentSize = sizing
-				this.handler.currentLine.className = 'editor-image ' + sizing
+export default {
+  props: ["handler"],
+  methods: {
+    imageSizing(sizing) {
+      this.handler.currentSize = sizing
+      this.handler.currentLine.className = "editor-image " + sizing
 
-				this.$emit('onPositionChange')
-			}
-		}
-	}
+      this.$emit("onPositionChange")
+    }
+  }
+}
 </script>
-
