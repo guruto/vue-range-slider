@@ -86,9 +86,9 @@ export default {
           "PAGEFUL（ペイジフル） - 誰でも簡単にコンテンツ配信・販売サイトを作成",
         notUseBaseTitle: true,
         description:
-          "PAGEFUL（ペイジフル）では、ブログ、写真・画像、URLなど様々な形式でコンテンツを作成・配信できます。ブログ、自分のホームページ、思い出の写真のストック場所など用途も自由です。",
+          "PAGEFULでは、ブログ、写真・画像、URLなど様々な形式でコンテンツを作成・配信できます。ブログ、自分のホームページ、思い出の写真のストック場所など用途も自由です。",
         subDomainForUrl: null,
-        image: "https://pageful.app/img/top_page/concept@2x.png"
+        image: "https://pageful.app/img/meta/ogp.png"
       }
     }
   },
