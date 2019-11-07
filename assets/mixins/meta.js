@@ -136,7 +136,7 @@ export default {
       head.meta.push({
         hid: "og:image",
         property: "og:image",
-        content: "https://pageful.app/img/top_page/concept@2x.png"
+        content: "https://pageful.app/img/meta/ogp.png"
       })
     }
 
