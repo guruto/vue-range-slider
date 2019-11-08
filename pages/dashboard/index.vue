@@ -576,6 +576,7 @@ export default {
                 height: 56px;
                 background-color: $color_main_light;
                 position: relative;
+                border-radius: 4px;
                 img {
                   width: 38px;
                   position: absolute;
