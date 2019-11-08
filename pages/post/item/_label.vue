@@ -343,7 +343,6 @@ import slider from '~/components/ui/slider'
 import moment from 'moment'
 import axios from "axios"
 import * as qs from "qs"
-import {CardAuthorizeRequestDto} from "../../../plugins/MdkJavaScript/tgMdkNode/tgMdkDto/Card/CardAuthorizeRequestDto";
 
 export default {
 	components: {postTextBody, postList, slider},
@@ -628,13 +627,13 @@ export default {
 			const token = tokenRes.token
 			console.log(token)
 
-			// TODO::決済後のAPI連携
-			let request = new CardAuthorizeRequestDto()
-			request.token = token
-			request.amount = 1000
-			request.jpo = 10
-			request.withCapture = true
-			// let transaction = new Transaction()
+			// TODO::決済後のAPI連携（pageful-serverのAPI）
+			const requestParam = {
+				// request.token = token
+				// request.amount = 1000
+				// request.jpo = 10
+				// request.withCapture = true
+			}
 
 
 
