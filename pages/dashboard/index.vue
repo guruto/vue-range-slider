@@ -11,7 +11,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #179EE6;"
           >
-            <img src="/img/dashboard_navigation/post.png" alt="投稿" />
+            <img src="/img/dashboard/navigation/post.png" alt="投稿" />
           </div>
           <span class="p-dashboard__navigation__item__name">投稿</span>
         </nuxt-link>
@@ -22,7 +22,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #23DDC0;"
           >
-            <img src="/img/dashboard_navigation/answer.png" alt="質問" />
+            <img src="/img/dashboard/navigation/answer.png" alt="質問" />
           </div>
           <span class="p-dashboard__navigation__item__name">質問</span>
         </nuxt-link>
@@ -33,7 +33,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #FF7BBD;"
           >
-            <img src="/img/dashboard_navigation/page.png" alt="サイト" />
+            <img src="/img/dashboard/navigation/page.png" alt="サイト" />
           </div>
           <span class="p-dashboard__navigation__item__name">サイト</span>
         </nuxt-link>
@@ -45,7 +45,7 @@
             style="background-color: #16CAE2;"
           >
             <img
-              src="/img/dashboard_navigation/profile.png"
+              src="/img/dashboard/navigation/profile.png"
               alt="プロフィール"
             >
           </div>
@@ -58,7 +58,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #20F058;"
           >
-            <img src="/img/dashboard_navigation/design.png" alt="デザイン" />
+            <img src="/img/dashboard/navigation/design.png" alt="デザイン" />
           </div>
           <span class="p-dashboard__navigation__item__name">デザイン</span>
         </nuxt-link>
@@ -69,7 +69,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #FF7F60;"
           >
-            <img src="/img/dashboard_navigation/member.png" alt="メンバー" />
+            <img src="/img/dashboard/navigation/member.png" alt="メンバー" />
           </div>
           <span class="p-dashboard__navigation__item__name">メンバー</span>
         </nuxt-link>
@@ -81,7 +81,7 @@
             style="background-color: #FFBE29;"
           >
             <img
-              src="/img/dashboard_navigation/member_page.png"
+              src="/img/dashboard/navigation/member_page.png"
               alt="登録サイト"
             >
           </div>
@@ -94,7 +94,7 @@
             class="p-dashboard__navigation__item__icon"
             style="background-color: #8B8BFF;"
           >
-            <img src="/img/dashboard_navigation/setting.png" alt="各種設定" />
+            <img src="/img/dashboard/navigation/setting.png" alt="各種設定" />
           </div>
           <span class="p-dashboard__navigation__item__name">各種設定</span>
         </nuxt-link>
@@ -123,7 +123,7 @@
           style="background-color: #179EE6;"
         >
           <img
-            src="/img/dashboard_attention/post.png"
+            src="/img/dashboard/attention/post.png"
             alt="初めての投稿を作成"
           >
         </div>
@@ -145,7 +145,7 @@
           style="background-color: #23DDC0;"
         >
           <img
-            src="/img/dashboard_attention/request.png"
+            src="/img/dashboard/attention/request.png"
             alt="SNSで質問を募集"
           >
         </div>
@@ -168,7 +168,7 @@
           style="background-color: #20F058;"
         >
           <img
-            src="/img/dashboard_attention/design.png"
+            src="/img/dashboard/attention/design.png"
             alt="サイトページのデザイン"
           >
         </div>
@@ -191,7 +191,7 @@
           style="background-color: #8B8BFF;"
         >
           <img
-            src="/img/dashboard_attention/mail.png"
+            src="/img/dashboard/attention/mail.png"
             alt="メールアドレスの認証"
           >
         </div>
@@ -223,10 +223,20 @@
                 v-for="(notification, notificationIndex) in this.$store.state
                   .notificationList.items"
                 :key="notificationIndex"
-                class="notification__list__item"
-              >
+                class="notification__list__item">
                 <a :href="notification.url">
-                  <span>{{ notification.body }}</span>
+                  <div class="notification__list__item__icon">
+                    <div class="notification__list__item__icon__wrap">
+                      <img v-if="notification.type == 'request_create'" src="/img/dashboard/notification/request.png">
+                      <img v-else-if="notification.type == 'post_comment_create'" src="/img/dashboard/notification/post_comment.png">
+                      <img v-else-if="notification.type == 'post_create_to_member'" src="/img/dashboard/notification/post_new.png">
+                      <img v-else src="/img/dashboard/notification/alert.png">
+                    </div>
+                  </div>
+                  <div class="notification__list__item__content">
+                    <p class="notification__list__item__content__message">{{ notification.body }}</p>
+                    <p class="notification__list__item__content__datetime">{{ notification.send_at | moment }}</p>
+                  </div>
                 </a>
               </div>
             </div>
@@ -550,14 +560,48 @@ export default {
       & .notification {
         &__list {
           &__item {
-            display: block;
-            margin-bottom: 8px;
+            display: table;
+            table-layout: fixed;
+            width: 100%;
             cursor: pointer;
+            margin-bottom: 12px;
             a {
               display: block;
             }
-            span {
-              color: $color_link;
+            &__icon {
+              display: table-cell;
+              vertical-align: top;
+              &__wrap {
+                width: 56px;
+                height: 56px;
+                background-color: $color_main_light;
+                position: relative;
+                img {
+                  width: 38px;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  left: 0;
+                  margin: auto;
+                }
+              }
+            }
+            &__content {
+              display: table-cell;
+              vertical-align: top;
+              width: 100%;
+              padding: 5px 10px;
+              &__message {
+                color: $color_link;
+                font-size: 14px;
+                font-weight: bold;
+              }
+              &__datetime {
+                font-size: 12px;
+                color: $color_text;
+                margin: 0;
+              }
             }
           }
         }
