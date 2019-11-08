@@ -596,6 +596,7 @@ export default {
                 color: $color_link;
                 font-size: 14px;
                 font-weight: bold;
+                margin: 0 0 8px;
               }
               &__datetime {
                 font-size: 12px;
