@@ -122,15 +122,22 @@
 					</div>
 
 					<div v-else-if="type == 'post_purchase_payment'" class="c-modal__content__body__post-purchase-payment">
-						<p class="c-modal__content__body__post-purchase-payment__title">{{this.postPurchaseTitle}}</p>
-						<p class="c-modal__content__body__post-purchase-payment__price">¥{{Number(this.postPurchasePrice).toLocaleString()}}</p>
+						<div style="margin-bottom: 25px;">
+							<p class="c-modal__content__body__post-purchase-payment__title">{{this.postPurchaseTitle}}</p>
+							<p class="c-modal__content__body__post-purchase-payment__price">¥{{Number(this.postPurchasePrice).toLocaleString()}}</p>
+						</div>
 
 						<div class="p-form">
+							<div class="p-form__payment__scope">
+								<img src="/img/post/transaction/visa.gif" alt="VISAカード">
+								<img src="/img/post/transaction/mastercard.gif" alt="MASTERカード">
+							</div>
 							<div class="p-form__group">
 								<label class="p-form__label">カード番号</label>
 								<div class="p-form__item">
 									<input type="text" pattern="[0-9]{13,16}" v-model="cardNumber" placeholder="例: 4444333322221111"/>
 								</div>
+								<p class="p-form__info">Visa・Mastercardのみ対応</p>
 							</div>
 <!--							<div class="p-form__group">-->
 <!--								<div></div>-->
@@ -143,9 +150,10 @@
 								<div>
 									<label class="p-form__label">有効期限</label>
 								</div>
-								<div style="width: 60px; display: inline-block;">
+								<div style="width: 50px; display: inline-block;">
 									<div class="p-form__item">
 										<select v-model="cardExpireMonth">
+											<option :value="null" selected>月</option>
 											<option value="01">01</option>
 											<option value="02">02</option>
 											<option value="03">03</option>
@@ -162,9 +170,10 @@
 									</div>
 								</div>
 								<span style="margin: 0 10px;">/</span>
-								<div style="width: 100px; display: inline-block;">
+								<div style="width: 70px; display: inline-block;">
 									<div class="p-form__item">
 										<select v-model="cardExpireYear">
+											<option :value="null" selected>年</option>
 											<option value="19">2019</option>
 											<option value="20">2020</option>
 											<option value="21">2021</option>
@@ -183,7 +192,7 @@
 								<div>
 									<label class="p-form__label">セキュリティコード</label>
 								</div>
-								<div style="width: 100px;display: inline-block;">
+								<div style="width: 120px;display: inline-block;">
 									<div class="p-form__item">
 										<input type="number" v-model="cardSecurityCode" placeholder="例: 111"/>
 									</div>
@@ -194,6 +203,7 @@
 								<div class="p-form__item">
 									<input type="email" v-model="purchaseGuestEmail" placeholder="example@hello.com"/>
 								</div>
+								<p class="p-form__info">購入後、指定のメールアドレスに購入内容をメール送信します。</p>
 							</div>
 						</div>
 					</div>

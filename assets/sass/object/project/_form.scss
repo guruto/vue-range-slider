@@ -213,6 +213,9 @@
 			vertical-align: middle;
 		}
 	}
+	select {
+		padding: 5px 10px;
+	}
 	input[type=checkbox] {
 		box-sizing: border-box;
 		background-color: $color_white;
@@ -654,5 +657,15 @@
 
 	&__ogp {
 		margin-bottom: 25px;
+	}
+
+	&__payment {
+		&__scope {
+			margin-bottom: 6px;
+			img {
+				width: 45px;
+				margin-right: 4px;
+			}
+		}
 	}
 }

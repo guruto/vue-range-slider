@@ -319,9 +319,11 @@
 		       :postPurchaseTitle="title"
 		       :postPurchasePrice="price"
 		       :isAuthenticated="isAuthenticated"
-		       actionMessage="決済する"
+		       actionMessage="購入する"
 		       :onHandleAction="executePurchasePost"
 		></Modal>
+
+		<Loading :isActive="purchaseLoading"></Loading>
 
 		<div class="p-popover" id="post-comment-popover" v-show="isShowPopoverControlPostComment">
 			<div class="p-popover__arrow"></div>
@@ -356,6 +358,8 @@ export default {
 			isShowPopoverControlPostComment: false,
 			selectedPostCommentLabel:        null,
 			selectedPostCommentIndex:        null,
+
+			purchaseLoading: false,
 
 			meta: {
 				subDomainForUrl: null
@@ -598,7 +602,8 @@ export default {
 		},
 		async executePurchasePost(param) {
 			console.log(param)
-			// TODO::全体ローディング start
+			// 全体ローディング start
+			this.purchaseLoading = true
 
 			// テスト用
 			// トークン取得処理
@@ -642,12 +647,15 @@ export default {
 				// modalは閉じない
 			}
 
-			// TODO::以降決済成功時の処理
 			// 全体ローディング end
+			this.purchaseLoading = false
 
-			// コンテンツ表示
+			// TODO::コンテンツ表示
 			// 1. 購入内容メール送信
 			// 2. ログイン済みならリダイレクトでそのまま表示。未ログインであれば24時間の期間でcookieで判定で表示（もしくはメールのみ）
+
+			// TODO::決済成功メッセージ
+
 		},
 	}
 }

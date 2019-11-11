@@ -1,5 +1,6 @@
 <template>
 	<div v-if="isActive" class="c-loader">
+		<div class="c-loader__backdrop"></div>
 		<div class="c-loader__content"></div>
 	</div>
 </template>
@@ -12,9 +13,21 @@
 
 <style lang="scss">
 	.c-loader {
-		height: 100%;
-		width: 100%;
-		position: relative;
+		z-index: 1000;
+		display: block;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		&__backdrop {
+			position: fixed;
+			height: 100%;
+			width: 100%;
+			background-color: rgba(0, 0, 0, 0.2);
+			z-index: 1000;
+		}
 
 		&__content,
 		&__content:after {
@@ -28,16 +41,14 @@
 			left: 0;
 			right: 0;
 			margin: auto;
-			z-index: 10000;
+			z-index: 1000;
 
-			// position: relative;
-			// margin: 60px auto;
 			font-size: 10px;
 			text-indent: -9999em;
-			border-top: 5px solid $color_main_light;
-			border-right: 5px solid $color_main_light;
-			border-bottom: 5px solid $color_main_light;
-			border-left: 5px solid $color_main;
+			border-top: 5px solid $color_main;
+			border-right: 5px solid $color_main;
+			border-bottom: 5px solid $color_main;
+			border-left: 5px solid $color_main_light;
 			-webkit-transform: translateZ(0);
 			-ms-transform: translateZ(0);
 			transform: translateZ(0);
