@@ -317,7 +317,7 @@
 		<Modal type="post_purchase_payment"
 		       title="購入"
 		       :postPurchaseTitle="title"
-		       :postPurchasePrice="Number(price).toLocaleString()"
+		       :postPurchasePrice="price"
 		       :isAuthenticated="isAuthenticated"
 		       actionMessage="決済する"
 		       :onHandleAction="executePurchasePost"
@@ -342,7 +342,7 @@ import postList from "~/components/pages/postList"
 import slider from '~/components/ui/slider'
 import moment from 'moment'
 import axios from "axios"
-import * as qs from "qs"
+import Api from "~/plugins/api";
 
 export default {
 	components: {postTextBody, postList, slider},
@@ -603,13 +603,13 @@ export default {
 			// テスト用
 			// トークン取得処理
 			const tokenApiUrl = 'https://api.veritrans.co.jp/4gtoken'
-			const tokenApiKey = 'cd76ca65-7f54-4dec-8ba3-11c12e36a548'
+			const tokenApiKey = 'b05ae369-5cc2-4c90-95b0-47655ea994ec'
 			const tokenParam  = {
-				card_number:   '4444333322221111',
-				card_expire:   '01/23',
-				security_code: '123',
-				token_api_key: tokenApiKey,
+				card_number:   param.cardNumber,
+				card_expire:   param.cardExpire,
+				security_code: param.securityCode,
 				lang:          'ja',
+				token_api_key: tokenApiKey,
 			}
 			console.log(tokenParam)
 			const config = {
@@ -617,35 +617,37 @@ export default {
 					'Content-Type': 'application/json',
 				},
 			};
-			const tokenRes = await axios.post(tokenApiUrl, qs.stringify(tokenParam), config)
+			const tokenRes = await axios.post(tokenApiUrl, tokenParam, config)
 			console.log(tokenRes);
-			if (tokenRes.status == 'failure') {
+			if (tokenRes.data.status == 'failure') {
 				console.log(tokenRes.code)
 				console.log(tokenRes.message)
+				// TODO::エラーメッセージ表示。再度form入力を促す
 				return
 			}
-			const token = tokenRes.token
-			console.log(token)
 
-			// TODO::決済後のAPI連携（pageful-serverのAPI）
+			// 決済のAPI連携（pageful-serverのAPI）
 			const requestParam = {
-				// request.token = token
-				// request.amount = 1000
-				// request.jpo = 10
-				// request.withCapture = true
+				token:               tokenRes.data.token,
+				request_card_number: tokenRes.data.req_card_number,
+				post_label:          this.label,
+				amount:              param.amount,
+				guest_email:         param.guestEmail,
+			}
+			console.log(requestParam)
+			const res = await Api.postTransactionAuthorize(requestParam, this.$store.state.user.authorizationToken)
+			console.log(res)
+			if (res.hasOwnProperty('is_error') && res.is_erorr == '1') {
+				// TODO::エラーメッセージ表示。再度form入力を促す
+				// modalは閉じない
 			}
 
+			// TODO::以降決済成功時の処理
+			// 全体ローディング end
 
-
-			// TODO::order_idなどをpost_transactionsテーブルに挿入
-			// TODO::user_paymentsデータも作成
-
-			// TODO::決済完了時にメール送信 param.email
-
-			// TODO::全体ローディング end
-			// TODO::リダイレクト
-			// ログイン情報を持って購入した場合リダイレクトで、有料内容公開状態でpostを表示する
-			// 未ログイン状態の場合は、webで有料公開内容は表示しない。メールのみ
+			// コンテンツ表示
+			// 1. 購入内容メール送信
+			// 2. ログイン済みならリダイレクトでそのまま表示。未ログインであれば24時間の期間でcookieで判定で表示（もしくはメールのみ）
 		},
 	}
 }

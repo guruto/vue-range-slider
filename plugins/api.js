@@ -348,4 +348,14 @@ export default {
 	getPageDesign(authorizationToken) {
 		return apiGet('page_designs/get_myself', {}, authorizationToken);
 	},
+	
+	/////////////////////////////////
+	// payment
+	/////////////////////////////////
+	postTransactionAuthorize(params, authorizationToken = null) {
+		return apiPost("post_transactions/authorize", params, authorizationToken)
+	},
+	postTransactionReAuthorize(params, authorizationToken) {
+		return apiPost("post_transactions/re_authorize", params, authorizationToken)
+	},
 }

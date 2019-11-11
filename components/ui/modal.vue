@@ -123,29 +123,29 @@
 
 					<div v-else-if="type == 'post_purchase_payment'" class="c-modal__content__body__post-purchase-payment">
 						<p class="c-modal__content__body__post-purchase-payment__title">{{this.postPurchaseTitle}}</p>
-						<p class="c-modal__content__body__post-purchase-payment__price">¥{{this.postPurchasePrice}}</p>
+						<p class="c-modal__content__body__post-purchase-payment__price">¥{{Number(this.postPurchasePrice).toLocaleString()}}</p>
 
 						<div class="p-form">
 							<div class="p-form__group">
 								<label class="p-form__label">カード番号</label>
 								<div class="p-form__item">
-									<input type="text" pattern="[0-9]{13,16}" placeholder="例: 4444333322221111"/>
+									<input type="text" pattern="[0-9]{13,16}" v-model="cardNumber" placeholder="例: 4444333322221111"/>
 								</div>
 							</div>
-							<div class="p-form__group">
-								<div></div>
-								<label class="p-form__label">カード名義</label>
-								<div class="p-form__item">
-									<input type="text" placeholder="例: HANAKO SUZUKI"/>
-								</div>
-							</div>
+<!--							<div class="p-form__group">-->
+<!--								<div></div>-->
+<!--								<label class="p-form__label">カード名義</label>-->
+<!--								<div class="p-form__item">-->
+<!--									<input type="text" placeholder="例: HANAKO SUZUKI"/>-->
+<!--								</div>-->
+<!--							</div>-->
 							<div class="p-form__group">
 								<div>
 									<label class="p-form__label">有効期限</label>
 								</div>
 								<div style="width: 60px; display: inline-block;">
 									<div class="p-form__item">
-										<select>
+										<select v-model="cardExpireMonth">
 											<option value="01">01</option>
 											<option value="02">02</option>
 											<option value="03">03</option>
@@ -164,7 +164,7 @@
 								<span style="margin: 0 10px;">/</span>
 								<div style="width: 100px; display: inline-block;">
 									<div class="p-form__item">
-										<select>
+										<select v-model="cardExpireYear">
 											<option value="19">2019</option>
 											<option value="20">2020</option>
 											<option value="21">2021</option>
@@ -185,14 +185,14 @@
 								</div>
 								<div style="width: 100px;display: inline-block;">
 									<div class="p-form__item">
-										<input type="number" placeholder="例: 111"/>
+										<input type="number" v-model="cardSecurityCode" placeholder="例: 111"/>
 									</div>
 								</div>
 							</div>
 							<div v-if="1 || isAuthenticated" class="p-form__group">
 								<label class="p-form__label">メールアドレス</label>
 								<div class="p-form__item">
-									<input type="email" placeholder="example@hello.com"/>
+									<input type="email" v-model="purchaseGuestEmail" placeholder="example@hello.com"/>
 								</div>
 							</div>
 						</div>
@@ -235,12 +235,12 @@
 				price: this.initialPrice,
 
 				// post paymentの設定
-				cardNumber:       null,
-				cardName:         null,
-				cardExpireMonth:  null,
-				cardExpireYear:   null,
-				cardSecurityCode: null,
-				purchaseEmail:    null,
+				cardNumber:         null,
+				// cardName:         null,
+				cardExpireMonth:    null,
+				cardExpireYear:     null,
+				cardSecurityCode:   null,
+				purchaseGuestEmail: null,
 			}
 		},
 		computed: {
@@ -286,12 +286,12 @@
 				} else if (this.type == 'post_purchase_payment') {
 					const param = {
 						amount:       this.postPurchasePrice,
-						number:       this.cardNumber,
-						expireDate:   this.cardExpireYear + this.cardExpireMonth,
+						cardNumber:   this.cardNumber,
+						cardExpire:   this.cardExpireMonth + '/' + this.cardExpireYear, // MM/YY
 						securityCode: this.cardSecurityCode,
-						firstName:    this.cardName, // TODO::スペースで切り取る
-						lastName:     this.cardName,
-						email:        this.purchaseEmail,
+						guestEmail:   this.purchaseGuestEmail,
+						// firstName:    this.cardName,
+						// lastName:     this.cardName,
 					}
 					this.onHandleAction(param);
 
