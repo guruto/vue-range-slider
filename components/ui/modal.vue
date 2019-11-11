@@ -246,7 +246,6 @@
 
 				// post paymentの設定
 				cardNumber:         null,
-				// cardName:         null,
 				cardExpireMonth:    null,
 				cardExpireYear:     null,
 				cardSecurityCode:   null,
@@ -275,6 +274,7 @@
 			},
 
 			hideModal() {
+				this.setStateDefault()
 				this.$store.dispatch('modal/hide')
 			},
 			handleButtonAction() {
@@ -289,9 +289,11 @@
 						return
 					}
 					this.onHandleAction(this.pageLinkTitle, this.pageLinkUrl)
+					this.hideModal()
 
 				} else if (this.type == 'save_publish_setting') {
 					this.onHandleAction(this.scope, 'public', this.price)
+					this.hideModal()
 
 				} else if (this.type == 'post_purchase_payment') {
 					const param = {
@@ -306,11 +308,8 @@
 					this.onHandleAction(param);
 
 				} else {
-					this.onHandleAction();
+					this.hideModal()
 				}
-
-				this.setStateDefault()
-				this.$store.dispatch('modal/hide')
 			},
 			handleButtonSubAction() {
 				if (this.type == 'save_publish_setting') {
@@ -330,6 +329,12 @@
 				this.pageLinkUrl   = ''
 				this.scope         = 'PUBLIC'
 				this.price         = null
+
+				this.cardNumber         = null
+				this.cardExpireMonth    = null
+				this.cardExpireYear     = null
+				this.cardSecurityCode   = null
+				this.purchaseGuestEmail = null
 			},
 		}
 	}

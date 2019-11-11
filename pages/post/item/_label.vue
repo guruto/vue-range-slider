@@ -621,11 +621,19 @@ export default {
 					'Content-Type': 'application/json',
 				},
 			};
-			const tokenRes = await axios.post(tokenApiUrl, tokenParam, config)
+			let tokenRes
+			try {
+				tokenRes = await axios.post(tokenApiUrl, tokenParam, config)
+			} catch (e) {
+				console.log(e)
+				this.purchaseLoading = false
+				this.$store.dispatch('flashMessage/showError', 'クレジットカードの認証に失敗しました。入力内容をご確認ください。')
+				return
+			}
 			console.log(tokenRes);
 			if (tokenRes.data.status == 'failure') {
-				this.purchaseLoading = false
 				// console.log(tokenRes.code + ', ' + tokenRes.message)
+				this.purchaseLoading = false
 				this.$store.dispatch('flashMessage/showError', 'クレジットカードの認証に失敗しました。入力内容をご確認ください。')
 				return
 			}
@@ -639,7 +647,16 @@ export default {
 				guest_email:         param.guestEmail,
 			}
 			console.log(requestParam)
-			const res = await Api.postTransactionAuthorize(requestParam, this.$store.state.user.authorizationToken)
+
+			let res
+			try {
+				res = await Api.postTransactionAuthorize(requestParam, this.$store.state.user.authorizationToken)
+			} catch (e) {
+				console.log(e)
+				this.purchaseLoading = false
+				this.$store.dispatch('flashMessage/showError', '決済に失敗しました。通信環境をご確認ください。')
+				return
+			}
 			console.log(res)
 			if (res.hasOwnProperty('is_error') && res.is_error) {
 				this.purchaseLoading = false
@@ -649,6 +666,8 @@ export default {
 
 			// 全体ローディング end
 			this.purchaseLoading = false
+			// モーダル閉じる
+			this.$store.dispatch('modal/hide')
 
 			// TODO::コンテンツ表示
 			// 1. 購入内容メール送信
