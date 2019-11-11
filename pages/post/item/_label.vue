@@ -616,7 +616,6 @@ export default {
 				lang:          'ja',
 				token_api_key: tokenApiKey,
 			}
-			console.log(tokenParam)
 			const config = {
 				headers: {
 					'Content-Type': 'application/json',
@@ -625,9 +624,9 @@ export default {
 			const tokenRes = await axios.post(tokenApiUrl, tokenParam, config)
 			console.log(tokenRes);
 			if (tokenRes.data.status == 'failure') {
-				console.log(tokenRes.code)
-				console.log(tokenRes.message)
-				// TODO::エラーメッセージ表示。再度form入力を促す
+				this.purchaseLoading = false
+				// console.log(tokenRes.code + ', ' + tokenRes.message)
+				this.$store.dispatch('flashMessage/showError', 'クレジットカードの認証に失敗しました。入力内容をご確認ください。')
 				return
 			}
 
@@ -642,9 +641,10 @@ export default {
 			console.log(requestParam)
 			const res = await Api.postTransactionAuthorize(requestParam, this.$store.state.user.authorizationToken)
 			console.log(res)
-			if (res.hasOwnProperty('is_error') && res.is_erorr == '1') {
-				// TODO::エラーメッセージ表示。再度form入力を促す
-				// modalは閉じない
+			if (res.hasOwnProperty('is_error') && res.is_error) {
+				this.purchaseLoading = false
+				this.$store.dispatch('flashMessage/showError', res.error_message)
+				return
 			}
 
 			// 全体ローディング end
@@ -654,7 +654,8 @@ export default {
 			// 1. 購入内容メール送信
 			// 2. ログイン済みならリダイレクトでそのまま表示。未ログインであれば24時間の期間でcookieで判定で表示（もしくはメールのみ）
 
-			// TODO::決済成功メッセージ
+			// 決済成功メッセージ
+			this.$store.dispatch('flashMessage/showSuccess', '決済が完了しました。')
 
 		},
 	}
