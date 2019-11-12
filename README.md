@@ -12,7 +12,6 @@
  - バックエンド https://api.pageful.app
 
 ## 動作環境
-
 開発環境に必要な環境
 - node（npmを実行できるように）
 
@@ -52,8 +51,16 @@ npm run dev
 ```
 http://localhost:3000 でローカルのフロントエンドが実行されます。
 
-### API
-開発時のAPIのエンドポイントは `https://devapi.pageful.app` です。
+### APIエンドポイント
+`npm run dev` の場合、APIは開発環境の`https://devpai.pageful.app` へ接続されます。
+
+APIをlocalhostで接続したい場合は `npm run start:local` でnuxtを実行してください。
+その際のAPIエンドポイントは `http://localhost:80/` となります。
+
+### ローカル環境のAPIエンドポイント
+APIのレポジトリ
+git clone git@github.com:guruto/pageful-server.git
+実行方法はREADMEを見てください。
 
 ## 開発の流れ
 
@@ -66,7 +73,7 @@ http://localhost:3000 でローカルのフロントエンドが実行されま�
 ### 動作テスト方法
 
 * 変更箇所はPCとSPの両方で必ずテストする。
-* 特に課金まわりの変更は影響が大きいので、慎重にテストを行う（下参照）。
+* 特に課金まわりの変更は影響が大きいので、慎重にテストを行う。
 
 ### サービスとしての動作確認環境
 
