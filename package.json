@@ -2,6 +2,7 @@
   "name": "new-client",
   "scripts": {
     "dev": "nuxt",
+    "dev:local": "NODE_ENV=\"localhost\" nuxt",
     "build": "nuxt build",
     "build:stg": "NODE_ENV=\"staging\" nuxt build",
     "build:prod": "NODE_ENV=\"production\" nuxt build",
