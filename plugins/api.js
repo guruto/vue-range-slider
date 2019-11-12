@@ -8,8 +8,7 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(request => {
-  console.log("api request: " + request.url)
-  // console.log(request.headers)
+  console.log("api request: " + process.env.API_BASE_URL + "/" +request.url)
   return request
 })
 

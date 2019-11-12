@@ -1,4 +1,5 @@
 const environment = process.env.NODE_ENV || "development"
+console.log("ENV = " + environment)
 const envFilename = `./config/.env.${environment}`
 require("dotenv").config({ path: envFilename })
 
