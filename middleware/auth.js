@@ -1,6 +1,4 @@
 export default function({ store, req, route, redirect }) {
-  console.log("middleware auth")
-
   let routeName = route.name
   if (!routeName) {
     return

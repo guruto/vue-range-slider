@@ -18,8 +18,6 @@ import Api from "~/plugins/api"
 
 export const actions = {
   async nuxtServerInit({ commit }, { req }) {
-    console.log("nuxtServerInit")
-
     // authenticationTokenがCookieにある場合、user情報取得のAPIを実行し、user stateにデータセットする
     const cookie = req.headers.hasOwnProperty("cookie")
       ? req.headers.cookie
@@ -28,7 +26,7 @@ export const actions = {
     if (cookie) {
       const parsedCookie = cookieparser.parse(req.headers.cookie)
       const authorizationToken = parsedCookie.AuthorizationToken
-      console.log(authorizationToken)
+      console.log("auth:" + authorizationToken)
 
       if (
         authorizationToken != "undefined" &&
