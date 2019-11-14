@@ -409,5 +409,14 @@ export default {
 	postTransactionReAuthorize(params, authorizationToken) {
 		return apiPost("post_transactions/re_authorize", params, authorizationToken)
 	},
-	
+  getSellPostTransactionHistoriesMyself(authorizationToken) {
+    return apiGet("post_transactions/get_sell_histories", {}, authorizationToken)
+  },
+  requestPayout(params, authorizationToken) {
+    return apiPost("payouts/request", params, authorizationToken)
+  },
+  getPayoutHistoriesMyself(authorizationToken) {
+    return apiGet("payouts/get_histories_myself", {}, authorizationToken)
+  },
+  
 }
