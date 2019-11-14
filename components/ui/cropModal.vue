@@ -30,8 +30,8 @@
               ref="slider"
               :value="scale"
               :min="1"
-              :max="30"
-              :step="0.1"
+              :max="3"
+              :step="0.01"
               @slide-end="scaling"
             />
           </div>
@@ -301,10 +301,13 @@ export default {
         )
       }
 
-      if (!result.data.is_error && this.post.thumbnailImagePath !== undefined) {
+      if (this.modalName === "design") {
         this.post.thumbnailImagePath = result.data.path
         this.post.thumbnailImageUrl = result.data.url
         this.loading.isHedaderUploading = true
+      } else if(!result.data.is_error && this.post.thumbnailImagePath !== undefined) {
+        this.post.thumbnailImagePath = result.data.path
+        this.post.thumbnailImageUrl = result.data.url
       } else if (
         !result.data.is_error &&
         this.post.iconImagePath !== undefined
