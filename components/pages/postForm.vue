@@ -243,6 +243,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
@@ -359,6 +360,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
@@ -472,6 +474,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
@@ -594,6 +597,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
