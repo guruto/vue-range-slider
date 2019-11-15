@@ -11,19 +11,23 @@
           <h2 class="c-title--sub">売上総額</h2>
           <p class="p-sale-manage__info__amount">¥1000000</p>
         </div>
+        <div class="p-sale-manage__info">
+          <h2 class="c-title--sub">現在の出金可能額</h2>
+          <p class="p-sale-manage__info__amount">¥1000000</p>
+        </div>
         
         <div class="p-sale-manage__payout">
-          <nuxt-link to="/dashboard/sale/payout" class="c-btn c-btn--main">
+          <nuxt-link to="/dashboard/sales/payout" class="c-btn c-btn--main">
             出金申請する
           </nuxt-link>
         </div>
         
         <div class="p-sale-manage__other">
           <h2 class="c-title--sub">履歴</h2>
-          <nuxt-link to="/dashboard/sale/transaction_history" class="c-btn c-btn--main">
+          <nuxt-link to="/dashboard/sales/transaction_history" class="c-btn c-btn--main">
             売上履歴
           </nuxt-link>
-          <nuxt-link to="/dashboard/sale/payout_history" class="c-btn c-btn--main">
+          <nuxt-link to="/dashboard/sales/payout_history" class="c-btn c-btn--main">
             出金履歴
           </nuxt-link>
         </div>

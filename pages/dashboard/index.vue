@@ -99,6 +99,17 @@
           <span class="p-dashboard__navigation__item__name">各種設定</span>
         </nuxt-link>
       </div>
+      <div class="p-dashboard__navigation__item">
+        <nuxt-link to="/dashboard/sales/manage">
+          <div
+            class="p-dashboard__navigation__item__icon"
+            style="background-color: #FFA012;"
+          >
+            <img src="/img/dashboard/navigation/sales.png" alt="売上管理" />
+          </div>
+          <span class="p-dashboard__navigation__item__name">売上管理</span>
+        </nuxt-link>
+      </div>
     </div>
 
     <div style="padding: 0 5% 30px;">
