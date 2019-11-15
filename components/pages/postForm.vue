@@ -111,6 +111,7 @@
             <div
               class="p-editor__title__content"
               contenteditable="true"
+              ref="editorTitle"
               data-placeholder="タイトルを入力…"
               :data-active-placeholder="post.title.length === 0"
               @focusout="handleTitleEdit"
@@ -773,6 +774,9 @@ export default {
     }
   },
   mounted() {
+    if (this.post.type == "TEXT" && !this.post.title) {
+      this.$refs.editorTitle.textContent = ''
+    }
     if (this.post.type == "FILE" || this.post.type == "SOUND") {
       if (
         this.post.thumbnailMediaList &&
