@@ -145,6 +145,7 @@
               type="url"
               name="linkUrl"
               placeholder="URLを入力 https://"
+              @keydown.enter.prevent
               @focusout="handleFocusOutGetInfoLinkUrl"
               @paste="handlePasteGetInfoLinkUrl"
             >
