@@ -7,20 +7,15 @@
     <section class="c-section">
       <div class="p-payout-history">
         
-        <div class="p-payout-history__none">
+        <div class="p-payout-history__none" v-if="this.$store.state.payoutList.items.length == 0">
           <p>出金履歴はありません。</p>
         </div>
         
         <div class="p-payout-history__list">
-          <div class="p-payout-history__list__item">
-            <p class="p-payout-history__list__item__status">申請済み</p>
-            <p class="p-payout-history__list__item__amount">¥1000</p>
-            <p class="p-payout-history__list__item__datetime">2019/01/01</p>
-          </div>
-          <div class="p-payout-history__list__item">
-            <p class="p-payout-history__list__item__status">振り込み済み</p>
-            <p class="p-payout-history__list__item__amount">¥1000</p>
-            <p class="p-payout-history__list__item__datetime">2019/01/01</p>
+          <div class="p-payout-history__list__item" v-for="item in this.$store.state.payoutList.items">
+            <p class="p-payout-history__list__item__status">{{item.status_text}}</p>
+            <p class="p-payout-history__list__item__amount">¥{{item.total_amount | price}}</p>
+            <p class="p-payout-history__list__item__datetime">{{item.created_at | moment}}</p>
           </div>
         </div>
       
@@ -32,11 +27,20 @@
 <script>
   import postList from "~/components/pages/postList"
   import Meta from "~/assets/mixins/meta"
+  import moment from "moment"
   
   export default {
     layout:     "dashboard",
     components: {postList},
     mixins:     [Meta],
+    filters: {
+      price(price_text) {
+        return Number(price_text).toLocaleString()
+      },
+      moment(unixtime) {
+        return moment.unix(unixtime).format("YYYY/MM/DD")
+      }
+    },
     data() {
       return {
         meta: {
@@ -46,6 +50,8 @@
       }
     },
     async asyncData(context) {
+      await context.store.dispatch("payoutList/getHistoriesMyself")
+      
       return {}
     },
     methods: {}

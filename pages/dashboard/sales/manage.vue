@@ -9,11 +9,11 @@
   
         <div class="p-sale-manage__info">
           <h2 class="c-title--sub">売上総額</h2>
-          <p class="p-sale-manage__info__amount">¥1000000</p>
+          <p class="p-sale-manage__info__amount">¥{{this.$store.state.userPayment.cumulativeSalesAmount | price}}</p>
         </div>
         <div class="p-sale-manage__info">
           <h2 class="c-title--sub">現在の出金可能額</h2>
-          <p class="p-sale-manage__info__amount">¥1000000</p>
+          <p class="p-sale-manage__info__amount">¥{{this.$store.state.userPayment.notPayoutSalesAmount | price}}</p>
         </div>
         
         <div class="p-sale-manage__payout">
@@ -45,6 +45,11 @@ export default {
   layout:     "dashboard",
   components: {postList},
   mixins:     [Meta],
+  filters: {
+    price(price_text) {
+      return Number(price_text).toLocaleString()
+    }
+  },
   data() {
     return {
       meta: {
@@ -54,7 +59,10 @@ export default {
     }
   },
   async asyncData(context) {
-    return {}
+    await context.store.dispatch("userPayment/getInfoMyself")
+    
+    return {
+    }
   },
   methods: {}
 }

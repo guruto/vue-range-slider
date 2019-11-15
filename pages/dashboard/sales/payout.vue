@@ -11,9 +11,11 @@
           <div class="p-form__group">
             <label class="p-form__label">出金可能な売上</label>
             <p class="p-form__value">
-              ¥1000
+              ¥{{this.$store.state.userPayment.notPayoutSalesAmount | price}}
             </p>
           </div>
+  
+          <p v-if="!this.$store.state.userPayment.canPayout">現在出金可能な売上がありません。</p>
   
           <div class="p-form__button">
             <button
@@ -24,7 +26,7 @@
                   'is-loading': isLoading
                 }"
               type="button"
-              :disabled="isLoading"
+              :disabled="isLoading || !this.$store.state.userPayment.canPayout"
             >
               出金申請
             </button>
@@ -46,8 +48,15 @@ export default {
   layout:     "dashboard",
   components: {postList},
   mixins:     [Meta],
+  filters: {
+    price(price_text) {
+      return Number(price_text).toLocaleString()
+    }
+  },
   data() {
     return {
+      isLoading: false,
+      
       meta: {
         title:       "出金申請",
         description: "PAGEFUL（ペイジフル）の出金申請ページ"
@@ -55,11 +64,17 @@ export default {
     }
   },
   async asyncData(context) {
+    await context.store.dispatch("userPayment/getInfoMyself")
+    
     return {}
   },
   methods: {
     async handleAddRequest() {
-    
+      this.isLoading = true
+  
+      await this.$store.dispatch("payout/request")
+      
+      this.isLoading = false
     },
   }
 }
