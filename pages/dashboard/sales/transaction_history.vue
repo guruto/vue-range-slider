@@ -27,6 +27,7 @@
 <script>
   import postList from "~/components/pages/postList"
   import Meta from "~/assets/mixins/meta"
+  import moment from "moment"
   
   export default {
     layout:     "dashboard",
