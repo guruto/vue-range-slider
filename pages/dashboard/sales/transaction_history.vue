@@ -7,20 +7,15 @@
     <section class="c-section">
       <div class="p-transaction-history">
         
-        <div class="p-transaction-history__none">
+        <div class="p-transaction-history__none" v-if="this.$store.state.postTransactionList.items.length == 0">
           <p>売上履歴はありません。</p>
         </div>
         
         <div class="p-transaction-history__list">
-          <div class="p-transaction-history__list__item">
-            <nuxt-link to="/dashboard/post/item/" class="p-transaction-history__list__item__title">post title</nuxt-link>
-            <p class="p-transaction-history__list__item__amount">¥1000</p>
-            <p class="p-transaction-history__list__item__datetime">2019/01/01 12:35</p>
-          </div>
-          <div class="p-transaction-history__list__item">
-            <nuxt-link to="/dashboard/post/item/" class="p-transaction-history__list__item__title">post title</nuxt-link>
-            <p class="p-transaction-history__list__item__amount">¥1000</p>
-            <p class="p-transaction-history__list__item__datetime">2019/01/01 12:35</p>
+          <div class="p-transaction-history__list__item" v-for="item in this.$store.state.postTransactionList.items">
+            <nuxt-link to="/dashboard/post/item/" class="p-transaction-history__list__item__title">{{item.post.title}}</nuxt-link>
+            <p class="p-transaction-history__l  ist__item__amount">¥{{item.amount | price}}</p>
+            <p class="p-transaction-history__list__item__datetime">{{item.created_at | moment}}</p>
           </div>
         </div>
         
@@ -37,6 +32,14 @@
     layout:     "dashboard",
     components: {postList},
     mixins:     [Meta],
+    filters: {
+      price(price_text) {
+        return Number(price_text).toLocaleString()
+      },
+      moment(unixtime) {
+        return moment.unix(unixtime).format("YYYY/MM/DD")
+      }
+    },
     data() {
       return {
         meta: {
@@ -46,6 +49,8 @@
       }
     },
     async asyncData(context) {
+      await context.store.dispatch("postTransactionList/getSellHistoriesMyself")
+      
       return {}
     },
     methods: {}

@@ -11,7 +11,7 @@ export const mutations = {
     state.isError = false
     state.errorMessage = ""
 
-    state.items = data.data
+    state.items = data
   },
 
   SET_SUCCESS: function(state) {
