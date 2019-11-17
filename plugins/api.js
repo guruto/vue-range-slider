@@ -412,8 +412,8 @@ export default {
   getSellPostTransactionHistoriesMyself(authorizationToken) {
     return apiGet("post_transactions/get_sell_histories", {}, authorizationToken)
   },
-  requestPayout(params, authorizationToken) {
-    return apiPost("payouts/request", params, authorizationToken)
+  requestPayout(authorizationToken) {
+    return apiPost("payouts/request", {}, authorizationToken)
   },
   getPayoutHistoriesMyself(authorizationToken) {
     return apiGet("payouts/get_histories_myself", {}, authorizationToken)

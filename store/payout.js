@@ -31,7 +31,7 @@ import Api from "~/plugins/api"
 
 export const actions = {
   async request({ rootState, commit }) {
-    const res = await Api.getPayoutHistoriesMyself(
+    const res = await Api.requestPayout(
       rootState.user.authorizationToken
     )
     
