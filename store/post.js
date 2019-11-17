@@ -3,6 +3,8 @@ export const state = () => ({
   errorMessage: "",
 
   isMine: false,
+  hasRightToReadLimitedBlocks: false,
+  hasRightToComment: false,
   label: null,
   type: "",
   scope: "PUBLIC",
@@ -87,6 +89,8 @@ export const mutations = {
     state.errorMessage = ""
 
     state.isMine = data.is_mine === "1"
+    state.hasRightToReadLimitedBlocks = data.has_right_to_read_limited_blocks === "1"
+    state.hasRightToComment = data.has_right_to_comment === "1"
     state.label = data.label
     state.scope = data.scope
     state.price = data.price
@@ -168,9 +172,7 @@ export const mutations = {
   SET_POST_VIDEO_DATA: function(state, data) {
     state.isError = false
     state.errorMessage = ""
-    console.log("SET_POST_VIDEO_DATA")
-    console.log(data)
-
+    
     state.itemVideo = {
       title: data.title,
       comment: data.comment,

@@ -144,29 +144,7 @@
         </div>
 
         <div>
-          <div
-            v-if="
-              scope == 'MEMBER' && !isMine && (!isAuthenticated || !isMember)
-            "
-            class="p-post__content__limited"
-          >
-            <p class="p-post__content__limited__description">
-              メンバー限定公開の内容です。
-            </p>
-            <div class="p-post__content__limited__action">
-              <nuxt-link to="/member/sign_up" class="c-btn c-btn--main">
-                メンバーになる
-              </nuxt-link>
-            </div>
-          </div>
-	      <div v-else-if="scope == 'PAYMENT' && !isMine" class="p-post__content__limited">
-            <p class="p-post__content__limited__description">有料公開の内容です。</p>
-            <p class="p-post__content__limited__price">¥{{Number(price).toLocaleString()}}</p>
-            <div class="p-post__content__limited__action">
-              <button @click="handlePurchaseBtn" type="button" class="c-btn c-btn--main">購入へ進む</button>
-            </div>
-	      </div>
-          <div v-else>
+          <div v-if="hasRightToReadLimitedBlocks">
             <div v-if="type == 'TEXT'">
               <div class="p-post__content__text">
                 <post-text-body
@@ -253,6 +231,29 @@
                 <div class="p-post__content__comment__content">
                   <p v-html="comment.replace(/\n/g, '<br/>')" />
                 </div>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div
+              v-if="scope == 'MEMBER'"
+              class="p-post__content__limited">
+              <p class="p-post__content__limited__description">
+                メンバー限定公開の内容です。
+              </p>
+              <div class="p-post__content__limited__action">
+                <nuxt-link to="/member/sign_up" class="c-btn c-btn--main">
+                  メンバーになる
+                </nuxt-link>
+              </div>
+            </div>
+            <div
+              v-else-if="scope == 'PAYMENT'"
+              class="p-post__content__limited">
+              <p class="p-post__content__limited__description">有料公開の内容です。</p>
+              <p class="p-post__content__limited__price">¥{{Number(price).toLocaleString()}}</p>
+              <div class="p-post__content__limited__action">
+                <button @click="handlePurchaseBtn" type="button" class="c-btn c-btn--main">購入へ進む</button>
               </div>
             </div>
           </div>
@@ -348,13 +349,13 @@
       <div class="p-post__comment">
         <h2 class="c-title--sub">
           コメント{{
-            isMine || isMember
+          hasRightToComment
               ? "（" + this.$store.state.postCommentList.itemCount + "件）"
               : ""
           }}
         </h2>
 
-        <div v-if="isMine || isMember">
+        <div v-if="hasRightToComment">
           <div
             v-if="this.$store.state.postCommentList.itemCount > 0"
             class="p-post__comment__list"
@@ -553,13 +554,6 @@ export default {
       // ユーザー認証済みか否か
       return this.$store.state.user.authenticated
     },
-    isMember() {
-      // 既にメンバーか否か
-      const pageLabel = this.$store.state.subDomain.subDomain
-      return (
-        this.$store.state.user.memberPageLabelList.indexOf(pageLabel) !== -1
-      )
-    },
     thumbnailList() {
       if (this.thumbnailMediaList) {
         console.log(this.thumbnailMediaList)
@@ -608,6 +602,8 @@ export default {
       pageLabel: context.store.state.page.label,
 
       isMine: context.store.state.post.isMine,
+      hasRightToReadLimitedBlocks: context.store.state.post.hasRightToReadLimitedBlocks,
+      hasRightToComment: context.store.state.post.hasRightToComment,
       label: context.store.state.post.label,
       type: type,
       typeText: context.store.state.post.typeText,
