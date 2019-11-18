@@ -841,10 +841,13 @@ export default {
       this.purchaseLoading = false
       // モーダル閉じる
       this.$store.dispatch('modal/hide')
-
+  
       // TODO::コンテンツ表示
-      // 1. 購入内容メール送信
-      // 2. ログイン済みならリダイレクトでそのまま表示。未ログインであれば24時間の期間でcookieで判定で表示（もしくはメールのみ）
+      // post/get 処理を実行して、hasRightToReadLimitedBlocksの値を更新。未ログインであれば24時間の期間でcookieで判定で表示（もしくはメールのみ）
+      await this.$store.dispatch("post/get", {
+        label: this.label,
+        pageLabel: this.$store.state.page.label
+      })
 
       // 決済成功メッセージ
       this.$store.dispatch('flashMessage/showSuccess', '決済が完了しました。')
