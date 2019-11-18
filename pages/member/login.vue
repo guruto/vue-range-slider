@@ -95,12 +95,7 @@
                 <span
                   v-show="errors.has('password')"
                   class="p-form__item-error"
-<<<<<<< HEAD
-                  >{{ errors.first("password") }}</span
-                >
-=======
                 >{{ errors.first("password") }}</span>
->>>>>>> master
               </div>
 
               <div class="p-form__password-forgot">

@@ -1,8 +1,8 @@
 export const state = () => ({
   isError: false,
   errorMessage: "",
-
-  sumAmount: null,
+  
+  totalAmount: null,
   
 })
 
@@ -11,9 +11,7 @@ export const mutations = {
     state.isError = false
     state.errorMessage = ""
 
-    state.sumAmount = data.sum_amount
-    state.isPaidOut = data.is_paid_out
-    state.paidOutAt = data.paid_out_at
+    state.totalAmount = data.total_amount
   },
 
   SET_SUCCESS: function(state) {
@@ -30,16 +28,20 @@ export const mutations = {
 import Api from "~/plugins/api"
 
 export const actions = {
-  async request({ rootState, commit }) {
+  async request({ rootState, commit, dispatch }) {
     const res = await Api.requestPayout(
       rootState.user.authorizationToken
     )
     
     if (!res.is_error) {
-      commit("SET_DATA", res.data)
+      commit("SET_SUCCESS")
+      commit("userSales/SET_PAYOUT_REQUEST_DATA", {}, { root: true })
+      dispatch("flashMessage/showSuccess", "出金申請が完了しました。", { root: true })
+      
     } else {
       // エラー処理
       commit("SET_ERROR")
+      dispatch("flashMessage/showError", res.error_message, { root: true })
     }
   }
 }

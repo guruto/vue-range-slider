@@ -418,7 +418,7 @@ export default {
   getPayoutHistoriesMyself(authorizationToken) {
     return apiGet("payouts/get_histories_myself", {}, authorizationToken)
   },
-  getUserPaymentInfoMyself(authorizationToken) {
-    return apiGet("user_payments/get_info_myself", {}, authorizationToken)
+  getUserSalesInfoMyself(authorizationToken) {
+    return apiGet("user_sales/get_info_myself", {}, authorizationToken)
   },
 }

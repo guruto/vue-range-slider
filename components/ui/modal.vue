@@ -331,7 +331,7 @@ export default {
 	    this.hideModal()
 
       } else if (this.type == "save_publish_setting") {
-	      this.onHandleAction(this.scope, "public")
+	      this.onHandleAction(this.scope, "public", this.price)
 	      this.hideModal()
 
       } else if (this.type == "post_purchase_payment") {
@@ -368,7 +368,7 @@ export default {
       this.pageLinkTitle = ""
       this.pageLinkUrl = ""
       this.scope = "PUBLIC"
-      this.price         = null
+      this.price              = null
       this.cardNumber         = null
       this.cardExpireMonth    = null
       this.cardExpireYear     = null

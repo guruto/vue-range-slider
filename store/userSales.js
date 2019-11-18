@@ -2,10 +2,8 @@ export const state = () => ({
   isError: false,
   errorMessage: "",
   
-  cumulativeSalesAmount: null,
-  notPayoutSalesAmount: null,
-  latestOrderId: null,
-  latestRequestCardNumber: null,
+  cumulativeAmount: null,
+  notPayoutAmount: null,
   canPayout: false,
 })
 
@@ -14,16 +12,22 @@ export const mutations = {
     state.isError = false
     state.errorMessage = ""
 
-    state.cumulativeSalesAmount = data.cumulative_sales_amount
-    state.notPayoutSalesAmount = data.not_payout_sales_amount
-    state.latestOrderId = data.latest_order_id
-    state.latestRequestCardNumber = data.latest_request_card_number
-    state.canPayout = (data.not_payout_sales_amount > 0)
+    state.cumulativeAmount = data.cumulative_amount
+    state.notPayoutAmount = data.not_payout_amount
+    state.canPayout = (data.not_payout_amount > 0)
   },
 
   SET_SUCCESS: function(state) {
     state.isError = false
     state.errorMessage = ""
+  },
+  
+  SET_PAYOUT_REQUEST_DATA: function(state) {
+    state.isError = false
+    state.errorMessage = ""
+    
+    state.notPayoutAmount = 0
+    state.canPayout = false
   },
 
   SET_ERROR: function(state, errorMessage) {
@@ -36,7 +40,7 @@ import Api from "~/plugins/api"
 
 export const actions = {
   async getInfoMyself({ rootState, commit }) {
-    const res = await Api.getUserPaymentInfoMyself(
+    const res = await Api.getUserSalesInfoMyself(
       rootState.user.authorizationToken
     )
     

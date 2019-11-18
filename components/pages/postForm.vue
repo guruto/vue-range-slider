@@ -862,7 +862,7 @@ export default {
       let params = this.getParams(this.post.type)
       params["type"] = this.post.type
       params["scope"] = scope
-	  params["price"] = price
+	    params["price"] = price
       params["is_publish"] = publish_type === "public" ? 1 : 0
       if (this.isEdit) {
         params["label"] = this.post.label

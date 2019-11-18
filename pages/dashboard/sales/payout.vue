@@ -11,11 +11,11 @@
           <div class="p-form__group">
             <label class="p-form__label">出金可能な売上</label>
             <p class="p-form__value">
-              ¥{{this.$store.state.userPayment.notPayoutSalesAmount | price}}
+              ¥{{this.$store.state.userSales.notPayoutAmount | price}}
             </p>
           </div>
   
-          <p v-if="!this.$store.state.userPayment.canPayout">現在出金可能な売上がありません。</p>
+          <p v-if="!this.$store.state.userSales.canPayout">現在出金可能な売上がありません。</p>
   
           <div class="p-form__button">
             <button
@@ -26,7 +26,7 @@
                   'is-loading': isLoading
                 }"
               type="button"
-              :disabled="isLoading || !this.$store.state.userPayment.canPayout"
+              :disabled="isLoading || !this.$store.state.userSales.canPayout"
             >
               出金申請
             </button>
@@ -64,7 +64,7 @@ export default {
     }
   },
   async asyncData(context) {
-    await context.store.dispatch("userPayment/getInfoMyself")
+    await context.store.dispatch("userSales/getInfoMyself")
     
     return {}
   },
