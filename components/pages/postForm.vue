@@ -107,20 +107,16 @@
 
       <div style="padding: 0 5%;">
         <div class="p-editor__title">
-          <h1>
-            <div
-              class="p-editor__title__content"
-              contenteditable="true"
-              ref="editorTitle"
-              data-placeholder="タイトルを入力…"
-              :data-active-placeholder="post.title.length === 0"
-              @focusout="handleTitleEdit"
-              @keyup="handleTitleEdit"
-              @keydown="handleTitleEditKeyDown"
-            >
-              {{ post.title }}
-            </div>
-          </h1>
+          <div
+            class="p-editor__title__content"
+            contenteditable="true"
+            ref="editorTitle"
+            data-placeholder="タイトルを入力…"
+            :data-active-placeholder="true"
+            @focusout="handleTitleEdit"
+            @keyup="handleTitleEdit"
+            @keydown="handleTitleEditKeyDown"
+          >{{ post.title }}</div>
         </div>
 
         <editor
