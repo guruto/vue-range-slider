@@ -842,8 +842,9 @@ export default {
       // モーダル閉じる
       this.$store.dispatch('modal/hide')
   
-      // TODO::コンテンツ表示
-      // post/get 処理を実行して、hasRightToReadLimitedBlocksの値を更新。未ログインであれば24時間の期間でcookieで判定で表示（もしくはメールのみ）
+      // コンテンツ表示
+      // post/get 処理を実行して、hasRightToReadLimitedBlocksの値を更新。
+      // 未ログインであれば24時間の期間でcookieで判定で表示。メール配信はどちらも行う
       await this.$store.dispatch("post/get", {
         label: this.label,
         pageLabel: this.$store.state.page.label
