@@ -14,7 +14,7 @@
         <div class="p-transaction-history__list">
           <div class="p-transaction-history__list__item" v-for="item in this.$store.state.postTransactionList.items">
             <nuxt-link to="/dashboard/post/item/" class="p-transaction-history__list__item__title">{{item.post.title}}</nuxt-link>
-            <p class="p-transaction-history__l  ist__item__amount">¥{{item.transaction.amount | price}}</p>
+            <p class="p-transaction-history__list__item__amount">¥{{item.transaction.amount | price}}</p>
             <p class="p-transaction-history__list__item__datetime">{{item.created_at | moment}}</p>
           </div>
         </div>
