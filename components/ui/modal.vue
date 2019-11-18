@@ -113,7 +113,8 @@
                     >
                     <label for="scope-all">全公開</label>
                   </div>
-                  <div class="p-form__item">
+	                
+                  <div v-if="postType == 'TEXT'" class="p-form__item">
                     <input
                       id="scope-member"
                       v-model="scope"
@@ -123,19 +124,21 @@
                     <label for="scope-member">メンバー限定</label>
                   </div>
 
-	                <div class="p-form__item">
-		                <input type="radio" id="scope-payment" value="PAYMENT" v-model="scope" />
-		                <label for="scope-payment">有料販売</label>
-	                </div>
-	                <div class="u-cf">
-		                <div class="c-modal__content__body__publish-setting__yen">
-			                <span>¥</span>
+	                <div v-if="postType == 'TEXT'" >
+		                <div class="p-form__item">
+			                <input type="radio" id="scope-payment" value="PAYMENT" v-model="scope" />
+			                <label for="scope-payment">有料販売</label>
 		                </div>
-		                <div class="c-modal__content__body__publish-setting__price">
-			                <input type="number" v-model="price" :disabled="scope != 'PAYMENT'" placeholder="1000" min="100" max="100000"/>
+		                <div class="u-cf">
+			                <div class="c-modal__content__body__publish-setting__yen">
+				                <span>¥</span>
+			                </div>
+			                <div class="c-modal__content__body__publish-setting__price">
+				                <input type="number" v-model="price" :disabled="scope != 'PAYMENT'" placeholder="1000" min="100" max="100000"/>
+			                </div>
 		                </div>
+		                <p class="p-form__info">有料に設定した場合、購入した方のみが本文・コメント内容を閲覧できます。</p>
 	                </div>
-	                <p class="p-form__info">有料に設定した場合、購入した方のみが本文・コメント内容を閲覧できます。</p>
                 </div>
               </div>
             </div>
@@ -267,7 +270,7 @@
 export default {
   props: [
 	  'type', 'title', 'description', 'actionMessage', 'subActionMessage', 'cancelMessage', 'onHandleAction', 'onHandleSubAction', 'onHandleCancel',
-	  'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope', 'initialPrice', 'postPurchaseTitle', 'postPurchasePrice',
+	  'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope', 'initialPrice', 'postPurchaseTitle', 'postPurchasePrice', 'postType',
   ],
   data() {
     return {
@@ -328,7 +331,7 @@ export default {
           return
         }
         this.onHandleAction(this.pageLinkTitle, this.pageLinkUrl)
-	    this.hideModal()
+	      this.hideModal()
 
       } else if (this.type == "save_publish_setting") {
 	      this.onHandleAction(this.scope, "public", this.price)
