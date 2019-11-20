@@ -568,9 +568,13 @@ export default {
   },
   async asyncData(context) {
     const label = context.params.label
+    // 購入コード
+    const code = context.route.query.code
+    
     await context.store.dispatch("post/get", {
       label: label,
-      pageLabel: context.store.state.page.label
+      pageLabel: context.store.state.page.label,
+      code: code
     })
 
     if (context.store.state.post.isError) {
@@ -842,16 +846,19 @@ export default {
       // モーダル閉じる
       this.$store.dispatch('modal/hide')
   
-      // コンテンツ表示
-      // post/get 処理を実行して、hasRightToReadLimitedBlocksの値を更新。
-      // 未ログインであれば24時間の期間でcookieで判定で表示。メール配信はどちらも行う
-      await this.$store.dispatch("post/get", {
-        label: this.label,
-        pageLabel: this.$store.state.page.label
-      })
-
       // 決済成功メッセージ
-      this.$store.dispatch('flashMessage/showSuccess', '決済が完了しました。')
+      this.$store.dispatch('flashMessage/showSuccess', '決済が完了しました。閲覧ページに遷移します。')
+  
+      // コンテンツ表示
+      // await this.$store.dispatch("post/get", {
+      //   label: this.label,
+      //   pageLabel: this.$store.state.page.label
+      // })
+      // 未ログインの人でもそのまま見れるように
+      setTimeout(() => {
+        window.location.href = res.data.post_url_with_code
+      }, 1000)
+      
     },
   }
 }

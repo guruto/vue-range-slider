@@ -283,8 +283,8 @@ export default {
     return apiPost("posts/delete/" + postLabel, params, authorizationToken)
   },
 
-  getPost(postLabel, authorizationToken) {
-    return apiGet("posts/get/" + postLabel, {}, authorizationToken)
+  getPost(postLabel, params, authorizationToken) {
+    return apiGet("posts/get/" + postLabel, params, authorizationToken)
   },
 
   getPostMyself(postLabel, authorizationToken) {

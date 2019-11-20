@@ -344,14 +344,14 @@ export const actions = {
     }
   },
 
-  async get({ rootState, commit }, { label, pageLabel }) {
+  async get({ rootState, commit }, { label, pageLabel, code }) {
     let [
       postResult,
       profileResult,
       pageResult,
       postCommentListResult
     ] = await Promise.all([
-      Api.getPost(label, rootState.user.authorizationToken),
+      Api.getPost(label, {code: code}, rootState.user.authorizationToken),
       Api.getProfile(pageLabel, {}, rootState.user.authorizationToken),
       Api.getPage(pageLabel, {}, rootState.user.authorizationToken),
       Api.getPostCommentList(
