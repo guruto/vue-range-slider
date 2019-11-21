@@ -166,7 +166,7 @@
         v-if="isDashboard"
         type="button"
         class="c-btn c-btn--main"
-        @click="$store.dispatch('modal/show')"
+        @click="$store.dispatch('modal/show', 'addPost')"
       >
         投稿を作成する
       </button>

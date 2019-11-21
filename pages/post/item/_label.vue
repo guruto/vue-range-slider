@@ -253,7 +253,12 @@
               <p class="p-post__content__limited__description">有料公開の内容です。</p>
               <p class="p-post__content__limited__price">¥{{Number(price).toLocaleString()}}</p>
               <div class="p-post__content__limited__action">
-                <button @click="handlePurchaseBtn" type="button" class="c-btn c-btn--main">購入へ進む</button>
+                <div style="margin-bottom: 8px">
+                  <button @click="handleCheckAlreadyPurchased" type="button" class="c-btn c-btn--main">すでに購入した方はこちらから認証</button>
+                </div>
+                <div>
+                  <button @click="handlePurchaseBtn" type="button" class="c-btn c-btn--main">購入へ進む</button>
+                </div>
               </div>
             </div>
           </div>
@@ -486,13 +491,21 @@
         </nuxt-link>
       </div>
     </section>
+  
+    <Modal type="postGuestPurchaseAuth"
+           title="購入済みの方はこちらから認証"
+           actionMessage="認証する"
+           :postPurchaseTitle="title"
+           :initialGuestCode="guestCode"
+           :onHandleAction="checkPostAlreadyPurchasedGuest"
+    ></Modal>
 
-    <Modal type="post_purchase_payment"
+    <Modal type="postPurchasePayment"
            title="購入"
+           actionMessage="購入する"
            :postPurchaseTitle="title"
            :postPurchasePrice="price"
            :isAuthenticated="isAuthenticated"
-           actionMessage="購入する"
            :onHandleAction="executePurchasePost"
     ></Modal>
 
@@ -522,7 +535,8 @@ import postList from "~/components/pages/postList"
 import slider from "~/components/ui/slider"
 import moment from "moment"
 import axios from "axios"
-import Api from "~/plugins/api";
+import Api from "~/plugins/api"
+import cookieparser from "cookieparser"
 
 export default {
   components: { postTextBody, postList, slider },
@@ -567,14 +581,22 @@ export default {
     }
   },
   async asyncData(context) {
+    // 記事ID（post.label）
     const label = context.params.label
-    // 購入コード
-    const code = context.route.query.code
+    // ゲスト購入コード。ゲスト購入の認証の際に、フォームにデフォ入力するために取得
+    const guestCode = context.route.query.guest_code
+    
+    // ゲスト購入認証コード。cookieから取得
+    const parsedCookie = cookieparser.parse(context.req.headers.cookie)
+    const guestAuthKey = "guest_auth_post_" + label
+    const guestAuth    = parsedCookie[guestAuthKey]
+    console.log(parsedCookie)
+    console.log(guestAuth)
     
     await context.store.dispatch("post/get", {
       label: label,
       pageLabel: context.store.state.page.label,
-      code: code
+      guestAuth: guestAuth
     })
 
     if (context.store.state.post.isError) {
@@ -604,6 +626,9 @@ export default {
     return {
       isUserPage: context.store.state.subDomain.hasSubDomain,
       pageLabel: context.store.state.page.label,
+      
+      // payment関係
+      guestCode: guestCode,
 
       isMine: context.store.state.post.isMine,
       hasRightToReadLimitedBlocks: context.store.state.post.hasRightToReadLimitedBlocks,
@@ -777,7 +802,7 @@ export default {
     // 購入処理
     ////////////////////
     handlePurchaseBtn() {
-      this.$store.dispatch('modal/show')
+      this.$store.dispatch('modal/show', 'postPurchasePayment')
     },
     async executePurchasePost(param) {
       console.log(param)
@@ -841,25 +866,80 @@ export default {
         return
       }
   
+      // cookieにguest_authを保存。今後の表示のためにcookieに保存
+      const postTransactionGuestAuth = res.data.guest_auth
+      this.$cookies.set(res.data.guest_auth_key, postTransactionGuestAuth, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+        domain: process.env.COOKIE_DOMAIN
+      })
+  
+      // postデータの再取得
+      await this.$store.dispatch("post/get", {
+        label: this.label,
+        pageLabel: this.$store.state.page.label,
+        guestAuth: postTransactionGuestAuth,
+      })
+  
       // 全体ローディング end
       this.purchaseLoading = false
       // モーダル閉じる
       this.$store.dispatch('modal/hide')
   
       // 決済成功メッセージ
-      this.$store.dispatch('flashMessage/showSuccess', '決済が完了しました。閲覧ページに遷移します。')
-  
-      // コンテンツ表示
-      // await this.$store.dispatch("post/get", {
-      //   label: this.label,
-      //   pageLabel: this.$store.state.page.label
-      // })
-      // 未ログインの人でもそのまま見れるように
-      setTimeout(() => {
-        window.location.href = res.data.post_url_with_code
-      }, 1000)
-      
+      this.$store.dispatch('flashMessage/showSuccess', '決済が完了しました。')
     },
+    handleCheckAlreadyPurchased() {
+      this.$store.dispatch('modal/show', 'postGuestPurchaseAuth')
+    },
+    async checkPostAlreadyPurchasedGuest(param) {
+      console.log(param)
+  
+      this.purchaseLoading = true
+      
+      const requestParam = {
+        guest_email: param.guestEmail,
+        guest_code: param.guestCode,
+      }
+      let res
+      try {
+        res = await Api.postTransactionAuthorize(requestParam, this.$store.state.user.authorizationToken)
+      } catch (e) {
+        console.log(e)
+        this.purchaseLoading = false
+        this.$store.dispatch('flashMessage/showError', '認証に失敗しました。通信環境をご確認ください。')
+        return
+      }
+      console.log(res)
+      if (res.hasOwnProperty('is_error') && res.is_error) {
+        this.purchaseLoading = false
+        this.$store.dispatch('flashMessage/showError', res.error_message)
+        return
+      }
+  
+      // cookieにguest_authを保存。今後の表示のためにcookieに保存
+      const postTransactionGuestAuth = res.data.guest_auth
+      this.$cookies.set(res.data.guest_auth_key, postTransactionGuestAuth, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+        domain: process.env.COOKIE_DOMAIN
+      })
+  
+      // postデータの再取得
+      await this.$store.dispatch("post/get", {
+        label: this.label,
+        pageLabel: this.$store.state.page.label,
+        guestAuth: postTransactionGuestAuth,
+      })
+  
+      // 全体ローディング end
+      this.purchaseLoading = false
+      // モーダル閉じる
+      this.$store.dispatch('modal/hide')
+  
+      // 決済成功メッセージ
+      this.$store.dispatch('flashMessage/showSuccess', '認証が完了しました。')
+    }
   }
 }
 </script>

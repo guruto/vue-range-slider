@@ -1,6 +1,6 @@
 <template>
-  <div v-if="isActive" class="c-modal">
-    <div v-if="isActive" class="c-modal__backdrop" @click="hideModal" />
+  <div v-if="isActive && targetType == type" class="c-modal">
+	  <div v-if="isActive && targetType == type" class="c-modal__backdrop" @click="hideModal" />
 
     <transition name="c-modal__transition">
 	  <div class="c-modal__wrapper">
@@ -19,7 +19,7 @@
           </div>
 
           <div
-            v-else-if="type == 'page_link'"
+            v-else-if="type == 'pageLink'"
             class="c-modal__content__body__page-link"
           >
             <div class="p-form" style="padding-bottom: 0;">
@@ -47,7 +47,7 @@
           </div>
 
           <div
-            v-else-if="type == 'add_post'"
+            v-else-if="type == 'addPost'"
             class="c-modal__content__body__add-post"
           >
             <ul>
@@ -97,7 +97,7 @@
           </div>
 
           <div
-            v-else-if="type == 'save_publish_setting'"
+            v-else-if="type == 'savePublishSetting'"
             class="c-modal__content__body__publish-setting"
           >
             <div class="p-form">
@@ -144,19 +144,7 @@
             </div>
           </div>
 
-	        <div v-else-if="type == 'post_purchase_auth'">
-		        <div>
-			        <p>メンバーアカウントをお持ちの方</p>
-			        <a href="/member/login" class="c-btn c-btn--main">メンバーログインして購入</a>
-			        <a href="/member/sign_up" class="c-btn c-btn--main">新規メンバー登録して購入</a>
-		        </div>
-		        <div>
-			        <p>メンバーアカウントをお持ちでない方</p>
-			        <button type="button" class="c-btn c-btn--main">登録せず購入</button>
-		        </div>
-	        </div>
-
-	        <div v-else-if="type == 'post_purchase_payment'" class="c-modal__content__body__post-purchase-payment">
+	        <div v-else-if="type == 'postPurchasePayment'" class="c-modal__content__body__post-purchase-payment">
 		        <div style="margin-bottom: 25px;">
 			        <p class="c-modal__content__body__post-purchase-payment__title">{{this.postPurchaseTitle}}</p>
 			        <p class="c-modal__content__body__post-purchase-payment__price">¥{{Number(this.postPurchasePrice).toLocaleString()}}</p>
@@ -235,6 +223,23 @@
 			        </div>
 		        </div>
 	        </div>
+	
+	        <div v-else-if="type == 'postGuestPurchaseAuth'">
+		        <div class="p-form">
+			        <div class="p-form__group">
+				        <label class="p-form__label">購入の際に設定したメールアドレス</label>
+				        <div class="p-form__item">
+					        <input type="email" v-model="guestEmail" placeholder="example@hello.com"/>
+				        </div>
+			        </div>
+			        <div class="p-form__group">
+				        <label class="p-form__label">購入メールに記載されている認証コード</label>
+				        <div class="p-form__item">
+					        <input type="text" v-model="guestCode" placeholder="xxxxx"/>
+				        </div>
+			        </div>
+		        </div>
+	        </div>
         </div>
 
 	      <div class="c-modal__content__action">
@@ -269,8 +274,9 @@
 <script>
 export default {
   props: [
-	  'type', 'title', 'description', 'actionMessage', 'subActionMessage', 'cancelMessage', 'onHandleAction', 'onHandleSubAction', 'onHandleCancel',
-	  'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope', 'initialPrice', 'postPurchaseTitle', 'postPurchasePrice', 'postType',
+	  'type', 'title', 'description', 'actionMessage', 'onHandleAction', 'cancelMessage', 'subActionMessage', 'onHandleSubAction',
+	  'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope', 'initialPrice', 'postPurchaseTitle', 'postPurchasePrice', 'postType', 'initialGuestCode',
+	  'initialParams' // initialParamsのみにする予定
   ],
   data() {
     return {
@@ -283,17 +289,24 @@ export default {
       price: this.initialPrice,
 
       // post paymentの設定
-	  cardNumber:         null,
+	    cardNumber:         null,
       cardExpireMonth:    null,
       cardExpireYear:     null,
       cardSecurityCode:   null,
       purchaseGuestEmail: null,
+	    
+	    // postGuestPurchaseAuth
+	    guestEmail: null,
+	    guestCode: this.initialGuestCode,
     }
   },
   computed: {
     isActive() {
       return this.$store.getters["modal/isActive"]
     },
+	  targetType() {
+    	return this.$store.getters["modal/targetType"]
+	  },
     pageLinkTitleComputed() {
       this.pageLinkTitle = this.initialPageLinkTitle
       return this.initialPageLinkTitle ? this.initialPageLinkTitle : ""
@@ -316,7 +329,7 @@ export default {
       this.$store.dispatch("modal/hide")
     },
     handleButtonAction() {
-      if (this.type == "page_link") {
+      if (this.type == "pageLink") {
         // urlチェック
         if (
           !this.pageLinkUrl.match(
@@ -333,11 +346,11 @@ export default {
         this.onHandleAction(this.pageLinkTitle, this.pageLinkUrl)
 	      this.hideModal()
 
-      } else if (this.type == "save_publish_setting") {
+      } else if (this.type == "savePublishSetting") {
 	      this.onHandleAction(this.scope, "public", this.price)
 	      this.hideModal()
 
-      } else if (this.type == "post_purchase_payment") {
+      } else if (this.type == "postPurchasePayment") {
 	      const param = {
 		      amount:       this.postPurchasePrice,
 		      cardNumber:   this.cardNumber,
@@ -348,22 +361,25 @@ export default {
 		      // lastName:     this.cardName,
 	      }
 	      this.onHandleAction(param)
-
+	
+      } else if (this.type == "postGuestPurchaseAuth") {
+      	const param = {
+      		guestEmail: this.guestEmail,
+		      guestCode: this.guestCode,
+	      }
+	      this.onHandleAction(param)
+      	
       } else {
+
         this.onHandleAction()
-	    this.hideModal()
+	      this.hideModal()
       }
     },
     handleButtonSubAction() {
-      if (this.type == "save_publish_setting") {
-        this.onHandleAction(this.scope, "draft")
-      }
-
       this.setStateDefault()
       this.$store.dispatch("modal/hide")
     },
     handleButtonCancel() {
-      // this.onHandleCancel();
       this.setStateDefault()
       this.$store.dispatch("modal/hide")
     },

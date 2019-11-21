@@ -653,10 +653,10 @@
     </form>
 
     <Modal
-      type="save_publish_setting"
+      type="savePublishSetting"
       title="公開設定"
-      action-message="公開する"
-      :on-handle-action="executePublishSetting"
+      actionMessage="公開する"
+      :onHandleAction="executePublishSetting"
       :initialScope="(isEdit) ? post.scope : 'PUBLIC'"
       :initialPrice="(isEdit) ? post.price : null"
     />
@@ -845,7 +845,7 @@ export default {
         this.saveTextDraftData(this.tmpTitle, this.tmpDraftBody)
       }
 
-      this.$store.dispatch("modal/show")
+      this.$store.dispatch("modal/show", "savePublishSetting")
     },
     async executePublishSetting(scope, publish_type, price) {
       // 公開設定の実行
