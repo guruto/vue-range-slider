@@ -903,7 +903,7 @@ export default {
       }
       let res
       try {
-        res = await Api.postTransactionAuthorize(requestParam, this.$store.state.user.authorizationToken)
+        res = await Api.guestAuthPostTransaction(requestParam, this.$store.state.user.authorizationToken)
       } catch (e) {
         console.log(e)
         this.purchaseLoading = false

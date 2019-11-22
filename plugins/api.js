@@ -409,6 +409,9 @@ export default {
 	postTransactionReAuthorize(params, authorizationToken) {
 		return apiPost("post_transactions/re_authorize", params, authorizationToken)
 	},
+  guestAuthPostTransaction(params, authorizationToken) {
+    return apiPost("post_transactions/guest_auth", params, authorizationToken)
+  },
   getSellPostTransactionHistoriesMyself(authorizationToken) {
     return apiGet("post_transactions/get_sell_histories", {}, authorizationToken)
   },
