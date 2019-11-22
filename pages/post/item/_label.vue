@@ -856,13 +856,13 @@ export default {
       } catch (e) {
         console.log(e)
         this.purchaseLoading = false
-        this.$store.dispatch('flashMessage/showError', '決済に失敗しました。通信環境をご確認ください。')
+        this.$store.dispatch("flashMessage/showError", "決済に失敗しました。通信環境をご確認ください。")
         return
       }
       console.log(res)
-      if (res.hasOwnProperty('is_error') && res.is_error) {
+      if (res.hasOwnProperty("is_error") && res.is_error) {
         this.purchaseLoading = false
-        this.$store.dispatch('flashMessage/showError', res.error_message)
+        this.$store.dispatch("flashMessage/showError", res.error_message)
         return
       }
   
@@ -880,6 +880,10 @@ export default {
         pageLabel: this.$store.state.page.label,
         guestAuth: postTransactionGuestAuth,
       })
+  
+      // postの権限更新
+      this.hasRightToReadLimitedBlocks = this.$store.state.post.hasRightToReadLimitedBlocks
+      this.hasRightToComment =this.$store.state.post.hasRightToComment
   
       // 全体ローディング end
       this.purchaseLoading = false
@@ -931,6 +935,10 @@ export default {
         pageLabel: this.$store.state.page.label,
         guestAuth: postTransactionGuestAuth,
       })
+  
+      // postの権限更新
+      this.hasRightToReadLimitedBlocks = this.$store.state.post.hasRightToReadLimitedBlocks
+      this.hasRightToComment =this.$store.state.post.hasRightToComment
   
       // 全体ローディング end
       this.purchaseLoading = false
