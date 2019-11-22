@@ -12,7 +12,7 @@
           <p class="p-sale-manage__info__amount">¥{{this.$store.state.userSales.cumulativeAmount | price}}</p>
         </div>
         <div class="p-sale-manage__info">
-          <h2 class="c-title--sub">現在の出金可能額</h2>
+          <h2 class="c-title--sub">未出金の売上総額</h2>
           <p class="p-sale-manage__info__amount">¥{{this.$store.state.userSales.notPayoutAmount | price}}</p>
         </div>
         

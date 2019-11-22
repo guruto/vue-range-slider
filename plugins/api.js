@@ -424,4 +424,10 @@ export default {
   getUserSalesInfoMyself(authorizationToken) {
     return apiGet("user_sales/get_info_myself", {}, authorizationToken)
   },
+  getBankAccountMyself(authorizationToken) {
+    return apiGet("bank_accounts/get_myself", {}, authorizationToken)
+  },
+  saveBankAccount(params, authorizationToken) {
+    return apiPost("bank_accounts/save", params, authorizationToken)
+  },
 }

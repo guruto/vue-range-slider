@@ -4,6 +4,8 @@ export const state = () => ({
   
   cumulativeAmount: null,
   notPayoutAmount: null,
+  hasBankAccount: false,
+  hasRequestNotPaidOut: true,
   canPayout: false,
 })
 
@@ -14,7 +16,9 @@ export const mutations = {
 
     state.cumulativeAmount = data.cumulative_amount
     state.notPayoutAmount = data.not_payout_amount
-    state.canPayout = (data.not_payout_amount > 0)
+    state.hasBankAccount = Boolean(data.has_bank_account === "1")
+    state.hasRequestNotPaidOut = Boolean(data.has_request_not_paid_out === "1")
+    state.canPayout = Boolean(data.can_payout === "1")
   },
 
   SET_SUCCESS: function(state) {

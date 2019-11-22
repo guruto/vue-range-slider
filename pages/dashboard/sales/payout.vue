@@ -9,13 +9,18 @@
   
         <div class="p-form">
           <div class="p-form__group">
-            <label class="p-form__label">出金可能な売上</label>
-            <p class="p-form__value">
+            <label class="p-form__label">未出金の売上総額</label>
+            <p class="p-form__value" style="margin-bottom: 8px">
               ¥{{this.$store.state.userSales.notPayoutAmount | price}}
             </p>
+            <p class="p-form__info">出金手数料の300円を引かれた額を入金します。</p>
           </div>
   
-          <p v-if="!this.$store.state.userSales.canPayout">現在出金可能な売上がありません。</p>
+          <div v-if="!this.$store.state.userSales.canPayout">
+            <p v-if="this.$store.state.userSales.hasRequestNotPaidOut">すでに出金申請中です。出金完了後に再度申請が可能です。</p>
+            <p v-if="this.$store.state.userSales.notPayoutAmount < 301">出金最低額を満たしていません。301円以上から出金可能です。</p>
+            <p v-if="!this.$store.state.userSales.hasBankAccount">出金先の銀行口座設定がありません。</p>
+          </div>
   
           <div class="p-form__button">
             <button
@@ -30,6 +35,13 @@
             >
               出金申請
             </button>
+          </div>
+          
+          <div>
+            <p style="margin-bottom: 16px">出金先の設定はこちらから</p>
+            <nuxt-link class="c-btn c-btn--default" to="/dashboard/setting/bank_account">
+              銀行口座設定
+            </nuxt-link>
           </div>
           
         </div>
