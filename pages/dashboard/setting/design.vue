@@ -202,7 +202,7 @@ export default {
       e.preventDefault()
       if (e.target.files.length > 0) {
         this.$store.dispatch("cropModal/show")
-        this.$refs.cropModal.setCanvasImage(e)
+        this.$refs.cropModal.setCanvasImage(e.target.files[0])
       }
     },
     handleDeleteLogoImage(e) {

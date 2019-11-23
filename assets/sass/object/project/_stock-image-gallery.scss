@@ -1,0 +1,52 @@
+.p-stock-image-gallery {
+	width: 100vw;
+	height: 100vh;
+	background: $color-white;
+	overflow: auto;
+	transition: opacity 0.5s ease;
+	opacity: 1;
+	position: fixed;
+	padding: 20px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 20;
+	&__header {
+		display: flex;
+		padding: 0 5px;
+		&__search{
+			margin: 0 !important;
+			padding: 5px 30px 5px 10px !important;
+			outline: none;
+			border: 1px solid $color_border !important;
+			font-size: 16px !important;
+		}
+		&__close-btn {
+			font-size: 24px;
+			padding: 6px 20px 10px;
+			cursor: pointer;
+			&:hover {
+				opacity: 0.7;
+			}
+		}
+	}
+	&__body {
+		margin: 0 auto;
+		padding: 20px 0;
+		column-count: 5;
+		column-gap: 0;
+		&__grid {
+			padding: 5px;
+			-webkit-column-break-inside: avoid;
+			page-break-inside: avoid;
+			break-inside: avoid;
+			&__image {
+				width: 100%;
+				vertical-align: bottom;
+				cursor: pointer;
+			}
+		}
+	}
+
+}

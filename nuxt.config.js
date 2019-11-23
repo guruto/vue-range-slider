@@ -80,7 +80,9 @@ module.exports = {
     BASE_DOMAIN: process.env.BASE_DOMAIN,
     BASE_SCHEME: process.env.BASE_SCHEME,
     API_BASE_URL: process.env.API_BASE_URL,
-    COOKIE_DOMAIN: process.env.COOKIE_DOMAIN
+    COOKIE_DOMAIN: process.env.COOKIE_DOMAIN,
+    API_PIXABAY_URL: process.env.API_PIXABAY_URL,
+    PIXABAY_KEY: process.env.PIXABAY_KEY
   },
   build: {
     /*

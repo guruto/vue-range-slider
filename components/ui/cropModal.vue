@@ -112,13 +112,11 @@ export default {
     }
   },
   methods: {
-    setCanvasImage(e) {
-      const file = e.target.files[0]
+    setCanvasImage(file) {
       this.load(file, loadedCanvas => this.loadCanvas(loadedCanvas))
     },
     load(file, callback) {
       const options = { canvas: true }
-      const _this = this
       loadImage.parseMetaData(file, data => {
         if (data.exif) {
           options.orientation = data.exif.get("Orientation")
@@ -129,6 +127,7 @@ export default {
     loadCanvas(loadedCanvas) {
       this.image = new Image()
       this.image.crossOrigin = "Anonymous"
+      console.log(loadedCanvas)
       this.image.src = loadedCanvas.toDataURL("image/jpeg")
       this.image.onload = _ => {
         const iw = (this.iw = loadedCanvas.width)

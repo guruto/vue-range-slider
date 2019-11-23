@@ -101,6 +101,26 @@
               accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
               @change="handleInputTextThumbnailImageFile"
             >
+            <div v-show="isShowTextPopover" class="p-form__thumbnail__select__popover">
+              <ul>
+                <li class="p-form__thumbnail__select__popover__item">
+                  <a
+                    class="p-form__thumbnail__select__popover__item__link"
+                    @click.stop="handleSelectTextStockThumbnailImage"
+                  >
+                    Stockから画像を挿入
+                  </a>
+                </li>
+                <li class="p-form__thumbnail__select__popover__item">
+                  <a
+                    class="p-form__thumbnail__select__popover__item__link"
+                    @click.stop="handleSelectTextUserThumbnailImage"
+                  >
+                    画像をアップロード
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -654,6 +674,33 @@
       </div>
     </form>
 
+    <div class="p-stock-image-gallery" v-if="isShowStockImageGallery">
+      <div class="p-stock-image-gallery__header">
+        <input type="text"
+          class="p-stock-image-gallery__header__search"
+          placeholder="キーワード検索"
+          v-model="imageGallerySearchWords"
+          @mouseenter.prevent.stop="handleInputImageGallery"
+          @blur="handleInputImageGallery"
+        >
+        <span class="p-stock-image-gallery__header__close-btn" @click="handleStockImageGalleryClose">
+          <i class="far fa-times-circle"/>
+        </span>
+      </div>
+      <div class="p-stock-image-gallery__body">
+          <div v-for="(item, i) in stockImageGalleryList"
+               :key="i"
+               class="p-stock-image-gallery__body__grid">
+            <img
+              class="p-stock-image-gallery__body__grid__image"
+              :src="item.webformatURL"
+              :data-num="i"
+              @click.stop="handleSelectGalleryImage"
+            >
+          </div>
+      </div>
+    </div>
+
     <Modal
       type="save_publish_setting"
       title="公開設定"
@@ -676,6 +723,7 @@
 
 <script>
 import Api from "~/plugins/api"
+import ApiFromPixabay from "~/plugins/api-from-pixabay"
 import Editor from "../ui/editor"
 
 export default {
@@ -690,6 +738,11 @@ export default {
       isVideoUrlInputing: false,
       isFileUploading: false,
       isFileUploadRetry: false,
+      isShowTextPopover: false,
+      isShowStockImageGallery: false,
+      stockImageGalleryList: [],
+      imageGallerySearchWords: '',
+      selectTextImageFile: null,
       thumbnailMediaList: [
         {
           id: "tmb01",
@@ -1019,14 +1072,60 @@ export default {
     ////////////////////////
     // ブログサムネイル処理
     handleSelectTextThumbnailImage() {
+      this.isShowTextPopover = !this.isShowTextPopover
+    },
+    async handleSelectTextStockThumbnailImage() {
+      this.isShowStockImageGallery = true
+      const result = await ApiFromPixabay.getList()
+      this.stockImageGalleryList = result.data.hits
+      this.isShowTextPopover = false
+    },
+    handleStockImageGalleryClose() {
+      this.isShowStockImageGallery = false
+    },
+    handleSelectTextUserThumbnailImage() {
       const input = document.querySelector("#form-select-text-thumbnail-image")
       input.click()
+      this.isShowTextPopover = false
+    },
+    async handleInputImageGallery() {
+      const words = this.imageGallerySearchWords
+      if (words) {
+        const q = words.split(' ').filter(x => x != '').join('+')
+        const result = await ApiFromPixabay.getList(q)
+        this.stockImageGalleryList = result.data.hits
+      }
+    },
+    async handleSelectGalleryImage(e) {
+      e.preventDefault()
+      const tgt = this.stockImageGalleryList[e.currentTarget.dataset.num]
+      const canvas = document.createElement("canvas")
+      const image = new Image()
+      image.crossOrigin = "Anonymous"
+      image.src = tgt.webformatURL
+      image.onload = () => {
+        canvas.height = tgt.webformatHeight
+        canvas.width = tgt.webformatWidth
+        canvas.getContext("2d").drawImage(image, 0, 0)
+        const base64 = canvas.toDataURL("image/jpg")
+        const bin = atob(base64.replace(/^.*,/, ''));
+        let tmp = new Uint8Array(bin.length)
+        for (var i = 0; i < bin.length; i++) {
+            tmp[i] = bin.charCodeAt(i)
+        }
+        this.selectTextImageFile = new File([tmp.buffer], tgt.tags, {type: 'image/jpg'})
+        this.isShowStockImageGallery = false
+        this.showCropModal(this.selectTextImageFile)
+      }
+    },
+    showCropModal(file) {
+      this.$store.dispatch("cropModal/show")
+      this.$refs.cropModal.setCanvasImage(file)
     },
     handleInputTextThumbnailImageFile(e) {
       e.preventDefault()
       if (e.target.files.length > 0) {
-        this.$store.dispatch("cropModal/show")
-        this.$refs.cropModal.setCanvasImage(e)
+        this.showCropModal(e.target.files[0])
       }
     },
     handleDeleteThumbnailImage() {

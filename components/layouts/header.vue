@@ -67,7 +67,7 @@ export default {
   width: 100%;
   background-color: $color_white;
   position: fixed;
-  z-index: 2;
+  z-index: 12;
   top: 0;
   left: 0;
   right: 0;
