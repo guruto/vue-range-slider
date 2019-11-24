@@ -172,7 +172,7 @@ gulp.task('css', () => {
     ]))
     .pipe(header('/**\n' +
       ' * vue-range-slider v' + version + '\n' +
-      ' * (c) 2016-' + new Date().getFullYear() + ' xwpongithub\n' +
+      ' * (c) 2016-' + new Date().getFullYear() + ' oyama919 fork xwpongithub\n' +
       ' * Released under the MIT License.\n' +
       ' */\n'))
     .pipe(sourcemaps.write('.'))
