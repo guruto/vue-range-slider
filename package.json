@@ -10,15 +10,11 @@
     "vuejs",
     "stylus"
   ],
-  "author": "xwpongithub",
+  "author": "oyama919",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/xwpongithub/vue-range-slider/issues"
-  },
-  "homepage": "https://github.com/xwpongithub/vue-range-slider",
   "repository": {
     "type": "git",
-    "url": "git@github.com:xwpongithub/vue-range-slider.git"
+    "url": "git@github.com:oyama919/vue-range-slider.git"
   },
   "scripts": {
     "build": "gulp"

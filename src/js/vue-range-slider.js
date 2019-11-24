@@ -1247,7 +1247,6 @@ export default {
   beforeDestroy() {
     this.isComponentExists = false
     this.unbindEvents()
-    this.refresh()
   },
   deactivated() {
     this.isComponentExists = false
