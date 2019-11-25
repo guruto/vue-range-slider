@@ -107,19 +107,16 @@
 
       <div style="padding: 0 5%;">
         <div class="p-editor__title">
-          <h1>
-            <div
-              class="p-editor__title__content"
-              contenteditable="true"
-              data-placeholder="タイトルを入力…"
-              :data-active-placeholder="post.title.length === 0"
-              @focusout="handleTitleEdit"
-              @keyup="handleTitleEdit"
-              @keydown="handleTitleEditKeyDown"
-            >
-              {{ post.title }}
-            </div>
-          </h1>
+          <div
+            class="p-editor__title__content"
+            contenteditable="true"
+            ref="editorTitle"
+            data-placeholder="タイトルを入力…"
+            :data-active-placeholder="true"
+            @focusout="handleTitleEdit"
+            @keyup="handleTitleEdit"
+            @keydown="handleTitleEditKeyDown"
+          >{{ post.title }}</div>
         </div>
 
         <editor
@@ -145,6 +142,7 @@
               type="url"
               name="linkUrl"
               placeholder="URLを入力 https://"
+              @keydown.enter.prevent
               @focusout="handleFocusOutGetInfoLinkUrl"
               @paste="handlePasteGetInfoLinkUrl"
             >
@@ -243,6 +241,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
@@ -359,6 +358,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
@@ -472,6 +472,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
@@ -594,6 +595,7 @@
               type="text"
               name="title"
               placeholder="タイトルを入力"
+              @keydown.enter.prevent
             >
             <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
           </div>
@@ -769,6 +771,9 @@ export default {
     }
   },
   mounted() {
+    if (this.post.type == "TEXT" && !this.post.title) {
+      this.$refs.editorTitle.textContent = ''
+    }
     if (this.post.type == "FILE" || this.post.type == "SOUND") {
       if (
         this.post.thumbnailMediaList &&
