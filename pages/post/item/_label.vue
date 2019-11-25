@@ -351,104 +351,105 @@
         </div>
       </div>
 
-      <div class="p-post__comment">
-        <h2 class="c-title--sub">
-          コメント{{
-          hasRightToComment
-              ? "（" + this.$store.state.postCommentList.itemCount + "件）"
-              : ""
-          }}
-        </h2>
+<!--      <div class="p-post__comment">-->
+<!--        <h2 class="c-title&#45;&#45;sub">-->
+<!--          コメント{{-->
+<!--          hasRightToComment-->
+<!--              ? "（" + this.$store.state.postCommentList.itemCount + "件）"-->
+<!--              : ""-->
+<!--          }}-->
+<!--        </h2>-->
 
-        <div v-if="hasRightToComment">
-          <div
-            v-if="this.$store.state.postCommentList.itemCount > 0"
-            class="p-post__comment__list"
-          >
-            <div
-              v-for="(postComment, postCommentIndex) in this.$store.state
-                .postCommentList.items"
-              class="p-post__comment__list__item"
-            >
-              <div class="p-post__comment__list__item__profile">
-                <div class="p-post__comment__list__item__profile__icon">
-                  <span
-                    class="p-post__comment__list__item__profile__icon__image"
-                    :style="
-                      'background-image: url(' +
-                        postComment.profile.icon_image_url +
-                        ')'
-                    "
-                  />
-                </div>
-                <div class="p-post__comment__list__item__profile__name">
-                  <span class="is-name">{{ postComment.profile.name }}</span>
-                  <span class="is-time">{{
-                    postComment.created_at | moment
-                  }}</span>
-                </div>
-              </div>
-              <div
-                v-if="isMine || postComment.is_mine"
-                :data-post-comment-label="postComment.label"
-                :data-post-comment-index="postCommentIndex"
-                class="p-post__comment__list__item__delete"
-                @click="handleControlPostComment"
-              >
-                <img
-                  src="/img/share_btn_more@2x.png"
-                  class="is-post-comment-control"
-                />
-              </div>
+<!--        <div v-if="hasRightToComment">-->
+<!--          <div-->
+<!--            v-if="this.$store.state.postCommentList.itemCount > 0"-->
+<!--            class="p-post__comment__list"-->
+<!--          >-->
+<!--            <div-->
+<!--              v-for="(postComment, postCommentIndex) in this.$store.state-->
+<!--                .postCommentList.items"-->
+<!--              class="p-post__comment__list__item"-->
+<!--            >-->
+<!--              <div class="p-post__comment__list__item__profile">-->
+<!--                <div class="p-post__comment__list__item__profile__icon">-->
+<!--                  <span-->
+<!--                    class="p-post__comment__list__item__profile__icon__image"-->
+<!--                    :style="-->
+<!--                      'background-image: url(' +-->
+<!--                        postComment.profile.icon_image_url +-->
+<!--                        ')'-->
+<!--                    "-->
+<!--                  />-->
+<!--                </div>-->
+<!--                <div class="p-post__comment__list__item__profile__name">-->
+<!--                  <span class="is-name">{{ postComment.profile.name }}</span>-->
+<!--                  <span class="is-time">{{-->
+<!--                    postComment.created_at | moment-->
+<!--                  }}</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div-->
+<!--                v-if="isMine || postComment.is_mine"-->
+<!--                :data-post-comment-label="postComment.label"-->
+<!--                :data-post-comment-index="postCommentIndex"-->
+<!--                class="p-post__comment__list__item__delete"-->
+<!--                @click="handleControlPostComment"-->
+<!--              >-->
+<!--                <img-->
+<!--                  src="/img/share_btn_more@2x.png"-->
+<!--                  class="is-post-comment-control"-->
+<!--                />-->
+<!--              </div>-->
 
-              <div class="p-post__comment__list__item__body">
-                <p v-html="postComment.body.replace(/\n/g, '<br/>')" />
-              </div>
-            </div>
-          </div>
-          <div v-else>
-            <p style="margin-bottom: 15px;">
-              コメントはまだありません。
-            </p>
-          </div>
+<!--              <div class="p-post__comment__list__item__body">-->
+<!--                <p v-html="postComment.body.replace(/\n/g, '<br/>')" />-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div v-else>-->
+<!--            <p style="margin-bottom: 15px;">-->
+<!--              コメントはまだありません。-->
+<!--            </p>-->
+<!--          </div>-->
 
-          <div class="p-post__comment__add">
-            <div class="p-post__comment__add__body">
-              <div class="p-form">
-                <textarea
-                  v-model="commentBody"
-                  rows="4"
-                  placeholder="コメントを入力"
-                >{{ commentBody }}</textarea>
-              </div>
-            </div>
-            <div class="p-post__comment__add__action">
-              <button
-                type="button"
-                :class="{
-                  'c-btn': true,
-                  'c-btn--main': true,
-                  'is-loading': isAddCommentLoading
-                }"
-                :disabled="isAddCommentLoading"
-                @click="handleAddPostComment"
-              >
-                コメント投稿
-              </button>
-            </div>
-          </div>
-        </div>
-        <div v-else>
-          <p style="text-align: center;margin-bottom: 15px;">
-            メンバーになるとコメントを閲覧、投稿することができます。
-          </p>
-          <div style="text-align: center;">
-            <nuxt-link to="/member/sign_up" class="c-btn c-btn--main">
-              メンバーになる
-            </nuxt-link>
-          </div>
-        </div>
-      </div>
+<!--          <div class="p-post__comment__add">-->
+<!--            <div class="p-post__comment__add__body">-->
+<!--              <div class="p-form">-->
+<!--                <textarea-->
+<!--                  v-model="commentBody"-->
+<!--                  rows="4"-->
+<!--                  placeholder="コメントを入力"-->
+<!--                >{{ commentBody }}</textarea>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="p-post__comment__add__action">-->
+<!--              <button-->
+<!--                type="button"-->
+<!--                :class="{-->
+<!--                  'c-btn': true,-->
+<!--                  'c-btn&#45;&#45;main': true,-->
+<!--                  'is-loading': isAddCommentLoading-->
+<!--                }"-->
+<!--                :disabled="isAddCommentLoading"-->
+<!--                @click="handleAddPostComment"-->
+<!--              >-->
+<!--                コメント投稿-->
+<!--              </button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div v-else>-->
+<!--          <p style="text-align: center;margin-bottom: 15px;">-->
+<!--            メンバーになるとコメントを閲覧、投稿することができます。-->
+<!--          </p>-->
+<!--          <div style="text-align: center;">-->
+<!--            <nuxt-link to="/member/sign_up" class="c-btn c-btn&#45;&#45;main">-->
+<!--              メンバーになる-->
+<!--            </nuxt-link>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--      </div>-->
 
       <div v-if="isUserPage" class="p-post__profile">
         <div class="p-post__profile__head">
