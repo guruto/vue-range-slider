@@ -99,6 +99,17 @@
           <span class="p-dashboard__navigation__item__name">各種設定</span>
         </nuxt-link>
       </div>
+      <div class="p-dashboard__navigation__item">
+        <nuxt-link to="/dashboard/sales/manage">
+          <div
+            class="p-dashboard__navigation__item__icon"
+            style="background-color: #FFA012;"
+          >
+            <img src="/img/dashboard/navigation/sales.png" alt="売上管理" />
+          </div>
+          <span class="p-dashboard__navigation__item__name">売上管理</span>
+        </nuxt-link>
+      </div>
     </div>
 
     <div style="padding: 0 5% 30px;">
@@ -116,7 +127,7 @@
       <div
         v-if="this.$store.state.user.status.postCount == 0"
         class="p-dashboard__attention__item"
-        @click="$store.dispatch('modal/show')"
+        @click="$store.dispatch('modal/show', 'addPost')"
       >
         <div
           class="p-dashboard__attention__item__icon"
@@ -359,14 +370,14 @@
     <div class="p-post-manage__add">
       <div
         class="p-post-manage__add__link"
-        @click="$store.dispatch('modal/show')"
+        @click="$store.dispatch('modal/show', 'addPost')"
       >
         <span>投稿</span>
         <i class="material-icons">add</i>
       </div>
     </div>
 
-    <Modal type="add_post" title="新規投稿" />
+    <Modal type="addPost" title="新規投稿" />
   </div>
 </template>
 

@@ -207,7 +207,7 @@
     </div>
 
     <Modal
-      type="page_link"
+      type="pageLink"
       :title="modalTitle"
       :action-message="modalActionMessage"
       :initial-page-link-title="modalLinkTitle"
@@ -311,7 +311,7 @@ export default {
       this.modalLinkTitle = ""
       this.modalLinkUrl = ""
 
-      this.$store.dispatch("modal/show")
+      this.$store.dispatch("modal/show", "pageLink")
     },
     async handleExecuteLinkModalAction(title, value) {
       if (this.selectedLinkIndex === null) {
@@ -372,7 +372,7 @@ export default {
       this.modalLinkTitle = this.links[this.selectedLinkIndex].title
       this.modalLinkUrl = this.links[this.selectedLinkIndex].url
 
-      this.$store.dispatch("modal/show")
+      this.$store.dispatch("modal/show", "pageLink")
     },
     async handleLinkItemDelete() {
       if (this.selectedLinkIndex === null) {

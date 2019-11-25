@@ -67,7 +67,7 @@ git clone git@github.com:guruto/pageful-server.git
 ソースコードは github フローで管理する。
 
 * master ブランチはいつでもデプロイ可能
-* master ブランチからトピックブランチを作って開発する
+* master ブランチからトピックブランチを作って開発する 
 * できたらプルリクエストを出す。レビューが終わったら master にマージされ、開発終了
 
 ### 動作テスト方法

@@ -1,6 +1,4 @@
 export default function({ store, req }) {
-  console.log("middleware pageLabel")
-
   let host = process.browser
     ? window.location.host.split(":")[0]
     : req.headers.host.split(":")[0]
@@ -22,7 +20,7 @@ export default function({ store, req }) {
 
   if (pageLabel) {
     // pageページ、post個別ページを表示
-    console.log(pageLabel)
+    console.log("pageLabel:" + pageLabel)
     store.dispatch("subDomain/set", { subDomain: pageLabel })
     store.dispatch("page/setLabel", { label: pageLabel })
   } else {

@@ -655,11 +655,12 @@
     </form>
 
     <Modal
-      type="save_publish_setting"
+      type="savePublishSetting"
       title="公開設定"
-      action-message="公開する"
-      :on-handle-action="executePublishSetting"
-      :initial-scope="isEdit ? post.scope : 'PUBLIC'"
+      actionMessage="公開する"
+      :onHandleAction="executePublishSetting"
+      :initialScope="(isEdit) ? post.scope : 'PUBLIC'"
+      :initialPrice="(isEdit) ? post.price : null"
     />
 
     <CropModal
@@ -849,9 +850,9 @@ export default {
         this.saveTextDraftData(this.tmpTitle, this.tmpDraftBody)
       }
 
-      this.$store.dispatch("modal/show")
+      this.$store.dispatch("modal/show", "savePublishSetting")
     },
-    async executePublishSetting(scope, publish_type) {
+    async executePublishSetting(scope, publish_type, price) {
       // 公開設定の実行
       // scope: 全公開、メンバー限定
       // publish_type: すぐ公開、下書き保存
@@ -866,6 +867,7 @@ export default {
       let params = this.getParams(this.post.type)
       params["type"] = this.post.type
       params["scope"] = scope
+	    params["price"] = price
       params["is_publish"] = publish_type === "public" ? 1 : 0
       if (this.isEdit) {
         params["label"] = this.post.label

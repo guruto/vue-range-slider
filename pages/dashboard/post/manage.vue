@@ -13,7 +13,7 @@
       <div class="p-post-manage__add">
         <div
           class="p-post-manage__add__link"
-          @click="$store.dispatch('modal/show')"
+          @click="$store.dispatch('modal/show', 'addPost')"
         >
           <span>投稿</span>
           <i class="material-icons">add</i>
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <Modal type="add_post" title="新規投稿" />
+    <Modal type="addPost" title="新規投稿" />
   </div>
 </template>
 

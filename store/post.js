@@ -3,9 +3,12 @@ export const state = () => ({
   errorMessage: "",
 
   isMine: false,
+  hasRightToReadLimitedBlocks: false,
+  hasRightToComment: false,
   label: null,
   type: "",
   scope: "PUBLIC",
+  price: null,
   typeText: "",
   title: "",
   comment: "",
@@ -86,8 +89,11 @@ export const mutations = {
     state.errorMessage = ""
 
     state.isMine = data.is_mine === "1"
+    state.hasRightToReadLimitedBlocks = data.has_right_to_read_limited_blocks === "1"
+    state.hasRightToComment = data.has_right_to_comment === "1"
     state.label = data.label
     state.scope = data.scope
+    state.price = data.price
     state.type = data.type
     state.typeText = data.type_text
     state.title = data.title
@@ -166,9 +172,7 @@ export const mutations = {
   SET_POST_VIDEO_DATA: function(state, data) {
     state.isError = false
     state.errorMessage = ""
-    console.log("SET_POST_VIDEO_DATA")
-    console.log(data)
-
+    
     state.itemVideo = {
       title: data.title,
       comment: data.comment,
@@ -340,14 +344,14 @@ export const actions = {
     }
   },
 
-  async get({ rootState, commit }, { label, pageLabel }) {
+  async get({ rootState, commit }, { label, pageLabel, guestAuth }) {
     let [
       postResult,
       profileResult,
       pageResult,
       postCommentListResult
     ] = await Promise.all([
-      Api.getPost(label, rootState.user.authorizationToken),
+      Api.getPost(label, {guest_auth: guestAuth}, rootState.user.authorizationToken),
       Api.getProfile(pageLabel, {}, rootState.user.authorizationToken),
       Api.getPage(pageLabel, {}, rootState.user.authorizationToken),
       Api.getPostCommentList(

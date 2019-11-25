@@ -283,8 +283,8 @@ export default {
     return apiPost("posts/delete/" + postLabel, params, authorizationToken)
   },
 
-  getPost(postLabel, authorizationToken) {
-    return apiGet("posts/get/" + postLabel, {}, authorizationToken)
+  getPost(postLabel, params, authorizationToken) {
+    return apiGet("posts/get/" + postLabel, params, authorizationToken)
   },
 
   getPostMyself(postLabel, authorizationToken) {
@@ -398,5 +398,36 @@ export default {
 
   getPageDesign(authorizationToken) {
     return apiGet("page_designs/get_myself", {}, authorizationToken)
-  }
+  },
+	
+	/////////////////////////////////
+	// payment
+	/////////////////////////////////
+	postTransactionAuthorize(params, authorizationToken = null) {
+		return apiPost("post_transactions/authorize", params, authorizationToken)
+	},
+	postTransactionReAuthorize(params, authorizationToken) {
+		return apiPost("post_transactions/re_authorize", params, authorizationToken)
+	},
+  guestAuthPostTransaction(params, authorizationToken) {
+    return apiPost("post_transactions/guest_auth", params, authorizationToken)
+  },
+  getSellPostTransactionHistoriesMyself(authorizationToken) {
+    return apiGet("post_transactions/get_sell_histories", {}, authorizationToken)
+  },
+  requestPayout(authorizationToken) {
+    return apiPost("payouts/request", {}, authorizationToken)
+  },
+  getPayoutHistoriesMyself(authorizationToken) {
+    return apiGet("payouts/get_histories_myself", {}, authorizationToken)
+  },
+  getUserSalesInfoMyself(authorizationToken) {
+    return apiGet("user_sales/get_info_myself", {}, authorizationToken)
+  },
+  getBankAccountMyself(authorizationToken) {
+    return apiGet("bank_accounts/get_myself", {}, authorizationToken)
+  },
+  saveBankAccount(params, authorizationToken) {
+    return apiPost("bank_accounts/save", params, authorizationToken)
+  },
 }
