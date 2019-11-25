@@ -363,7 +363,7 @@ export default {
     height: 100%;
     width: 300px;
     background-color: $color_base;
-    z-index: 2;
+    z-index: 3;
     position: fixed;
     top: 0;
     left: 0;
