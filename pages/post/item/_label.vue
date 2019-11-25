@@ -587,11 +587,16 @@ export default {
     const guestCode = context.route.query.guest_code
     
     // ゲスト購入認証コード。cookieから取得
-    const parsedCookie = cookieparser.parse(context.req.headers.cookie)
     const guestAuthKey = "guest_auth_post_" + label
-    const guestAuth    = parsedCookie[guestAuthKey]
-    console.log(parsedCookie)
-    console.log(guestAuth)
+    let parsedCookie
+    if (process.server) {
+      // サーバーサイド処理の場合
+      parsedCookie = cookieparser.parse(context.req.headers.cookie)
+    } else {
+      // クライアントサイド処理の場合
+      parsedCookie = cookieparser.parse(document.cookie)
+    }
+    const guestAuth = parsedCookie[guestAuthKey]
     
     await context.store.dispatch("post/get", {
       label: label,
