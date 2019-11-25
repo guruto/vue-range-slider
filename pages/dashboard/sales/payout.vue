@@ -13,7 +13,7 @@
             <p class="p-form__value" style="margin-bottom: 8px">
               ¥{{this.$store.state.userSales.notPayoutAmount | price}}
             </p>
-            <p class="p-form__info">出金手数料の300円を引かれた額を入金します。</p>
+            <p class="p-form__info">出金手数料の300円を引かれた額を、申請から通常5~7営業日以内にお振込します。</p>
           </div>
   
           <div v-if="!this.$store.state.userSales.canPayout">
