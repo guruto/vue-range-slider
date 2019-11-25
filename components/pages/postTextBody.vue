@@ -277,7 +277,7 @@ export default {
     }
     &__attaches {
       display: flex;
-      flex-flow: wrap row;
+      flex-flow: nowrap row;
       justify-content: space-between;
       box-sizing: border-box;
       padding: 13px 20px;
@@ -285,7 +285,6 @@ export default {
       border-radius: 3px;
       background: $color_white;
       &__title {
-        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         outline: none;
