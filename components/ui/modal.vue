@@ -114,15 +114,15 @@
                     <label for="scope-all">全公開</label>
                   </div>
 	                
-                  <div v-if="postType == 'TEXT'" class="p-form__item">
-                    <input
-                      id="scope-member"
-                      v-model="scope"
-                      type="radio"
-                      value="MEMBER"
-                    >
-                    <label for="scope-member">メンバー限定</label>
-                  </div>
+<!--                  <div v-if="postType == 'TEXT'" class="p-form__item">-->
+<!--                    <input-->
+<!--                      id="scope-member"-->
+<!--                      v-model="scope"-->
+<!--                      type="radio"-->
+<!--                      value="MEMBER"-->
+<!--                    >-->
+<!--                    <label for="scope-member">メンバー限定</label>-->
+<!--                  </div>-->
 
 	                <div v-if="postType == 'TEXT'" >
 		                <div class="p-form__item">
