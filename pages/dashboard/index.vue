@@ -63,31 +63,31 @@
           <span class="p-dashboard__navigation__item__name">デザイン</span>
         </nuxt-link>
       </div>
-      <div class="p-dashboard__navigation__item">
-        <nuxt-link to="/dashboard/member/manage">
-          <div
-            class="p-dashboard__navigation__item__icon"
-            style="background-color: #FF7F60;"
-          >
-            <img src="/img/dashboard/navigation/member.png" alt="メンバー" />
-          </div>
-          <span class="p-dashboard__navigation__item__name">メンバー</span>
-        </nuxt-link>
-      </div>
-      <div class="p-dashboard__navigation__item">
-        <nuxt-link to="/dashboard/member/belong">
-          <div
-            class="p-dashboard__navigation__item__icon"
-            style="background-color: #FFBE29;"
-          >
-            <img
-              src="/img/dashboard/navigation/member_page.png"
-              alt="登録サイト"
-            >
-          </div>
-          <span class="p-dashboard__navigation__item__name">登録サイト</span>
-        </nuxt-link>
-      </div>
+<!--      <div class="p-dashboard__navigation__item">-->
+<!--        <nuxt-link to="/dashboard/member/manage">-->
+<!--          <div-->
+<!--            class="p-dashboard__navigation__item__icon"-->
+<!--            style="background-color: #FF7F60;"-->
+<!--          >-->
+<!--            <img src="/img/dashboard/navigation/member.png" alt="メンバー" />-->
+<!--          </div>-->
+<!--          <span class="p-dashboard__navigation__item__name">メンバー</span>-->
+<!--        </nuxt-link>-->
+<!--      </div>-->
+<!--      <div class="p-dashboard__navigation__item">-->
+<!--        <nuxt-link to="/dashboard/member/belong">-->
+<!--          <div-->
+<!--            class="p-dashboard__navigation__item__icon"-->
+<!--            style="background-color: #FFBE29;"-->
+<!--          >-->
+<!--            <img-->
+<!--              src="/img/dashboard/navigation/member_page.png"-->
+<!--              alt="登録サイト"-->
+<!--            >-->
+<!--          </div>-->
+<!--          <span class="p-dashboard__navigation__item__name">登録サイト</span>-->
+<!--        </nuxt-link>-->
+<!--      </div>-->
       <div class="p-dashboard__navigation__item">
         <nuxt-link to="/dashboard/setting/list">
           <div

@@ -91,16 +91,16 @@
               デザイン設定
             </nuxt-link>
           </li>
-          <li class="l-navigation__sidenav__list__item" @click="closeToggle">
-            <nuxt-link to="/dashboard/member/manage">
-              メンバー一覧
-            </nuxt-link>
-          </li>
-          <li class="l-navigation__sidenav__list__item" @click="closeToggle">
-            <nuxt-link to="/dashboard/member/belong">
-              メンバー登録サイト一覧
-            </nuxt-link>
-          </li>
+<!--          <li class="l-navigation__sidenav__list__item" @click="closeToggle">-->
+<!--            <nuxt-link to="/dashboard/member/manage">-->
+<!--              メンバー一覧-->
+<!--            </nuxt-link>-->
+<!--          </li>-->
+<!--          <li class="l-navigation__sidenav__list__item" @click="closeToggle">-->
+<!--            <nuxt-link to="/dashboard/member/belong">-->
+<!--              メンバー登録サイト一覧-->
+<!--            </nuxt-link>-->
+<!--          </li>-->
           <li class="l-navigation__sidenav__list__item" @click="closeToggle">
             <nuxt-link to="/dashboard/setting/list">
               各種設定一覧
@@ -197,7 +197,7 @@
         <ul class="l-navigation__sidenav__list">
           <!--					<li v-if="false && isAuthenticated && isMember" class="l-navigation__sidenav__list__item" @click="closeToggle"><nuxt-link to="/member/profile">プロフィール</nuxt-link></li>-->
           <li
-            v-if="isAuthenticated && isMember"
+            v-if="0 && isAuthenticated && isMember"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >
@@ -206,7 +206,7 @@
             </nuxt-link>
           </li>
           <li
-            v-if="!isAuthenticated"
+            v-if="0 && !isAuthenticated"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >
@@ -215,7 +215,7 @@
             </nuxt-link>
           </li>
           <li
-            v-if="!isAuthenticated"
+            v-if="0 && !isAuthenticated"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >
@@ -224,7 +224,7 @@
             </nuxt-link>
           </li>
           <li
-            v-if="isAuthenticated && !isMember && !isMyPage"
+            v-if="0 && isAuthenticated && !isMember && !isMyPage"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >

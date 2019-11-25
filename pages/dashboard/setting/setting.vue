@@ -34,17 +34,17 @@
               />
             </div>
 
-            <div class="p-form__group">
-              <label class="p-form__value">投稿へのコメントの通知</label>
-              <ToggleButton
-                v-model="emailPostCommentCreate"
-                class="p-form__item__toggle"
-                :width="70"
-                :height="30"
-                :font-size="12"
-                :labels="{ checked: 'ON', unchecked: 'OFF' }"
-              />
-            </div>
+<!--            <div class="p-form__group">-->
+<!--              <label class="p-form__value">投稿へのコメントの通知</label>-->
+<!--              <ToggleButton-->
+<!--                v-model="emailPostCommentCreate"-->
+<!--                class="p-form__item__toggle"-->
+<!--                :width="70"-->
+<!--                :height="30"-->
+<!--                :font-size="12"-->
+<!--                :labels="{ checked: 'ON', unchecked: 'OFF' }"-->
+<!--              />-->
+<!--            </div>-->
 
             <div class="p-form__button">
               <button
