@@ -658,6 +658,7 @@
       type="savePublishSetting"
       title="公開設定"
       actionMessage="公開する"
+      :postType="post.type"
       :onHandleAction="executePublishSetting"
       :initialScope="(isEdit) ? post.scope : 'PUBLIC'"
       :initialPrice="(isEdit) ? post.price : null"
