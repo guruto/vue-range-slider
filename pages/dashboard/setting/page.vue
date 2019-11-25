@@ -396,14 +396,14 @@ export default {
   &__link {
     &__sns {
       input {
-        padding-left: 68px !important;
+        padding-left: 56px !important;
       }
       &__logo {
         position: absolute;
         top: 0;
         left: 0;
-        width: 50px;
-        height: 50px;
+        width: 44px;
+        height: 44px;
         border-radius: 4px 0 0 4px;
         background-repeat: no-repeat;
         background-position: center;
