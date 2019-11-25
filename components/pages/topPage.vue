@@ -101,7 +101,7 @@
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
-              メンバー機能
+              メンバー機能<br />※comming soon
             </p>
             <p class="p-top__feature__item__content__description">
               自分のメンバー限定コンテンツを作成・配信が出来ます。
@@ -114,10 +114,10 @@
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
-              コンテンツ販売<br />※comming soon
+              コンテンツ販売<br />
             </p>
             <p class="p-top__feature__item__content__description">
-              配信したコンテンツを簡単に販売することができます。<br />初期費用・月額費用無し、かつ低い手数料で販売・管理が可能です。
+              デジタルコンテンツを簡単に販売することができます。<br />初期費用・月額費用無し、かつ低い手数料で販売・管理が可能です。
             </p>
           </div>
         </div>
