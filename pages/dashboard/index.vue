@@ -458,9 +458,9 @@ export default {
     }
   }
   &__site-link {
-    border: 2px solid $color_main !important;
+    border: 1px solid $color_main !important;
     color: $color_main !important;
-    background-color: transparent !important;
+    background-color: $color_white !important;
     width: 100%;
     i {
       vertical-align: -7px;
