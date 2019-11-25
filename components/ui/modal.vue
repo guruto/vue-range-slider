@@ -1,6 +1,6 @@
 <template>
   <div v-if="isActive && targetType == type" class="c-modal">
-	  <div v-if="isActive && targetType == type" class="c-modal__backdrop" @click="hideModal" />
+	  <div class="c-modal__backdrop" @click="hideModal" />
 
     <transition name="c-modal__transition">
 	  <div class="c-modal__wrapper">
