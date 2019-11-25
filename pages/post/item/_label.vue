@@ -593,10 +593,10 @@ export default {
     let parsedCookie
     if (process.server) {
       // サーバーサイド処理の場合
-      parsedCookie = cookieparser.parse(context.req.headers.cookie)
+      parsedCookie = (context.req.headers.cookie) ? cookieparser.parse(context.req.headers.cookie) : {}
     } else {
       // クライアントサイド処理の場合
-      parsedCookie = cookieparser.parse(document.cookie)
+      parsedCookie = (document.cookie) ? cookieparser.parse(document.cookie) : {}
     }
     const guestAuth = parsedCookie[guestAuthKey]
     
