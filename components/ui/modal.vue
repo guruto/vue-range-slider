@@ -275,7 +275,7 @@
 export default {
   props: [
 	  'type', 'title', 'description', 'actionMessage', 'onHandleAction', 'cancelMessage', 'subActionMessage', 'onHandleSubAction',
-	  'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope', 'initialPrice', 'postPurchaseTitle', 'postPurchasePrice', 'postType', 'initialGuestCode',
+	  'initialPageLinkTitle', 'initialPageLinkUrl', 'initialScope', 'initialPrice', 'postPurchaseTitle', 'postPurchasePrice', 'initialPurchaseEmail', 'postType', 'initialGuestCode',
 	  'initialParams' // initialParamsのみにする予定
   ],
   data() {
@@ -293,7 +293,7 @@ export default {
       cardExpireMonth:    null,
       cardExpireYear:     null,
       cardSecurityCode:   null,
-      purchaseGuestEmail: null,
+      purchaseGuestEmail: this.initialPurchaseEmail,
 	    
 	    // postGuestPurchaseAuth
 	    guestEmail: null,

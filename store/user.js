@@ -8,6 +8,7 @@ export const state = () => ({
 
   authorizationToken: null,
   memberPageLabelList: [],
+  email: null,
 
   status: {
     isEmailVerified: false,
@@ -48,6 +49,7 @@ export const mutations = {
     state.authenticated = Boolean(data.authorization_token)
     state.authorizationToken = data.authorization_token
     state.memberPageLabelList = data.member_page_label_list
+    state.email = data.email
 
     state.status.isEmailVerified = data.status.is_email_verified === "1"
     state.status.postCount = data.status.post_count
@@ -86,6 +88,7 @@ export const mutations = {
     state.authenticated = false
     state.authorizationToken = null
     state.userId = null
+    state.email = null
 
     this.$cookies.remove("AuthorizationToken", {
       domain: process.env.COOKIE_DOMAIN

@@ -506,6 +506,7 @@
            actionMessage="購入する"
            :postPurchaseTitle="title"
            :postPurchasePrice="price"
+           :initialPurchaseEmail="this.$store.state.user.email"
            :isAuthenticated="isAuthenticated"
            :onHandleAction="executePurchasePost"
     ></Modal>
