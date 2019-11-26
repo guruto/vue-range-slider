@@ -70,35 +70,7 @@
             </a>
           </div>
         </div>
-        <div v-else-if="type == 'VIDEO'" class="p-post__thumbnail__link-ogp">
-          <video
-            v-if="videoPath !== ''"
-            style="width: 100%; outline: none"
-            :src="videoFileUrl"
-            controls
-          />
-          <div v-else class="p-embed">
-            <iframe
-              v-if="videoUrlSite === 'YOUTUBE'"
-              :src="`https://www.youtube.com/embed/${videoUniqueId}`"
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            />
-            <div v-else-if="videoUrlSite === 'VIMEO'">
-              <iframe
-                :src="`https://player.vimeo.com/video/${videoUniqueId}`"
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              />
-            </div>
-          </div>
-        </div>
         <div v-else-if="type == 'FILE' && 0 < thumbnailList.length">
-          <slider :thumbnail-list="thumbnailList" />
-        </div>
-        <div v-else-if="type == 'SOUND' && 0 < thumbnailList.length">
           <slider :thumbnail-list="thumbnailList" />
         </div>
       </div>
@@ -109,8 +81,6 @@
             <i v-if="type == 'TEXT'" class="material-icons">edit</i>
             <i v-else-if="type == 'IMAGE'" class="material-icons">camera_alt</i>
             <i v-else-if="type == 'LINK'" class="material-icons">link</i>
-            <i v-else-if="type == 'VIDEO'" class="material-icons">videocam_off</i>
-            <i v-else-if="type == 'SOUND'" class="material-icons">headset</i>
             <i v-else-if="type == 'ANSWER'" class="material-icons">forum</i>
             <i v-else-if="type == 'FILE'" class="material-icons">folder</i>
             <span>{{ typeText }}</span>
@@ -148,10 +118,7 @@
             <div v-if="type == 'TEXT'">
               <div class="p-post__content__text">
                 <post-text-body
-                  :text-body="
-                    isPublished ? textBody.blocks : draftTextBody.blocks
-                  "
-                />
+                  :text-body="isPublished ? textBody.blocks : draftTextBody.blocks"/>
               </div>
             </div>
             <div v-else-if="type == 'IMAGE'">
@@ -160,7 +127,6 @@
                   <p v-html="comment.replace(/\n/g, '<br/>')" />
                 </div>
               </div>
-
               <div class="p-post__content__image-wrap">
                 <div
                   v-for="postImage in this.$store.state.post.itemImages"
@@ -175,25 +141,6 @@
                 <div class="p-post__content__comment__content">
                   <p v-html="comment.replace(/\n/g, '<br/>')" />
                 </div>
-              </div>
-            </div>
-            <div v-else-if="type == 'VIDEO'">
-              <div class="p-post__content__comment">
-                <div class="p-post__content__comment__content">
-                  <p v-html="comment.replace(/\n/g, '<br/>')" />
-                </div>
-              </div>
-            </div>
-            <div v-else-if="type == 'SOUND'">
-              <div class="p-post__content__comment">
-                <div class="p-post__content__comment__content">
-                  <p v-html="comment.replace(/\n/g, '<br/>')" />
-                </div>
-              </div>
-              <div style="padding: 20px 5% 10px;">
-                <audio controls :src="soundUrl" :style="{ width: '100%' }">
-                  ご使用の中のブラウザが<code>audio</code>要素に対応していません
-                </audio>
               </div>
             </div>
             <div v-else-if="type == 'FILE'">
@@ -224,6 +171,35 @@
                     >ダウンロード</a>
                   </form>
                 </div>
+                
+                <!-- @file = sound               -->
+<!--                <audio controls :src="soundUrl" :style="{ width: '100%' }">-->
+<!--                  ご使用の中のブラウザが<code>audio</code>要素に対応していません-->
+<!--                </audio>-->
+                <!-- @file = video               -->
+<!--                <video>-->
+<!--                  v-if="videoPath !== ''"-->
+<!--                  style="width: 100%; outline: none"-->
+<!--                  :src="videoFileUrl"-->
+<!--                  controls-->
+<!--                />-->
+<!--                <div v-else class="p-embed">-->
+<!--                  <iframe-->
+<!--                    v-if="videoUrlSite === 'YOUTUBE'"-->
+<!--                    :src="`https://www.youtube.com/embed/${videoUniqueId}`"-->
+<!--                    frameborder="0"-->
+<!--                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+<!--                    allowfullscreen-->
+<!--                  />-->
+<!--                  <div v-else-if="videoUrlSite === 'VIMEO'">-->
+<!--                    <iframe-->
+<!--                      :src="`https://player.vimeo.com/video/${videoUniqueId}`"-->
+<!--                      frameborder="0"-->
+<!--                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+<!--                      allowfullscreen-->
+<!--                    />-->
+<!--                  </div>-->
+<!--                </div>-->
               </div>
             </div>
             <div v-else-if="type == 'ANSWER'">
@@ -513,20 +489,21 @@
 
     <Loading :isActive="purchaseLoading"></Loading>
 
-    <div
-      v-show="isShowPopoverControlPostComment"
-      id="post-comment-popover"
-      class="p-popover"
-    >
-      <div class="p-popover__arrow" />
-      <div class="p-popover__body">
-        <ul>
-          <li class="is-delete" @click="handleDeletePostComment">
-            削除する
-          </li>
-        </ul>
-      </div>
-    </div>
+<!--    <div-->
+<!--      v-show="isShowPopoverControlPostComment"-->
+<!--      id="post-comment-popover"-->
+<!--      class="p-popover"-->
+<!--    >-->
+<!--      <div class="p-popover__arrow" />-->
+<!--      <div class="p-popover__body">-->
+<!--        <ul>-->
+<!--          <li class="is-delete" @click="handleDeletePostComment">-->
+<!--            削除する-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+  
   </div>
 </template>
 
@@ -653,7 +630,7 @@ export default {
       publishedAt: context.store.state.post.publishedAt,
       updatedAt: context.store.state.post.updatedAt,
       relatedPosts: context.store.state.post.relatedPosts,
-      // for type = FILE, SOUND
+      // for type = FILE
       thumbnailMediaList: context.store.state.post.thumbnailMediaList,
 
       textBody: context.store.state.post.itemText.body,
@@ -669,14 +646,6 @@ export default {
       linkContentMediaUrl: context.store.state.post.itemLink.contentMediaUrl,
       linkSiteType: context.store.state.post.itemLink.siteType,
       linkUniqueId: context.store.state.post.itemLink.uniqueId,
-
-      videoUrlSite: context.store.state.post.itemVideo.urlSite,
-      videoUniqueId: context.store.state.post.itemVideo.videoUniqueId,
-      videoUrl: context.store.state.post.itemVideo.videoUrl,
-      videoFileUrl: context.store.state.post.itemVideo.fileUrl,
-      videoPath: context.store.state.post.itemVideo.path,
-
-      soundUrl: context.store.state.post.itemSound.url,
 
       fileUrl: context.store.state.post.itemFile.url,
       fileName: context.store.state.post.itemFile.fileName,
@@ -759,51 +728,51 @@ export default {
       alert("URLのコピーに失敗しました")
     },
 
-    ////////////////////
-    // comment処理
-    ////////////////////
-    async handleAddPostComment() {
-      this.isAddCommentLoading = true
-
-      await this.$store.dispatch("postComment/add", {
-        postLabel: this.label,
-        body: this.commentBody
-      })
-
-      this.isAddCommentLoading = false
-
-      this.commentBody = ""
-    },
-    handleControlPostComment(e) {
-      this.isShowPopoverControlPostComment = !this
-        .isShowPopoverControlPostComment
-
-      // popoverの位置処理
-      const popover = document.getElementById("post-comment-popover")
-      const top = e.target.getBoundingClientRect().top
-      popover.style.top = window.pageYOffset + top + 30 + "px"
-
-      this.selectedPostCommentLabel = e.currentTarget.dataset.postCommentLabel
-      this.selectedPostCommentIndex = e.currentTarget.dataset.postCommentIndex
-
-      if (this.isShowPopoverControlPostComment) {
-        document.body.addEventListener("click", this.handleClickOutside)
-      } else {
-        document.body.removeEventListener("click", this.handleClickOutside)
-      }
-    },
-    async handleDeletePostComment() {
-      this.isShowPopoverControlPostComment = true
-
-      await this.$store.dispatch("postComment/delete", {
-        postCommentLabel: this.selectedPostCommentLabel,
-        postCommentIndex: this.selectedPostCommentIndex
-      })
-
-      this.isShowPopoverControlPostComment = false
-      this.selectedPostCommentLabel = null
-      this.selectedPostCommentIndex = null
-    },
+    // ////////////////////
+    // // comment処理
+    // ////////////////////
+    // async handleAddPostComment() {
+    //   this.isAddCommentLoading = true
+    //
+    //   await this.$store.dispatch("postComment/add", {
+    //     postLabel: this.label,
+    //     body: this.commentBody
+    //   })
+    //
+    //   this.isAddCommentLoading = false
+    //
+    //   this.commentBody = ""
+    // },
+    // handleControlPostComment(e) {
+    //   this.isShowPopoverControlPostComment = !this
+    //     .isShowPopoverControlPostComment
+    //
+    //   // popoverの位置処理
+    //   const popover = document.getElementById("post-comment-popover")
+    //   const top = e.target.getBoundingClientRect().top
+    //   popover.style.top = window.pageYOffset + top + 30 + "px"
+    //
+    //   this.selectedPostCommentLabel = e.currentTarget.dataset.postCommentLabel
+    //   this.selectedPostCommentIndex = e.currentTarget.dataset.postCommentIndex
+    //
+    //   if (this.isShowPopoverControlPostComment) {
+    //     document.body.addEventListener("click", this.handleClickOutside)
+    //   } else {
+    //     document.body.removeEventListener("click", this.handleClickOutside)
+    //   }
+    // },
+    // async handleDeletePostComment() {
+    //   this.isShowPopoverControlPostComment = true
+    //
+    //   await this.$store.dispatch("postComment/delete", {
+    //     postCommentLabel: this.selectedPostCommentLabel,
+    //     postCommentIndex: this.selectedPostCommentIndex
+    //   })
+    //
+    //   this.isShowPopoverControlPostComment = false
+    //   this.selectedPostCommentLabel = null
+    //   this.selectedPostCommentIndex = null
+    // },
 
     ////////////////////
     // 購入処理

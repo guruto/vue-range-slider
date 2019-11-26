@@ -57,28 +57,16 @@
                   <span>ブログ</span>
                 </nuxt-link>
               </li>
+	            <li @click="hideModal">
+		            <nuxt-link to="/dashboard/post/add?type=FILE">
+			            <span class="icons icons--file" />
+			            <span>ファイル</span>
+		            </nuxt-link>
+	            </li>
               <li @click="hideModal">
                 <nuxt-link to="/dashboard/post/add?type=IMAGE">
                   <span class="icons icons--image" />
                   <span>写真・画像</span>
-                </nuxt-link>
-              </li>
-              <li @click="hideModal">
-                <nuxt-link to="/dashboard/post/add?type=VIDEO">
-                  <span class="icons icons--video" />
-                  <span>動画</span>
-                </nuxt-link>
-              </li>
-              <li @click="hideModal">
-                <nuxt-link to="/dashboard/post/add?type=SOUND">
-                  <span class="icons icons--sound" />
-                  <span>音声</span>
-                </nuxt-link>
-              </li>
-              <li @click="hideModal">
-                <nuxt-link to="/dashboard/post/add?type=FILE">
-                  <span class="icons icons--file" />
-                  <span>ファイル</span>
                 </nuxt-link>
               </li>
               <li @click="hideModal">

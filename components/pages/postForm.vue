@@ -190,9 +190,7 @@
 
     <form v-else-if="post.type == 'IMAGE'">
       <div
-        v-show="
-          Object.keys(this.$store.state.post.uploadedPostImages).length > 0
-        "
+        v-show="Object.keys(this.$store.state.post.uploadedPostImages).length > 0"
         class="p-form__image-upload__content"
       >
         <div
@@ -261,237 +259,6 @@
       </div>
     </form>
 
-    <form v-else-if="post.type == 'VIDEO'">
-      <div
-        v-show="
-          post.itemVideo.path === '' &&
-            post.itemVideo.videoUrl === '' &&
-            !isVideoUrlInputing
-        "
-        class="p-form__sound-upload"
-        @click="handleSelectVideo()"
-        @dragleave.prevent
-        @dragover.prevent
-        @drop.prevent="handleDropVideo"
-      >
-        <div class="p-form__sound-upload__description">
-          <img
-            src="/img/form_icon_upload_video@2x.png"
-            alt="動画ファイルを追加"
-          >
-          <span>動画ファイルを追加</span>
-          <spinner :is-active="isVideoUploading" />
-        </div>
-        <input
-          ref="selectVideo"
-          type="file"
-          accept="video/*"
-          @change="handleInputVideoFile"
-        >
-      </div>
-      <div style="padding: 0 5%;">
-        <div v-if="post.itemVideo.path === ''" class="p-form__group">
-          <div class="p-form__item">
-            <input
-              v-model="post.itemVideo.videoUrl"
-              v-validate="'url'"
-              type="url"
-              name="videoUrl"
-              placeholder="URLを入力 https://"
-              :disabled="isVideoUploading"
-              @focusout="handleFocusOutGetInfoVideoUrl"
-              @paste="handlePasteGetInfoVideoUrl"
-              @focus="handleFocusVideoUrlInput"
-            >
-            <span class="p-form__item__clear-btn" @click="handleVideoClear"><i class="far fa-times-circle"/></span>
-          </div>
-          <span v-show="errors.has('videoUrl')" class="p-form__item-error">{{
-            errors.first("videoUrl")
-          }}</span>
-          <div class="p-form__info">
-            <span class="p-form__info__label">YoutubeとVimeoのリンクのみ。</span>
-            <span class="p-form__info__label">動画ファイルかリンクを選択してください。</span>
-          </div>
-        </div>
-        <div
-          v-if="
-            !isVideoUrlInputing &&
-              (post.itemVideo.videoUrl !== '' || post.itemVideo.path !== '')
-          "
-          class="p-form__ogp u-mt-16"
-        >
-          <div v-if="post.itemVideo.path !== ''" class="p-video">
-            <span @click="handleVideoClear"><i class="far fa-times-circle p-video__clear-btn"/></span>
-            <video
-              class="p-video__content"
-              :src="post.itemVideo.fileUrl"
-              controls
-            />
-          </div>
-          <div v-else class="p-embed">
-            <iframe
-              v-if="post.itemVideo.urlSite === 'YOUTUBE'"
-              :src="
-                `https://www.youtube.com/embed/${post.itemVideo.videoUniqueId}`
-              "
-              frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            />
-            <div v-else-if="post.itemVideo.urlSite === 'VIMEO'">
-              <iframe
-                :src="
-                  `https://player.vimeo.com/video/${post.itemVideo.videoUniqueId}`
-                "
-                frameborder="0"
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              />
-            </div>
-          </div>
-        </div>
-        <div class="p-form__group">
-          <div class="p-form__item">
-            <input
-              v-model="post.title"
-              v-validate="'required'"
-              type="text"
-              name="title"
-              placeholder="タイトルを入力"
-              @keydown.enter.prevent
-            >
-            <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
-          </div>
-          <span v-show="errors.has('title')" class="p-form__item-error">{{
-            errors.first("title")
-          }}</span>
-        </div>
-        <div class="p-form__group">
-          <div class="p-form__item">
-            <textarea
-              v-model="post.comment"
-              rows="10"
-              placeholder="コメントを入力"
-            />
-          </div>
-        </div>
-      </div>
-    </form>
-
-    <form v-else-if="post.type == 'SOUND'">
-      <div
-        v-show="post.itemSound.url === ''"
-        class="p-form__sound-upload"
-        @click="handleSelectSound()"
-        @dragleave.prevent
-        @dragover.prevent
-        @drop.prevent="handleDropSound"
-      >
-        <div class="p-form__sound-upload__description">
-          <img
-            src="/img/form_icon_upload_sound@2x.png"
-            alt="音声ファイルを追加"
-          >
-          <span>音声ファイルを追加</span>
-          <spinner :is-active="isSoundUploading" />
-        </div>
-        <input
-          ref="selectSound"
-          type="file"
-          accept="audio/mp3,audio/aac"
-          @change="handleInputSoundFile"
-        >
-      </div>
-
-      <div style="padding: 0 5%;">
-        <div
-          v-show="post.itemSound.url !== ''"
-          class="p-form__sound-upload__content"
-        >
-          <span
-            class="p-form__sound-upload__content__delete-btn"
-            @click="handleDeleteUploadedSound"
-          ><i class="fas fa-times"/></span>
-          <audio
-            class="p-form__sound-upload__content__audio"
-            controls
-            :src="post.itemSound.url"
-          >
-            ご使用の中のブラウザが<code>audio</code>要素に対応していません
-          </audio>
-        </div>
-        <div class="p-form__group">
-          <div class="p-form__thumbnail-list">
-            <div
-              v-for="(thumbImageItem, i) in thumbnailMediaList"
-              :key="i"
-              ref="thumbImageItem"
-              class="p-form__thumbnail-list__item"
-              :class="{
-                'p-form__thumbnail-list__item--disable': thumbImageItem.disabled
-              }"
-            >
-              <span
-                v-show="thumbImageItem.url"
-                class="p-form__thumbnail-list__item__delete-btn"
-                @click="handleDeleteListThumbImage"
-              >
-                <i :data-num="i" class="far fa-times-circle"
-              /></span>
-              <img
-                v-show="thumbImageItem.url"
-                class="p-form__thumbnail-list__item__img"
-                :src="thumbImageItem.url"
-              >
-              <label
-                v-show="!thumbImageItem.url"
-                class="p-form__thumbnail-list__item__label"
-                :class="{
-                  'p-form__thumbnail-list__item__label--disable':
-                    thumbImageItem.disabled
-                }"
-              >
-                <input
-                  :data-num="i"
-                  type="file"
-                  style="display:none"
-                  :disabled="thumbImageItem.disabled"
-                  accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
-                  @change="handleSelectListThumbImage"
-                >
-                <spinner :is-active="thumbImageItem.isUploading" />
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="p-form__group">
-          <div class="p-form__item">
-            <input
-              v-model="post.title"
-              v-validate="'required'"
-              type="text"
-              name="title"
-              placeholder="タイトルを入力"
-              @keydown.enter.prevent
-            >
-            <span class="p-form__item__clear-btn" @click="handleUrlClear"><i class="far fa-times-circle"/></span>
-          </div>
-          <span v-show="errors.has('title')" class="p-form__item-error">{{
-            errors.first("title")
-          }}</span>
-        </div>
-        <div class="p-form__group">
-          <div class="p-form__item">
-            <textarea
-              v-model="post.comment"
-              rows="10"
-              placeholder="コメントを入力"
-            />
-          </div>
-        </div>
-      </div>
-    </form>
-
     <form v-else-if="post.type == 'FILE'">
       <div
         v-show="!post.itemFile.url && !isFileUploadRetry"
@@ -499,8 +266,7 @@
         @click="handleSelectFile"
         @dragleave.prevent
         @dragover.prevent
-        @drop.prevent="handleDropFile"
-      >
+        @drop.prevent="handleDropFile">
         <div class="p-form__file-upload__description">
           <img src="/img/form_icon_upload_file@2x.png" alt="ファイルを追加" />
           <span>ファイルを追加</span>
@@ -508,7 +274,9 @@
         </div>
         <input ref="selectFile" type="file" @change="handleInputFile" />
       </div>
+      
       <div style="padding: 0 5%;">
+        <!-- uploaded content表示 -->
         <div v-show="post.itemFile.url" class="p-form__group">
           <div class="p-form__item">
             <div class="p-form__upload-file">
@@ -525,6 +293,34 @@
             </div>
           </div>
         </div>
+  
+        <!--       @video type -->
+        <!--          <div v-if="post.itemVideo.path !== ''" class="p-video">-->
+        <!--            <span @click="handleVideoClear"><i class="far fa-times-circle p-video__clear-btn"/></span>-->
+        <!--            <video-->
+        <!--              class="p-video__content"-->
+        <!--              :src="post.itemVideo.fileUrl"-->
+        <!--              controls-->
+        <!--            />-->
+        <!--          </div>-->
+        
+        <!--       @audio type-->
+        <!--        <div>-->
+        <!--          v-show="post.itemSound.url !== ''"-->
+        <!--          class="p-form__sound-upload__content"-->
+        <!--        >-->
+        <!--          <span-->
+        <!--            class="p-form__sound-upload__content__delete-btn"-->
+        <!--            @click="handleDeleteUploadedSound"-->
+        <!--          ><i class="fas fa-times"/></span>-->
+        <!--          <audio-->
+        <!--            class="p-form__sound-upload__content__audio"-->
+        <!--            controls-->
+        <!--            :src="post.itemSound.url"-->
+        <!--          >-->
+        <!--            ご使用の中のブラウザが<code>audio</code>要素に対応していません-->
+        <!--          </audio>-->
+        <!--        </div>-->
       </div>
       <div
         v-show="!post.itemFile.url && isFileUploadRetry"
@@ -532,8 +328,7 @@
         @click="handleSelectRetryFile"
         @dragleave.prevent
         @dragover.prevent
-        @drop.prevent="handleDropFile"
-      >
+        @drop.prevent="handleDropFile">
         <div class="p-form__file-upload__description">
           <img src="/img/form_icon_upload_file@2x.png" alt="ファイルを追加" />
           <span>ファイルを追加</span>
@@ -544,6 +339,7 @@
 
       <div style="padding: 0 5%;">
         <div class="p-form__group">
+          <span class="p-form__label">サムネイル画像設定</span>
           <div class="p-form__thumbnail-list">
             <div
               v-for="(thumbImageItem, i) in thumbnailMediaList"
@@ -557,23 +353,19 @@
               <span
                 v-show="thumbImageItem.url"
                 class="p-form__thumbnail-list__item__delete-btn"
-                @click="handleDeleteListThumbImage"
-              >
-                <i :data-num="i" class="far fa-times-circle"
-              /></span>
+                @click="handleDeleteListThumbImage">
+                <i :data-num="i" class="far fa-times-circle"/></span>
               <img
                 v-show="thumbImageItem.url"
                 class="p-form__thumbnail-list__item__img"
-                :src="thumbImageItem.url"
-              >
+                :src="thumbImageItem.url">
               <label
                 v-show="!thumbImageItem.url"
                 class="p-form__thumbnail-list__item__label"
                 :class="{
                   'p-form__thumbnail-list__item__label--disable':
                     thumbImageItem.disabled
-                }"
-              >
+                }">
                 <input
                   :data-num="i"
                   type="file"
@@ -687,9 +479,6 @@ export default {
     return {
       isLoading: this.post.isLoading,
       isDraftSaving: false,
-      isSoundUploading: false,
-      isVideoUploading: false,
-      isVideoUrlInputing: false,
       isFileUploading: false,
       isFileUploadRetry: false,
       thumbnailMediaList: [
@@ -751,19 +540,14 @@ export default {
 
       if (this.post.type == "LINK") {
         return this.post.itemLink.linkTitle.length > 0
+        
       } else if (this.post.type == "IMAGE") {
         const labels = Object.keys(this.$store.state.post.uploadedPostImages)
         return this.post.title !== "" && labels.length > 0
-      } else if (this.post.type == "VIDEO") {
-        return (
-          this.post.title !== "" &&
-          (this.post.itemVideo.videoUrl !== "" ||
-            this.post.itemVideo.fileUrl !== "")
-        )
-      } else if (this.post.type == "SOUND") {
-        return this.post.title !== "" && this.post.itemSound.url !== ""
+        
       } else if (this.post.type == "ANSWER") {
         return this.post.comment.length > 0
+        
       } else if (this.post.type == "FILE") {
         return this.post.title !== "" && this.post.itemFile.path !== ""
       }
@@ -1101,7 +885,6 @@ export default {
     async saveTextDraftData(title, body) {
       if (this.isDraftSaving) {
         //保存中は更新しない
-        console.log("skip text saving")
         return
       }
 
@@ -1124,14 +907,11 @@ export default {
     ////////////////////////
     handleDeleteUploadedImage(e) {
       const uploadedPostImageLabel = e.currentTarget.dataset.label
-      console.log(uploadedPostImageLabel)
 
       this.$store.dispatch(
         "post/deleteUploadedPostImageByLabel",
         uploadedPostImageLabel
       )
-
-      console.log(this.$store.state.post.uploadedPostImages)
     },
     handleSelectImages() {
       const input = document.querySelector("#form-select-image")
@@ -1154,12 +934,9 @@ export default {
       this.uploadImages(fileList)
     },
     async uploadImages(selectedImages) {
-      console.log(selectedImages)
-
       // upload
       for (let i = 0; i < selectedImages.length; i++) {
         let image = selectedImages[i]
-        console.log(image)
         this.$store.dispatch("post/uploadImage", {
           fileData: image
         })
@@ -1216,7 +993,6 @@ export default {
           /^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/
         )
       ) {
-        console.log("invalid url")
         return
       }
 
@@ -1237,158 +1013,9 @@ export default {
     },
 
     ////////////////////////
-    // VIDEOタイプのPOST処理
-    ////////////////////////
-    handleVideoClear() {
-      this.post.title = ""
-      this.post.comment = ""
-      if (this.post.itemVideo.path !== "") {
-        this.$store.dispatch("post/clearVideo")
-        this.post.itemVideo.path = ""
-        this.post.itemVideo.contentType = ""
-        this.post.itemVideo.fileSize = ""
-        this.post.itemVideo.fileName = ""
-        this.$refs.selectVideo.value = ""
-      }
-      this.post.itemVideo.urlSite = ""
-      this.post.itemVideo.videoUrl = ""
-      this.post.itemVideo.videoUniqueId = ""
-    },
-    async handlePasteGetInfoVideoUrl(e) {
-      const videoUrl = e.clipboardData.getData("text")
-      if (videoUrl.length === 0) {
-        return
-      }
-      this.post.itemVideo.fetchedUrl = videoUrl
-
-      this.getInfoVideoUrl(videoUrl)
-
-      // フォーカス外す
-      e.target.blur()
-    },
-    handleSelectVideo() {
-      this.$refs.selectVideo.click()
-    },
-    handleInputVideoFile(e) {
-      const files = e.target.files
-      if (0 < files.length && !this.isVideoUploading) {
-        this.uploadVideo(files[0])
-      }
-    },
-    handleDropVideo(e) {
-      const fileList = e.dataTransfer.files
-      const soundReg = /^(video\/.*)$/
-      if (
-        0 < fileList.length &&
-        !this.isVideoUploading &&
-        soundReg.test(fileList[0].type)
-      ) {
-        this.uploadVideo(fileList[0])
-      }
-    },
-    async uploadVideo(selectedVideo) {
-      this.isVideoUploading = true
-      console.log(selectedVideo)
-      // upload
-      await this.$store.dispatch("post/uploadVideo", {
-        fileData: selectedVideo
-      })
-      this.post.itemVideo.fileUrl = this.$store.state.post.itemVideo.fileUrl
-      this.post.itemVideo.path = this.$store.state.post.itemVideo.path
-      this.post.itemVideo.contentType = this.$store.state.post.itemVideo.contentType
-      this.post.itemVideo.fileSize = this.$store.state.post.itemVideo.fileSize
-      this.post.itemVideo.fileName =
-        selectedVideo.name.match(/(.*)\.[^.]+$/)[1] || ""
-      this.isVideoUploading = false
-    },
-    handleFocusVideoUrlInput() {
-      this.isVideoUrlInputing = true
-    },
-    async handleFocusOutGetInfoVideoUrl() {
-      this.isVideoUrlInputing = false
-      if (
-        this.post.itemVideo.videoUrl.length === 0 ||
-        this.post.itemVideo.fetchedUrl === this.post.itemVideo.videoUrl
-      ) {
-        return
-      }
-
-      this.post.itemVideo.fetchedUrl = this.post.itemVideo.videoUrl
-
-      this.getInfoVideoUrl(this.post.itemVideo.videoUrl)
-    },
-    getInfoVideoUrl(videoUrl) {
-      // 独自にURLチェック
-      if (
-        !videoUrl.match(
-          /^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/
-        )
-      ) {
-        console.log("invalid url")
-        return
-      }
-      const youtubePattern = /(?:https:\/\/)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/
-      const vimeoPattern = /(?:https:\/\/)?vimeo\.com(?:\/.*|.*\/videos)?(?:\/)(.+)/
-      const isYoutube = youtubePattern.test(videoUrl)
-      const isVimeo = vimeoPattern.test(videoUrl)
-      const matchYoutube = videoUrl.match(/(?:\?v=([^&]+)|be\/(.*))/)
-      const matchVimeo = videoUrl.match(vimeoPattern)
-      const youtubeId = isYoutube ? matchYoutube[1] || matchYoutube[2] : null
-      const vimeoId = isVimeo ? matchVimeo[1] : null
-      const videoId = youtubeId || vimeoId
-
-      this.post.itemVideo.videoUrl = videoUrl
-      this.post.itemVideo.videoUniqueId = videoId
-      this.post.itemVideo.urlSite = youtubeId ? "YOUTUBE" : "VIMEO"
-    },
-
-    ////////////////////////
-    // 音声タイプのPOST処理
-    ////////////////////////
-    handleDeleteUploadedSound(e) {
-      this.post.itemSound.url = ""
-      this.post.itemSound.path = ""
-      this.post.itemSound.contentType = ""
-      this.post.itemSound.fileSize = ""
-    },
-    handleSelectSound() {
-      this.$refs.selectSound.click()
-    },
-    handleInputSoundFile(e) {
-      const files = e.target.files
-      if (0 < files.length && !this.isSoundUploading) {
-        this.uploadSound(files[0])
-      }
-    },
-    handleDropSound(e) {
-      const fileList = e.dataTransfer.files
-      const soundReg = /^(audio\/mp3|audio\/aac)$/
-      if (
-        0 < fileList.length &&
-        !this.isSoundUploading &&
-        soundReg.test(fileList[0].type)
-      ) {
-        this.uploadSound(fileList[0])
-      }
-    },
-    async uploadSound(selectedSound) {
-      this.isSoundUploading = true
-      // upload
-      await this.$store.dispatch("post/uploadSound", {
-        fileData: selectedSound
-      })
-      this.post.itemSound.url = this.$store.state.post.itemSound.url
-      this.post.itemSound.path = this.$store.state.post.itemSound.path
-      this.post.itemSound.contentType = this.$store.state.post.itemSound.contentType
-      this.post.itemSound.fileSize = this.$store.state.post.itemSound.fileSize
-      this.isSoundUploading = false
-    },
-
-    ////////////////////////
     // ファイルタイプのPOST処理
     ////////////////////////
     handleDeleteUploadedFile(e) {
-      console.log("handleDeleteUploadedFile call")
       this.isFileUploadRetry = true
       this.post.itemFile.fileName = ""
       this.post.itemFile.url = ""
@@ -1421,8 +1048,8 @@ export default {
       await this.$store.dispatch("post/uploadFile", {
         fileData: selectedFile
       })
-      this.post.itemFile.fileName =
-        selectedFile.name.match(/(.*)\.[^.]+$/)[1] || ""
+      
+      this.post.itemFile.fileName = selectedFile.name.match(/(.*)\.[^.]+$/)[1] || ""
       this.post.itemFile.url = this.$store.state.post.itemFile.url
       this.post.itemFile.path = this.$store.state.post.itemFile.path
       this.post.itemFile.contentType = this.$store.state.post.itemFile.contentType

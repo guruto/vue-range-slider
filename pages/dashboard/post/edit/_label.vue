@@ -60,19 +60,6 @@ export default {
           draftBody: context.store.state.post.itemText.draftBody,
           body: context.store.state.post.itemText.body
         },
-        itemVideo: {
-          urlSite: context.store.state.post.itemVideo.urlSite,
-          videoUrl: context.store.state.post.itemVideo.videoUrl,
-          fileUrl: context.store.state.post.itemVideo.fileUrl,
-          path: context.store.state.post.itemVideo.path,
-          videoUniqueId: context.store.state.post.itemVideo.videoUniqueId
-        },
-        itemSound: {
-          url: context.store.state.post.itemSound.url,
-          path: context.store.state.post.itemSound.path,
-          contentType: context.store.state.post.itemSound.contentType,
-          fileSize: context.store.state.post.itemSound.fileSize
-        },
         itemFile: {
           url: context.store.state.post.itemFile.url,
           path: context.store.state.post.itemFile.path,
