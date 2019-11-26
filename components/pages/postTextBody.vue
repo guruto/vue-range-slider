@@ -95,9 +95,8 @@
         class="p-post-text-body__item__attaches"
       >
         <div>
-          <p class="p-post-text-body__item__attaches__title">
+          <p class="p-post-text-body__item__attaches__title" style="line-height: inherit">
             {{ bodyItem.data.title }}
-          </p>
           </p>
           <p class="p-post-text-body__item__attaches__caption">
             {{ formatBytes(bodyItem.data.file.size) }}
@@ -277,7 +276,7 @@ export default {
     }
     &__attaches {
       display: flex;
-      flex-flow: wrap row;
+      flex-flow: nowrap row;
       justify-content: space-between;
       box-sizing: border-box;
       padding: 13px 20px;
@@ -285,7 +284,6 @@ export default {
       border-radius: 3px;
       background: $color_white;
       &__title {
-        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         outline: none;
