@@ -86,29 +86,10 @@ export default {
           linkUniqueId: "",
           fetchedUrl: ""
         },
-
         // TEXTタイプ
         itemText: {
           draftBody: "",
           Body: ""
-        },
-        // VIDEOタイプ
-        itemVideo: {
-          urlSite: "",
-          videoUrl: "",
-          fileUrl: "",
-          videoUniqueId: "",
-          path: "",
-          contentType: "",
-          fileName: "",
-          fileSize: ""
-        },
-        // SOUNDタイプ
-        itemSound: {
-          url: "",
-          path: "",
-          contentType: "",
-          fileSize: ""
         },
         // FILEタイプ
         itemFile: {
@@ -119,6 +100,7 @@ export default {
           fileSize: "",
           fileSizeText: ""
         },
+        // ANSWERタイプ
         itemAnswer: {
           request: requestData
         },

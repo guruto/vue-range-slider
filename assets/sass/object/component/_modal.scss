@@ -1,22 +1,16 @@
 .c-modal {
-	height: 100%;
-	width: 100%;
-	position: relative;
+	z-index: 12;
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 
 	.p-form__group {
 		&:last-child {
 			margin-bottom: 0;
 		}
-	}
-
-	&__backdrop {
-		height: 100%;
-		width: 100%;
-		background-color: rgba(0, 0, 0, 0.25);
-		z-index: 12;
-		position: fixed;
-		top: 0;
-		left: 0;
 	}
 
 	&__transition {
@@ -29,25 +23,38 @@
 			//transform: translateX(-100%);
 		}
 	}
-
-	&__content {
+	&__backdrop {
 		position: fixed;
-		top: 10%;
-		left: 0;
-		right: 0;
-		// bottom: 0;
-		margin: auto;
-		z-index: 12;
-		width: 90%;
-		max-height: 85%;
-
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.4);
+		//z-index: 3;
+	}
+	&__wrapper {
+		z-index: 2;
+		height: 100%;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		text-align: center;
+		&:before {
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+			content: "";
+		}
+	}
+	&__content {
+		position: relative;
+		display: inline-block;
+		//z-index: 5;
 		background-color: $color_white;
 		border-radius: 8px;
 		box-shadow: 0 2px 16px rgba(0,0,0,0.16);
-
 		overflow: hidden;
-		overflow-y: auto; /* scrollにはしないことでスクロールの必要がないときはスクロールバーを表示させない */
-		-webkit-overflow-scrolling: touch;
+		width: calc(100% - 30px);
+		margin: 15px 15px 30px;
+		vertical-align: middle;
+		text-align: left;
 
 		@media #{$screen_pc} {
 			width: 400px;
@@ -68,6 +75,49 @@
 			padding: 0 5%;
 			.p-form {
 				min-height: auto !important;
+			}
+			&__post-purchase-payment {
+				.p-form__group {
+					margin: 0 0 6px;
+				}
+				&__title {
+					font-weight: bold;
+					font-size: 15px;
+					margin-bottom: 4px;
+				}
+				&__price {
+					color: $color_main;
+					font-size: 16px;
+					font-weight: bold;
+					margin-bottom: 8px;
+				}
+			}
+			&__publish-setting {
+				.p-form__item {
+					margin-bottom: 20px;
+				}
+				&__yen {
+					float: left;
+					width: 10%;
+					text-align: center;
+					span {
+						vertical-align: -13px;
+						display: inline-block;
+						font-size: 18px;
+						color: $color_dark_gray;
+					}
+				}
+				&__price {
+					float: left; width: 90%;
+					input {
+						padding: 6px 10px !important;
+						height: auto !important;
+						&:disabled {
+							background-color: $color_light !important;
+							cursor: pointer;
+						}
+					}
+				}
 			}
 			&__add-post {
 				ul {

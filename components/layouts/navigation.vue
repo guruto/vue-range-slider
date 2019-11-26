@@ -91,16 +91,16 @@
               デザイン設定
             </nuxt-link>
           </li>
-          <li class="l-navigation__sidenav__list__item" @click="closeToggle">
-            <nuxt-link to="/dashboard/member/manage">
-              メンバー一覧
-            </nuxt-link>
-          </li>
-          <li class="l-navigation__sidenav__list__item" @click="closeToggle">
-            <nuxt-link to="/dashboard/member/belong">
-              メンバー登録サイト一覧
-            </nuxt-link>
-          </li>
+<!--          <li class="l-navigation__sidenav__list__item" @click="closeToggle">-->
+<!--            <nuxt-link to="/dashboard/member/manage">-->
+<!--              メンバー一覧-->
+<!--            </nuxt-link>-->
+<!--          </li>-->
+<!--          <li class="l-navigation__sidenav__list__item" @click="closeToggle">-->
+<!--            <nuxt-link to="/dashboard/member/belong">-->
+<!--              メンバー登録サイト一覧-->
+<!--            </nuxt-link>-->
+<!--          </li>-->
           <li class="l-navigation__sidenav__list__item" @click="closeToggle">
             <nuxt-link to="/dashboard/setting/list">
               各種設定一覧
@@ -197,7 +197,7 @@
         <ul class="l-navigation__sidenav__list">
           <!--					<li v-if="false && isAuthenticated && isMember" class="l-navigation__sidenav__list__item" @click="closeToggle"><nuxt-link to="/member/profile">プロフィール</nuxt-link></li>-->
           <li
-            v-if="isAuthenticated && isMember"
+            v-if="0 && isAuthenticated && isMember"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >
@@ -206,7 +206,7 @@
             </nuxt-link>
           </li>
           <li
-            v-if="!isAuthenticated"
+            v-if="0 && !isAuthenticated"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >
@@ -215,7 +215,7 @@
             </nuxt-link>
           </li>
           <li
-            v-if="!isAuthenticated"
+            v-if="0 && !isAuthenticated"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >
@@ -224,7 +224,7 @@
             </nuxt-link>
           </li>
           <li
-            v-if="isAuthenticated && !isMember && !isMyPage"
+            v-if="0 && isAuthenticated && !isMember && !isMyPage"
             class="l-navigation__sidenav__list__item"
             @click="closeToggle"
           >
@@ -343,7 +343,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 12;
+    z-index: 2;
     position: fixed;
     top: 0;
     left: 0;
@@ -363,14 +363,13 @@ export default {
     height: 100%;
     width: 300px;
     background-color: $color_base;
-    z-index: 12;
+    z-index: 3;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     box-sizing: border-box;
     overflow-y: auto;
-
     &__header {
       position: relative;
       text-align: center;
@@ -519,7 +518,6 @@ export default {
       }
     }
   }
-
   // トップページ
   &__slide-hover {
   }

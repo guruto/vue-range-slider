@@ -41,6 +41,11 @@
             <span>パスワード設定</span>
           </nuxt-link>
         </li>
+        <li>
+          <nuxt-link to="/dashboard/setting/bank_account">
+            <span>出金先の銀行口座設定</span>
+          </nuxt-link>
+        </li>
         <li @click="handleLogout">
           <span class="is-logout">ログアウト</span>
         </li>

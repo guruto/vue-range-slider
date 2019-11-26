@@ -97,40 +97,14 @@
         </div>
         <div class="p-top__feature__item">
           <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_member@2x.png" />
-          </div>
-          <div class="p-top__feature__item__content">
-            <p class="p-top__feature__item__content__title">
-              メンバー機能
-            </p>
-            <p class="p-top__feature__item__content__description">
-              自分のメンバー限定コンテンツを作成・配信が出来ます。
-            </p>
-          </div>
-        </div>
-        <div class="p-top__feature__item">
-          <div class="p-top__feature__item__image">
             <img src="/img/top_page/feature_sell@2x.png" />
           </div>
           <div class="p-top__feature__item__content">
             <p class="p-top__feature__item__content__title">
-              コンテンツ販売<br />※comming soon
+              コンテンツ販売<br />
             </p>
             <p class="p-top__feature__item__content__description">
-              配信したコンテンツを簡単に販売することができます。<br />初期費用・月額費用無し、かつ低い手数料で販売・管理が可能です。
-            </p>
-          </div>
-        </div>
-        <div class="p-top__feature__item">
-          <div class="p-top__feature__item__image">
-            <img src="/img/top_page/feature_subscription@2x.png" />
-          </div>
-          <div class="p-top__feature__item__content">
-            <p class="p-top__feature__item__content__title">
-              月額会員機能<br />※comming soon
-            </p>
-            <p class="p-top__feature__item__content__description">
-              自分のサイトに月額会員を集めることが出来ます。月額会員限定にコンテンツを作成・配信できます。
+              デジタルコンテンツを簡単に販売することができます。<br />初期費用・月額費用無しでスタートできます。<b>現在、販売手数料無料キャンペーン中です。</b>
             </p>
           </div>
         </div>
@@ -144,6 +118,32 @@
             </p>
             <p class="p-top__feature__item__content__description">
               自分のサイトのロゴの設定やヘッダーの設定はもちろん、好きなレイアウト、色などのデザインのカスタマイズができます。
+            </p>
+          </div>
+        </div>
+        <div class="p-top__feature__item">
+          <div class="p-top__feature__item__image">
+            <img src="/img/top_page/feature_member@2x.png" />
+          </div>
+          <div class="p-top__feature__item__content">
+            <p class="p-top__feature__item__content__title">
+              メンバー機能<br />※comming soon
+            </p>
+            <p class="p-top__feature__item__content__description">
+              自分のメンバー限定コンテンツを作成・配信が出来ます。
+            </p>
+          </div>
+        </div>
+        <div class="p-top__feature__item">
+          <div class="p-top__feature__item__image">
+            <img src="/img/top_page/feature_subscription@2x.png" />
+          </div>
+          <div class="p-top__feature__item__content">
+            <p class="p-top__feature__item__content__title">
+              月額会員機能<br />※comming soon
+            </p>
+            <p class="p-top__feature__item__content__description">
+              自分のサイトに月額会員を集めることが出来ます。月額会員限定にコンテンツを作成・配信できます。
             </p>
           </div>
         </div>

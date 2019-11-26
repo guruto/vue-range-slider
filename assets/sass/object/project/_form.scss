@@ -7,90 +7,6 @@
 	min-height: auto;
 	padding-bottom: 20px;
 
-	&__type {
-		margin: 0 0 30px;
-		padding: 0 5%;
-		&__item {
-			display: inline-block;
-			margin-right: 10px;
-
-			&__content {
-				display: block;
-				width: 65px;
-				cursor: pointer;
-				border-radius: 4px;
-				text-align: center;
-				padding-top: 4px;
-				&.icon-text {
-					background-color: $color_white;
-					border: 1px solid $color_icons-text;	
-					.p-form__type__item__content__description {
-						color: $color_icons-text;
-					}
-					&--is-selected {
-						background-color: $color_icons-text;
-						border: 1px solid $color_icons-text;
-						.p-form__type__item__content__description {
-							color: $color_white;
-						}
-					}	
-				}
-				&.icon-link {
-					background-color: $color_white;
-					border: 1px solid $color_icons-link;	
-					.p-form__type__item__content__description {
-						color: $color_icons-link;
-					}
-					&--is-selected {
-						background-color: $color_icons-link;
-						border: 1px solid $color_icons-link;
-						.p-form__type__item__content__description {
-							color: $color_white;
-						}
-					}	
-				}
-				&.icon-image {
-					background-color: $color_white;
-					border: 1px solid $color_icons-image;	
-					.p-form__type__item__content__description {
-						color: $color_icons-image;
-					}
-					&--is-selected {
-						background-color: $color_icons-image;
-						border: 1px solid $color_icons-image;
-						.p-form__type__item__content__description {
-							color: $color_white;
-						}
-					}	
-				}
-				&.icon-answer {
-					background-color: $color_white;
-					border: 1px solid $color_icons-answer;
-					.p-form__type__item__content__description {
-						color: $color_icons-answer;
-					}
-					&--is-selected {
-						background-color: $color_icons-answer;
-						border: 1px solid $color_icons-answer;
-						.p-form__type__item__content__description {
-							color: $color_white;
-						}
-					}
-				}
-				img {
-					width: 32px;
-				}
-				&__description {
-					font-size: 11px;
-					display: block;
-					color: $color_gray;
-					margin: 0 0 5px;
-					padding: 0;
-					font-weight: bold;
-				}
-			}
-		}
-	}
 	&__operation {
 		margin: 0 0 25px;
 		.c-btn {
@@ -169,10 +85,6 @@
 				align-items: center;
 			}
 		}
-		&--label {
-			display: inline-block;
-			margin-right: 20px;
-		}
 	}
 	&__thumbnail-list{
 		&__item {
@@ -181,8 +93,8 @@
 			position: relative;
 			display: inline-block;
 			vertical-align: bottom;
-			width: 77px;
-			height: 77px;
+			width: 75px;
+			height: 75px;
 			border-radius: 4px;
 			margin-bottom: 10px;
 			@media #{$screen_pc} {
@@ -273,10 +185,10 @@
 			width: 100%;
 		}
 	}
-	input:not([type="range"]):not([type="file"]):not([type="radio"]):not([type="checkbox"]) {
+	input:not([type="range"]):not([type="file"]):not([type="radio"]):not([type="checkbox"]),select {
 		border: 1px solid $color_border;
 		border-radius: 4px;
-		height: 50px;
+		min-height: 45px;
 		width: 100%;
 		margin: 0 0 8px;
 		background-color: $color_white;
@@ -300,6 +212,9 @@
 			line-height: 16px;
 			vertical-align: middle;
 		}
+	}
+	select {
+		padding: 5px 10px;
 	}
 	input[type=checkbox] {
 		box-sizing: border-box;
@@ -407,8 +322,7 @@
 			color: $color_dark_gray;
 		}
 		&__content {
-			float: right;
-			color: $color_text;
+			color: $color_dark_gray;
 		}
 		&:after {
 			content: "";
@@ -801,5 +715,15 @@
 
 	&__ogp {
 		margin-bottom: 25px;
+	}
+
+	&__payment {
+		&__scope {
+			margin-bottom: 6px;
+			img {
+				width: 45px;
+				margin-right: 4px;
+			}
+		}
 	}
 }

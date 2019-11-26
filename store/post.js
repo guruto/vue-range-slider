@@ -3,9 +3,12 @@ export const state = () => ({
   errorMessage: "",
 
   isMine: false,
+  hasRightToReadLimitedBlocks: false,
+  hasRightToComment: false,
   label: null,
   type: "",
   scope: "PUBLIC",
+  price: null,
   typeText: "",
   title: "",
   comment: "",
@@ -38,30 +41,7 @@ export const state = () => ({
 
   // テキストPOST（BLOG形式）
   itemText: {},
-
-  // 動画POST
-  itemVideo: {
-    videoUrl: "",
-    fileUrl: "",
-    title: "",
-    description: "",
-    siteName: "",
-    siteType: "",
-    thumbnailImageUrl: "",
-    contentMediaUrl: "",
-    contentMediaType: "",
-    uniqueId: "",
-    contentType: "",
-    path: "",
-    fileSize: ""
-  },
-  // 音声POST
-  itemSound: {
-    contentType: "",
-    path: "",
-    fileSize: "",
-    url: ""
-  },
+  
   // ファイルPOST
   itemFile: {
     contentType: "",
@@ -86,8 +66,11 @@ export const mutations = {
     state.errorMessage = ""
 
     state.isMine = data.is_mine === "1"
+    state.hasRightToReadLimitedBlocks = data.has_right_to_read_limited_blocks === "1"
+    state.hasRightToComment = data.has_right_to_comment === "1"
     state.label = data.label
     state.scope = data.scope
+    state.price = data.price
     state.type = data.type
     state.typeText = data.type_text
     state.title = data.title
@@ -139,19 +122,6 @@ export const mutations = {
     }
   },
 
-  SET_POST_SOUND_DATA: function(state, data) {
-    state.isError = false
-    state.errorMessage = ""
-    state.thumbnailMediaList = data.thumbnail_media_list
-
-    state.itemSound = {
-      url: data.post_item.url,
-      path: data.post_item.path,
-      contentType: data.post_item.content_type,
-      fileSize: data.post_item.file_size
-    }
-  },
-
   SET_POST_IMAGE_DATA: function(state, data) {
     state.isError = false
     state.errorMessage = ""
@@ -160,23 +130,6 @@ export const mutations = {
     for (const i in data) {
       const image = data[i]
       state.uploadedPostImages[image.label] = image
-    }
-  },
-
-  SET_POST_VIDEO_DATA: function(state, data) {
-    state.isError = false
-    state.errorMessage = ""
-    console.log("SET_POST_VIDEO_DATA")
-    console.log(data)
-
-    state.itemVideo = {
-      title: data.title,
-      comment: data.comment,
-      urlSite: data.url_site,
-      videoUrl: data.url,
-      videoUniqueId: data.url_id,
-      fileUrl: data.file_url,
-      path: data.path
     }
   },
 
@@ -225,33 +178,6 @@ export const mutations = {
 
   RESET_UPLOAD_POST_IMAGE: function(state) {
     state.uploadedPostImages = {}
-  },
-
-  SET_UPLOAD_POST_SOUND_DATA: function(state, data) {
-    state.itemSound = {
-      contentType: data.content_type,
-      path: data.path,
-      fileSize: data.file_size,
-      url: data.url
-    }
-  },
-
-  SET_UPLOAD_POST_VIDEO_DATA: function(state, data) {
-    state.itemVideo = {
-      contentType: data.content_type,
-      path: data.path,
-      fileSize: data.file_size,
-      fileUrl: data.url
-    }
-  },
-
-  CLEAR_UPLOAD_POST_VIDEO_DATA: function(state) {
-    state.itemVideo = {
-      contentType: "",
-      path: "",
-      fileSize: "",
-      videoUrl: ""
-    }
   },
 
   SET_UPLOAD_POST_FILE_DATA: function(state, data) {
@@ -340,20 +266,20 @@ export const actions = {
     }
   },
 
-  async get({ rootState, commit }, { label, pageLabel }) {
+  async get({ rootState, commit }, { label, pageLabel, guestAuth }) {
     let [
       postResult,
       profileResult,
       pageResult,
-      postCommentListResult
+      // postCommentListResult
     ] = await Promise.all([
-      Api.getPost(label, rootState.user.authorizationToken),
+      Api.getPost(label, {guest_auth: guestAuth}, rootState.user.authorizationToken),
       Api.getProfile(pageLabel, {}, rootState.user.authorizationToken),
       Api.getPage(pageLabel, {}, rootState.user.authorizationToken),
-      Api.getPostCommentList(
-        { post_label: label },
-        rootState.user.authorizationToken
-      )
+      // Api.getPostCommentList(
+      //   { post_label: label },
+      //   rootState.user.authorizationToken
+      // )
     ])
 
     // postCommentListResultのエラー判定はここで行わない
@@ -370,10 +296,6 @@ export const actions = {
         commit("SET_POST_IMAGE_DATA", postResult.data.post_item)
       } else if (postResult.data.type == "TEXT") {
         commit("SET_POST_TEXT_DATA", postResult.data.post_item)
-      } else if (postResult.data.type == "VIDEO") {
-        commit("SET_POST_VIDEO_DATA", postResult.data.post_item)
-      } else if (postResult.data.type == "SOUND") {
-        commit("SET_POST_SOUND_DATA", postResult.data)
       } else if (postResult.data.type == "FILE") {
         commit("SET_POST_FILE_DATA", postResult.data)
       } else if (postResult.data.type == "ANSWER") {
@@ -385,14 +307,15 @@ export const actions = {
       // pageResult
       commit("page/SET_PAGE_DATA", pageResult.data, { root: true })
 
-      // postCommentListResult
-      if (!postCommentListResult.is_error) {
-        commit(
-          "postCommentList/SET_POST_COMMENT_LIST_DATA",
-          postCommentListResult.data,
-          { root: true }
-        )
-      }
+      // // postCommentListResult
+      // if (!postCommentListResult.is_error) {
+      //   commit(
+      //     "postCommentList/SET_POST_COMMENT_LIST_DATA",
+      //     postCommentListResult.data,
+      //     { root: true }
+      //   )
+      // }
+      
     } else {
       // エラー処理
       commit("SET_POST_ERROR")
@@ -414,10 +337,6 @@ export const actions = {
         commit("SET_POST_IMAGE_DATA", result.data.post_item)
       } else if (result.data.type == "TEXT") {
         commit("SET_POST_TEXT_DATA", result.data.post_item)
-      } else if (result.data.type == "VIDEO") {
-        commit("SET_POST_VIDEO_DATA", result.data.post_item)
-      } else if (result.data.type == "SOUND") {
-        commit("SET_POST_SOUND_DATA", result.data)
       } else if (result.data.type == "FILE") {
         commit("SET_POST_FILE_DATA", result.data)
       } else if (result.data.type == "ANSWER") {
@@ -500,47 +419,7 @@ export const actions = {
       dispatch("flashMessage/showError", result.error_message, { root: true })
     }
   },
-
-  /////////////////////////
-  // SOUNDタイプ
-  /////////////////////////
-  async uploadSound({ rootState, commit, dispatch }, { fileData }) {
-    const data = new FormData()
-    data.append("file_data", fileData)
-    const result = await Api.uploadPostSound(
-      data,
-      rootState.user.authorizationToken
-    )
-
-    if (!result.is_error) {
-      commit("SET_UPLOAD_POST_SOUND_DATA", result.data)
-    } else {
-      // エラー処理
-      // commit('SET_POST_ERROR', result.error_message);
-      dispatch("flashMessage/showError", result.error_message, { root: true })
-    }
-  },
-  /////////////////////////
-  // VIDEOタイプ
-  /////////////////////////
-  async uploadVideo({ rootState, commit, dispatch }, { fileData }) {
-    const data = new FormData()
-    data.append("file_data", fileData)
-    const result = await Api.uploadPostVideo(
-      data,
-      rootState.user.authorizationToken
-    )
-
-    if (!result.is_error) {
-      commit("SET_UPLOAD_POST_VIDEO_DATA", result.data)
-    } else {
-      // エラー処理
-      dispatch("flashMessage/showError", result.error_message, { root: true })
-    }
-  },
-  async clearVideo({ commit }) {
-    commit("CLEAR_UPLOAD_POST_VIDEO_DATA")
-  },
+  
   /////////////////////////
   // FILEタイプ
   /////////////////////////

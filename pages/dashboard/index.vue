@@ -63,31 +63,31 @@
           <span class="p-dashboard__navigation__item__name">デザイン</span>
         </nuxt-link>
       </div>
-      <div class="p-dashboard__navigation__item">
-        <nuxt-link to="/dashboard/member/manage">
-          <div
-            class="p-dashboard__navigation__item__icon"
-            style="background-color: #FF7F60;"
-          >
-            <img src="/img/dashboard/navigation/member.png" alt="メンバー" />
-          </div>
-          <span class="p-dashboard__navigation__item__name">メンバー</span>
-        </nuxt-link>
-      </div>
-      <div class="p-dashboard__navigation__item">
-        <nuxt-link to="/dashboard/member/belong">
-          <div
-            class="p-dashboard__navigation__item__icon"
-            style="background-color: #FFBE29;"
-          >
-            <img
-              src="/img/dashboard/navigation/member_page.png"
-              alt="登録サイト"
-            >
-          </div>
-          <span class="p-dashboard__navigation__item__name">登録サイト</span>
-        </nuxt-link>
-      </div>
+<!--      <div class="p-dashboard__navigation__item">-->
+<!--        <nuxt-link to="/dashboard/member/manage">-->
+<!--          <div-->
+<!--            class="p-dashboard__navigation__item__icon"-->
+<!--            style="background-color: #FF7F60;"-->
+<!--          >-->
+<!--            <img src="/img/dashboard/navigation/member.png" alt="メンバー" />-->
+<!--          </div>-->
+<!--          <span class="p-dashboard__navigation__item__name">メンバー</span>-->
+<!--        </nuxt-link>-->
+<!--      </div>-->
+<!--      <div class="p-dashboard__navigation__item">-->
+<!--        <nuxt-link to="/dashboard/member/belong">-->
+<!--          <div-->
+<!--            class="p-dashboard__navigation__item__icon"-->
+<!--            style="background-color: #FFBE29;"-->
+<!--          >-->
+<!--            <img-->
+<!--              src="/img/dashboard/navigation/member_page.png"-->
+<!--              alt="登録サイト"-->
+<!--            >-->
+<!--          </div>-->
+<!--          <span class="p-dashboard__navigation__item__name">登録サイト</span>-->
+<!--        </nuxt-link>-->
+<!--      </div>-->
       <div class="p-dashboard__navigation__item">
         <nuxt-link to="/dashboard/setting/list">
           <div
@@ -97,6 +97,17 @@
             <img src="/img/dashboard/navigation/setting.png" alt="各種設定" />
           </div>
           <span class="p-dashboard__navigation__item__name">各種設定</span>
+        </nuxt-link>
+      </div>
+      <div class="p-dashboard__navigation__item">
+        <nuxt-link to="/dashboard/sales/manage">
+          <div
+            class="p-dashboard__navigation__item__icon"
+            style="background-color: #FFA012;"
+          >
+            <img src="/img/dashboard/navigation/sales.png" alt="売上管理" />
+          </div>
+          <span class="p-dashboard__navigation__item__name">売上管理</span>
         </nuxt-link>
       </div>
     </div>
@@ -116,7 +127,7 @@
       <div
         v-if="this.$store.state.user.status.postCount == 0"
         class="p-dashboard__attention__item"
-        @click="$store.dispatch('modal/show')"
+        @click="$store.dispatch('modal/show', 'addPost')"
       >
         <div
           class="p-dashboard__attention__item__icon"
@@ -359,14 +370,14 @@
     <div class="p-post-manage__add">
       <div
         class="p-post-manage__add__link"
-        @click="$store.dispatch('modal/show')"
+        @click="$store.dispatch('modal/show', 'addPost')"
       >
         <span>投稿</span>
         <i class="material-icons">add</i>
       </div>
     </div>
 
-    <Modal type="add_post" title="新規投稿" />
+    <Modal type="addPost" title="新規投稿" />
   </div>
 </template>
 
@@ -447,9 +458,9 @@ export default {
     }
   }
   &__site-link {
-    border: 2px solid $color_main !important;
+    border: 1px solid $color_main !important;
     color: $color_main !important;
-    background-color: transparent !important;
+    background-color: $color_white !important;
     width: 100%;
     i {
       vertical-align: -7px;

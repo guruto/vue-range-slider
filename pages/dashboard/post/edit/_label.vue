@@ -14,65 +14,6 @@ export default {
   mixins: [Meta],
   data() {
     return {
-      post: {
-        label: null,
-        type: "TEXT", // default
-        scope: "PUBLIC",
-        typeText: "ブログ", // default
-        comment: "",
-        title: "",
-        thumbnailImageUrl: "",
-        thumbnailImagePath: "",
-        isPublished: false,
-
-        // LINKタイプ
-        itemLink: {
-          linkUrl: "",
-          linkTitle: "",
-          linkDescription: "",
-          linkSiteName: "",
-          linkThumbnailImageUrl: "",
-          linkContentMediaType: "",
-          linkContentMediaUrl: "",
-          linkSiteType: "",
-          linkUniqueId: "",
-          fetchedUrl: ""
-        },
-
-        // TEXTタイプ
-        itemText: {
-          draftBody: "",
-          body: ""
-        },
-
-        // VIDEOタイプ
-        itemVideo: {
-          urlSite: "",
-          videoUrl: "",
-          videoUniqueId: "",
-          path: "",
-          contentType: "",
-          fileName: "",
-          fileSize: ""
-        },
-
-        // SOUNDタイプ
-        itemSound: {
-          url: "",
-          path: "",
-          content_type: "",
-          file_size: ""
-        },
-
-        // FILEタイプ
-        itemFile: {
-          url: "",
-          path: "",
-          contentType: "",
-          fileSize: "",
-          thumbnail_media_list: []
-        }
-      },
 
       meta: {
         title: "投稿編集",
@@ -87,7 +28,6 @@ export default {
     await context.store.dispatch("post/getMyself", {
       label: label
     })
-    console.log(context.store.state.post)
 
     return {
       post: {
@@ -119,19 +59,6 @@ export default {
         itemText: {
           draftBody: context.store.state.post.itemText.draftBody,
           body: context.store.state.post.itemText.body
-        },
-        itemVideo: {
-          urlSite: context.store.state.post.itemVideo.urlSite,
-          videoUrl: context.store.state.post.itemVideo.videoUrl,
-          fileUrl: context.store.state.post.itemVideo.fileUrl,
-          path: context.store.state.post.itemVideo.path,
-          videoUniqueId: context.store.state.post.itemVideo.videoUniqueId
-        },
-        itemSound: {
-          url: context.store.state.post.itemSound.url,
-          path: context.store.state.post.itemSound.path,
-          contentType: context.store.state.post.itemSound.contentType,
-          fileSize: context.store.state.post.itemSound.fileSize
         },
         itemFile: {
           url: context.store.state.post.itemFile.url,
