@@ -34,9 +34,12 @@
 	&__body {
 		margin: 0 auto;
 		padding: 20px 0;
-		column-count: 5;
-		column-gap: 0;
 		text-align: center;
+		column-gap: 0;
+		column-count: 2;
+		@media #{$screen_pc} {
+			column-count: 5;
+		}
 		&__noimage {
 			margin-left: 5px;
 		}
