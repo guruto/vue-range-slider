@@ -1,14 +1,8 @@
 import axios from "axios"
-import * as qs from "qs"
 
 const apiFromPixabay = axios.create({
-  baseURL: process.env.API_PIXABAY_URL+process.env.PIXABAY_KEY,
+  baseURL: process.env.API_PIXABAY_URL,
   responseType: "json"
-})
-
-apiFromPixabay.interceptors.request.use(request => {
-  console.log("apiFromPixabay request: " + process.env.API_PIXABAY_URL+process.env.PIXABAY_KEY+request.url)
-  return request
 })
 
 apiFromPixabay.interceptors.response.use(
@@ -19,14 +13,14 @@ apiFromPixabay.interceptors.response.use(
       return Promise.resolve({
         is_error: false,
         data: response.data,
-        success_message: ''
+        success_message: ""
       })
     } else {
       return Promise.resolve({
         is_error: true,
         error_title: "通信エラー",
         error_description: "通信にエラーが発生しました。",
-        error: error
+        error: "不正なリクエスト"
       })
     }
   },
@@ -40,20 +34,19 @@ apiFromPixabay.interceptors.response.use(
   }
 )
 
-function apiGet(params = '') {
+function apiGet(params) {
   const config = {
     headers: {
       "Content-Type": "application/json",
       accept: "application/json"
-    },
-    data: {}
+    }
   }
-  return params ? apiFromPixabay.request(`&per_page=50&q=${params}`) : apiFromPixabay.request(`&per_page=50`)
+  return apiFromPixabay.request(params)
 }
 
-
 export default {
-  getList(params = '') {
-    return apiGet(params)
-  },
+  getList(params = "") {
+    const _params = params ? `&per_page=50&q=${params}` : `&per_page=50`
+    return apiGet("?key=" + process.env.PIXABAY_KEY + _params)
+  }
 }

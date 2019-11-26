@@ -127,7 +127,6 @@ export default {
     loadCanvas(loadedCanvas) {
       this.image = new Image()
       this.image.crossOrigin = "Anonymous"
-      console.log(loadedCanvas)
       this.image.src = loadedCanvas.toDataURL("image/jpeg")
       this.image.onload = _ => {
         const iw = (this.iw = loadedCanvas.width)
@@ -388,6 +387,14 @@ export default {
       height: 12px !important;
       width: 12px !important;
       background: $color_icons-image;
+      box-shadow: none;
+      border-radius: 50%;
+    }
+    .vue-range-slider.slider-component
+      .slider
+      .slider-dot
+      .slider-dot-handle {
+      background-color: $color_icons-image;
       box-shadow: none;
     }
     .vue-range-slider.slider-component .slider .slider-process {

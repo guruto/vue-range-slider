@@ -36,6 +36,10 @@
 		padding: 20px 0;
 		column-count: 5;
 		column-gap: 0;
+		text-align: center;
+		&__noimage {
+			margin-left: 5px;
+		}
 		&__grid {
 			padding: 5px;
 			-webkit-column-break-inside: avoid;
